@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/02/29 20:45:03 by tvermeil         ###   ########.fr        #
+#    Updated: 2016/03/07 18:54:12 by tvermeil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,6 +108,6 @@ re: fclean all
 ac: all clean
 
 norme:
-	norminette $(SRC)
+	@norminette $(SRC)
 
 .PHONY: all clean fclean re

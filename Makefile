@@ -6,11 +6,15 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/07 17:59:49 by tvermeil         ###   ########.fr        #
+#    Updated: 2016/03/07 18:54:02 by tvermeil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#MAKEFLAGS += --no-print-directory
+MAKEFLAGS += --no-print-directory
+
+SUB_MAKEFILES = libft \
+				src/asm \
+				src/vm \
 
 all: libft.a asm vm
 
@@ -24,21 +28,24 @@ vm:
 	@make -C src/vm all
 
 clean:
-	@make -C libft clean
-	@make -C src/asm clean
-	@make -C src/vm clean
+	@-for i in $(SUB_MAKEFILES) ; do \
+		make -C $$i clean; \
+	done
 	@rmdir obj 2> /dev/null || true
 
 fclean: clean
-	@make -C libft fclean
-	@make -C src/asm fclean
-	@make -C src/vm fclean
+	@for i in $(SUB_MAKEFILES) ; do \
+		make -C $$i fclean; \
+	done
 
 re: fclean all
 
 ac: all clean
 
 norme:
-	norminette $(LIBFT_SRC) $(SRC) include/*.h
+	@for i in $(SUB_MAKEFILES) ; do \
+		make -C $$i norme; \
+	done
+	@norminette include/*.h
 
 .PHONY: all clean fclean re
