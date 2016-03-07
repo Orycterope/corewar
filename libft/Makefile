@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/07 18:54:12 by tvermeil         ###   ########.fr        #
+#    Updated: 2016/03/07 19:00:34 by tvermeil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,6 +79,7 @@ SRC_NAME =    ft_memset.c \
    		    	ft_lstadd.c \
    		    	ft_lstiter.c \
    		    	ft_lstmap.c \
+				get_next_line.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
