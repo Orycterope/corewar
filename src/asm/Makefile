@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/07 18:54:29 by tvermeil         ###   ########.fr        #
+#    Updated: 2016/03/08 19:49:25 by tvermeil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = asm
 SRC_PATH = .
 ROOT = ../..
 OBJ_FOLDER = obj/$(NAME)
-INC_PATH = $(ROOT)/include
+INC_PATH = $(ROOT)/include/$(NAME)
 OBJ_PATH = $(ROOT)/$(OBJ_FOLDER)
 DST_PATH = $(ROOT)
 LFT_PATH = $(ROOT)

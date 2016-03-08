@@ -6,14 +6,14 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/07 19:00:34 by tvermeil         ###   ########.fr        #
+#    Updated: 2016/03/08 19:48:24 by tvermeil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ../libft.a
 
 SRC_PATH = .
-INC_PATH = ../include
+INC_PATH = ../include/libft
 OBJ_PATH = ../obj/libft
 
 CC = gcc
