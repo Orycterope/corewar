@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:03:23 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/08 19:44:17 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/08 20:16:28 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct	s_arena
 	int			cycle_to_die;
 	int			last_check_cycle;
 	t_process	*processes;
+	int			next_available_pid;
 }				t_arena;
 
 s_arena			*create_arena(void);

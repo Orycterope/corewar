@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 18:42:10 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/08 19:04:41 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/08 20:30:03 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ typedef struct	s_process
 	int			lives;
 	t_arena		*arena;
 	s_process	*next;
-	s_process	*previous;
 }				t_process;
 
 void	fork_process(t_process *process, int *pc);
 void	kill_process(t_process *process);
+void	execute_process(t_process *process);
 
 #endif
