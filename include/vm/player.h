@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:37:26 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/10 16:01:08 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/10 19:15:27 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ typedef struct	s_player
 	s_player	*next;
 }				t_player;
 
-int				add_player_to_arena(t_arena *arena, char *begin);
 int				check_player_is_dead(int id, t_arena *arena);
 void			remove_player(int id, t_arena *arena);
+void			save_players(int ac, char **av, t_arena *arena)
+void			eliminate_player(t_player *player, t_arena *arena)
+void			free_players(t_arena *arena);
 
 #endif
