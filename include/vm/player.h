@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:37:26 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/08 19:42:19 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/10 16:01:08 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ typedef struct	s_player
 	int			id;
 	char		*name;
 	char		*comment;
-	char		*weight;
+	char		*champ_size;
 	char		*begin;
-	int			lives;
+	int			last_live;
 	s_player	*next;
 }				t_player;
 
