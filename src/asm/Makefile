@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/11 21:52:27 by rporcon          ###   ########.fr        #
+#    Updated: 2016/03/11 22:03:01 by rporcon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,14 +15,16 @@ NAME = asm
 SRC_PATH = .
 ROOT = ../..
 OBJ_FOLDER = obj/$(NAME)
-INC_PATH = $(ROOT)/include/$(NAME)
+INC_PATH = $(ROOT)/include/$(NAME) \
+		   $(ROOT)/include/libft \
+
 OBJ_PATH = $(ROOT)/$(OBJ_FOLDER)
 DST_PATH = $(ROOT)
 LFT_PATH = $(ROOT)
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-CPPFLAGS = -I $(INC_PATH)
+CPPFLAGS = $(addprefix -I ,$(INC_PATH))
 LDFLAGS = -L$(LFT_PATH)
 LDLIBS = -lft
 
