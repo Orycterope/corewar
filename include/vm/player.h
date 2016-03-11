@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:37:26 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/11 14:03:52 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/11 14:17:53 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # include "op.h"
 # define BUFF_SIZE 1
 
-typedef struct	s_arena t_arena;
+typedef struct			s_arena t_arena;
 
-typedef struct	s_player
+typedef struct			s_player
 {
 	int					id;
 	char				*name;
@@ -29,9 +29,8 @@ typedef struct	s_player
 	struct s_player		*next;
 }						t_player;
 
-int						add_player_to_arena(t_arena *arena, char *begin);
-int						check_player_is_dead(int id, t_arena *arena);
-void					remove_player(int id, t_arena *arena);
 void					get_input(int fd, t_player *player);
+void					save_players(int ac, char **av, t_arena *arena)
+void					free_players(t_arena *arena);
 
 #endif
