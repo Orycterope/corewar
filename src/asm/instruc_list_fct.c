@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/asm/asm.h"
+#include "asm.h"
 
 t_instruc	*inst_new_elem(char *name)
 {
