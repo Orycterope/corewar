@@ -6,11 +6,11 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 19:38:06 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/11 11:47:28 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/11 16:16:32 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/asm/asm.h"
+#include "asm.h"
 
 void	init_data(t_data *data)
 {
@@ -31,30 +31,29 @@ void	set_filename(t_data *data, char *name)
 {
 	int		i;
 	int		ext;
+	char	*tmp;
 
 	i = 0;
-	while (str[i] != '\0')
+	while (name[i] != '\0')
 	{
 		ext++;
-		if (str[i] == '.')
+		if (name[i++] == '.')
 			ext = 0;
-		i++;
 	}
 	ext = i - ext;
-	if ((ret = (char *)malloc(sizeof(char) * (ext + 4))) == NULL)
+	if ((tmp = (char *)malloc(sizeof(char) * (ext + 4))) == NULL)
 		error("Malloc error");
 	i = 0;
-	while (str[i] != '\0' && i < ext)
+	while (name[i] != '\0' && i < ext)
 	{
-		if (str[i] == '.')
-			ext = 0;
-		ext++;
+		tmp[i] = name[i];
 		i++;
 	}
-	str[i++] = 'c';
-	str[i++] = 'o';
-	str[i++] = 'r';
-	str[i++] = '\0';
+	tmp[i++] = 'c';
+	tmp[i++] = 'o';
+	tmp[i++] = 'r';
+	tmp[i++] = '\0';
+	data->filename = tmp;
 }
 
 int		main(int argc, char *argv[])
@@ -67,7 +66,7 @@ int		main(int argc, char *argv[])
 	while (i < argc)
 	{
 		init_data(&data);
-		set_filename(argv[i]);
+		set_filename(&data, argv[i]);
 		fd = open(argv[i], O_RDONLY);
 		if (fd < 0)
 			error("Open fail");
@@ -76,5 +75,7 @@ int		main(int argc, char *argv[])
 		free_data(&data);
 		i++;
 	}
+	if (argc == 1)
+		error("Usage: ../test/asm <sourcefile.s>");
 	return (0);
 }

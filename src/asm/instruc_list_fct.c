@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 11:15:36 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/11 11:48:57 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/11 15:26:59 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_instruc	*inst_new_elem(char *name)
 	return (new_element);
 }
 
-t_instruc	addend_inst_lst(t_instruc **lst, t_instruc *new_elem)
+void		addend_inst_lst(t_instruc **lst, t_instruc *new_elem)
 {
 	t_instruc	*tmp;
 
@@ -41,7 +41,7 @@ t_instruc	addend_inst_lst(t_instruc **lst, t_instruc *new_elem)
 	}
 }
 
-t_instruc	print_inst_lst(t_instruc **lst)
+void		print_inst_lst(t_instruc **lst)
 {
 	t_instruc	*tmp;
 
@@ -51,6 +51,6 @@ t_instruc	print_inst_lst(t_instruc **lst)
 		ft_putchar('{');
 		ft_putstr(tmp->name);
 		ft_putstr("} ");
-		tmp = tmp>next;
+		tmp = tmp->next;
 	}
 }

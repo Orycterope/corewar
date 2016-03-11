@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/11 10:05:02 by rporcon          ###   ########.fr        #
+#    Updated: 2016/03/11 15:35:11 by jriallan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,10 +26,11 @@ CPPFLAGS = -I $(INC_PATH)
 LDFLAGS = -L$(LFT_PATH)
 LDLIBS = -lft
 
-SRC_NAME =    asm.c \
-			  error.c \
-			  op.c \
-			  parser.c \
+SRC_NAME = asm.c \
+		   error.c \
+		   instruc_list_fct.c \
+		   label_list_fct.c \
+		   parser.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
@@ -74,7 +75,7 @@ fast:
 f: fast
 
 n:
-	norminette $(SRC) *.h | grep --color -E '^|Norme.*$$'
+	norminette $(SRC) ../../include/asm/*.h | grep --color -E '^|Norme.*$$'
 
 enum:
 	@ls *.c | sed 's/^\(.\)/       \1/g' | sed 's/\(.\)$$/\1 \\/g'
