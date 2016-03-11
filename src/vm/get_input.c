@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:37:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/11 18:51:08 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/11 21:27:45 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static unsigned int	get_prog_size(int fd, char *buf, int ret, int i)
 			size[i] = buf[0];
 		i++;
 	}
-	return (size[0] * 16777216 + size[1] * 65536 + size[2] * 256 + size[3]);
+	return (ft_read_big_endian(size, 4));
 }
 
 static char			*get_comment(int fd, char *buf, int ret, int i)
