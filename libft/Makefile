@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/11 16:50:07 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/11 16:50:16 by tvermeil         ###   ########.fr        #
+#    Updated: 2016/03/11 18:01:05 by tvermeil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRC_NAME =    ft_memset.c \
    		    	ft_strnew.c \
    		    	ft_strdel.c \
    		    	ft_strclr.c \
+				ft_strrev.c \
    		    	ft_striter.c \
    		    	ft_striteri.c \
    		    	ft_strmap.c \
@@ -92,6 +93,7 @@ SRC_NAME =    ft_memset.c \
 				printf/wrapper.c \
 				printf/precision.c \
 				printf/ft_printf.c \
+				printf/read_conversion.c \
 				printf/get_conversion_parts.c \
 				printf/get_string.c \
 				printf/itoa.c \

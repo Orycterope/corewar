@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:27:55 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/11 14:45:12 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/11 17:41:58 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	is_free_player_id(int id, t_player *p, int ac, char **av)
 	}
 	while (--ac)
 	{
-		if (strcmp("-n", av[0]) == 0)
+		if (ft_strcmp("-n", av[0]) == 0)
 		{
 		   if (ft_atoi(av[1]) == id)
 				return (0);
@@ -36,7 +36,7 @@ static int	is_free_player_id(int id, t_player *p, int ac, char **av)
 	return (1);
 }
 
-static void create_player(int player_id, t_arena *arena, char *file_name)
+static void	create_player(int player_id, t_arena *arena, char *file_name)
 {
 	t_player	*new;
 	t_player	*i;
@@ -65,7 +65,7 @@ static void create_player(int player_id, t_arena *arena, char *file_name)
 	new->file_name = file_name;
 }
 
-void		save_players(int ac, char **av, t_arena *arena)
+void			save_players(int ac, char **av, t_arena *arena)
 {
 	int			player_id;
 	int			attempt;
@@ -75,22 +75,22 @@ void		save_players(int ac, char **av, t_arena *arena)
 	while (ac--)
 	{
 		player_id = 1;
-		if (strcmp("-n", av[0]) == 0)
+		if (ft_strcmp("-n", av[0]) == 0)
 		{
-			attempt = ft(atoi(av[1]));
+			attempt = ft_atoi(av[1]);
 			av += 2;
 			ac -= 2;
-		   if (is_free_player_id(attempt))
+		   if (is_free_player_id(attempt, arena->players, ac, av))
 				player_id = attempt;
 		}
 		else
 			while (!is_free_player_id(player_id, arena->players, ac, av))
 				player_id++;
-		new = create_player(player_id, arena, av[0]);
+		create_player(player_id, arena, av[0]);
 	}
 }
 
-void		load_players(t_arena *arena)
+void			load_players(t_arena *arena)
 {
 	t_player	*i;
 	int			n;
@@ -118,7 +118,7 @@ void		load_players(t_arena *arena)
 	}
 }
 
-void		free_players(t_arena *arena)
+void			free_players(t_arena *arena)
 {
 	t_player	*next;
 	t_player	*current;

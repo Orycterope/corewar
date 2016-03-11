@@ -6,28 +6,28 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:55:35 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/08 21:17:37 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/11 17:30:59 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "process.h"
 
-static char **create_copy_registers(char **registers, int pid)
+static char **create_copy_registers(char **registers, int player_id)
 {
 	int			i;
 	char		**new;
 
 	i = -1;
-	new = (char **)ft_malloc(REG_NUMBER);
+	new = (char **)ft_memalloc(REG_NUMBER);
 	while (++i < REG_NUMBER)
 	{
-		new[i] = (char *)ft_malloc(REG_SIZE);
+		new[i] = (char *)ft_memalloc(REG_SIZE);
 		if (registers == NULL)
-			bzero(new[i], REG_SIZE);
+			ft_bzero(new[i], REG_SIZE);
 		else
 			ft_memcpy(new[i], registers[i], REG_SIZE);
 	}
-	//TODO: write pid to r1 in big endian
+	//TODO: write player to r1 in big endian
 	return (new);
 }
 
@@ -36,14 +36,13 @@ static char **create_copy_registers(char **registers, int pid)
  ** otherwise they are copied from existent registers
  **/
 
-void	create_process(int player, int pc, t_arena *arena, char **registers)
+void	create_process(int player, char *pc, t_arena *arena, char **registers)
 {
 	t_process	*new;
 
-	new = (t_process*)ft_malloc(sizeof(t_process));
-	new->pid = arena->next_available_pid++;
+	new = (t_process*)ft_memalloc(sizeof(t_process));
 	new->player = player;
-	new->registers = create_copy_registers(registers, new->pid);
+	new->registers = create_copy_registers(registers, player);
 	new->pc = pc;
 	new->carry = 0;
 	new->cycles_to_wait = 0;
@@ -51,10 +50,9 @@ void	create_process(int player, int pc, t_arena *arena, char **registers)
 	new->arena = arena;
 	new->next = arena->processes;
 	arena->processes = new;
-	return (new);
 }
 
-void	fork_process(t_process *process, int pc)
+void	fork_process(t_process *process, char *pc)
 {
 	create_process(process->player, pc, process->arena, process->registers);
 }
@@ -75,7 +73,7 @@ void	kill_process(t_process *process)
 	}
 	r = -1;
 	while (++r < REG_NUMBER)
-		free(registers[r]);
-	free(registers);
+		free(process->registers[r]);
+	free(process->registers);
 	free(process);
 }

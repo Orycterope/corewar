@@ -6,13 +6,14 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:37:26 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/11 14:49:42 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/11 17:35:19 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PLAYER_H
 # define PLAYER_H
 # include "libft.h"
+# include "arena.h"
 # include "op.h"
 # define BUFF_SIZE 1
 
