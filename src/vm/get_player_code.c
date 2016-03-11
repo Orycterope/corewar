@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:12:23 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/11 17:47:33 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/11 18:45:54 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void		get_player_code(t_player *player)
 	player->begin = read_prog(fd, player->begin, &prog_size_read);
 	if (prog_size != prog_size_read)
 	{
-		ft_putendl("Error: File has a code size that differ from what its header says"); // printf, message a modifier
+		ft_printf("Error: File %s has a code size that %s", player->file_name,
+				"differ from what its header says.");
 		exit(1);
 	}
 }
