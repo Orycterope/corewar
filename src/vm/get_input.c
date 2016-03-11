@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:37:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/11 18:39:29 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/11 18:51:08 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,12 @@ static char			*get_comment(int fd, char *buf, int ret, int i)
 
 void				get_input(int fd, t_player *player, unsigned int *prog_size)
 {
-	int 			ret;
+	int				ret;
 	char			buf[BUFF_SIZE];
 	int				i;
 
 	i = 0;
+	ret = 0;
 	check_magic(fd, buf, ret, player);
 	player->name = get_name(fd, buf, ret, i);
 	*prog_size = get_prog_size(fd, buf, ret, i);
