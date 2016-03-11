@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:27:55 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/11 20:57:22 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/11 22:14:45 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	create_player(int player_id, t_arena *arena, char *file_name)
 		while (i->next != NULL && i->next->id > player_id)
 			i = i->next;
 		new->next = i->next;
-		i->next = i;
+		i->next = new;
 	}
 	new->id = player_id;
 	new->last_live = 0;
