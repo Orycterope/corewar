@@ -1,0 +1,7 @@
+*.a
+*.o
+.*
+/asm
+/corewar
+*.s
+*.cor
