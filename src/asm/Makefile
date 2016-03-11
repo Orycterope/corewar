@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/11 15:35:11 by jriallan         ###   ########.fr        #
+#    Updated: 2016/03/11 21:52:27 by rporcon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -117,5 +117,8 @@ git_url:
 
 check_clone:
 	git clone "$$(git --git-dir=.git config --get remote.origin.url)" check_clone
+
+useful: 
+	@echo "   /\_/\ \n =( °w° )= \n   )   ( \n  (__ __) "
 
 .PHONY: all clean fclean re
