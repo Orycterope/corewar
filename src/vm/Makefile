@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/08 19:49:00 by tvermeil         ###   ########.fr        #
+#    Updated: 2016/03/11 18:38:27 by tvermeil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,19 +14,27 @@ NAME = corewar
 
 SRC_PATH = .
 ROOT = ../..
-OBJ_FOLDER = obj/$(NAME)
-INC_PATH = $(ROOT)/include/$(NAME)
+OBJ_FOLDER = obj/vm
+INC_PATH = $(ROOT)/include/vm \
+		   $(ROOT)/include/libft \
+
 OBJ_PATH = $(ROOT)/$(OBJ_FOLDER)
 DST_PATH = $(ROOT)
 LFT_PATH = $(ROOT)
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-CPPFLAGS = -I $(INC_PATH)
+CPPFLAGS = $(addprefix -I ,$(INC_PATH))
 LDFLAGS = -L$(LFT_PATH)
 LDLIBS = -lft
 
-SRC_NAME =    ... \
+SRC_NAME =	arena.c \
+			player.c \
+			process.c \
+			get_input.c \
+			get_player_code.c \
+			op.c \
+			main.c \
 
 
 OBJ_NAME = $(SRC_NAME:.c=.o)

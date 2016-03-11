@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:27:55 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/11 18:29:18 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/11 18:39:07 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ void			save_players(int ac, char **av, t_arena *arena)
 {
 	int			player_id;
 	int			attempt;
-	int			fd;
-	t_player	*new;
 
 	while (ac--)
 	{

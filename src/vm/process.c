@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:55:35 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/11 17:30:59 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/11 18:42:01 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char **create_copy_registers(char **registers, int player_id)
 		else
 			ft_memcpy(new[i], registers[i], REG_SIZE);
 	}
-	//TODO: write player to r1 in big endian
+	ft_write_big_endian((long long)player_id, new[0], REG_SIZE);
 	return (new);
 }
 
