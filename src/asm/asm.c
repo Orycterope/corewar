@@ -6,11 +6,11 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 19:38:06 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/10 20:59:29 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/11 11:47:28 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../../include/asm/asm.h"
 
 void	init_data(t_data *data)
 {

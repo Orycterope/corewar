@@ -6,11 +6,11 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 18:59:26 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/10 20:32:03 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/11 11:47:31 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../../include/asm/asm.h"
 
 int		is_in_str(char c, char *str)
 {
