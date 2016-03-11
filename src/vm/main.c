@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:08:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/11 22:29:39 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/11 23:26:21 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int				main(int argc, char **argv)
 	arena = create_arena();
 	save_players(argc, argv, arena);
 	load_players(arena);
+	create_init_processes(arena);
 	display_champions(arena);
 	dump_memory(arena);
 	destroy_arena(arena);

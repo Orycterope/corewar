@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:55:35 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/11 18:42:01 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/11 23:28:11 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,30 @@ void	create_process(int player, char *pc, t_arena *arena, char **registers)
 	new->arena = arena;
 	new->next = arena->processes;
 	arena->processes = new;
+}
+
+void	create_init_processes(t_arena *arena)
+{
+	int			p;
+	int			n;
+	t_player	*i;
+
+	n = 0;
+	i = arena->players;
+	while (i != NULL)
+	{
+		n++;
+		i = i->next;
+	}
+	while (n > 0)
+	{
+		p = n;
+		i = arena->players;
+		while (--p)
+			i = i->next;
+		create_process(i->id, i->begin, arena, NULL);
+		n--;
+	}
 }
 
 void	fork_process(t_process *process, char *pc)
