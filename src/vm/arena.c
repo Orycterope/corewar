@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:05:42 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/11 18:17:36 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/11 19:08:22 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,17 @@ void	display_champions(t_arena *arena)
 void	dump_memory(t_arena *arena)
 {
 	int		i;
-	char	*hex;
 
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		hex = ft_itoa_base(arena->memory[i], "0123456789ABCDEF");
-		ft_putstr(hex);
-		free(hex);
-		ft_putchar(' ');
 		if (i % 32 == 0 && i != MEM_SIZE - 1)
-			ft_printf("\n%#04x : ", i);
+			ft_printf("\n%0#6x : ", i);
+		ft_printf("%02x", arena->memory[i]);
+		ft_putchar(' ');
 		i++;
 	}
+	ft_putchar('\n');
 }
 
 void	destroy_arena(t_arena *arena)
