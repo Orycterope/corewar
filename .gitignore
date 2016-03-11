@@ -2,6 +2,7 @@
 *.o
 .*
 /asm
+/real_asm
 /corewar
 *.s
 *.cor
