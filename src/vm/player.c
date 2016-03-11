@@ -6,14 +6,14 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:27:55 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/10 19:14:57 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/11 14:45:12 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "player.h"
 #include "libft.h"
 
-static int		is_free_player_id(int id, t_player *p, int ac, char **av)
+static int	is_free_player_id(int id, t_player *p, int ac, char **av)
 {
 	if (id < 1)
 		return (0);
@@ -36,33 +36,7 @@ static int		is_free_player_id(int id, t_player *p, int ac, char **av)
 	return (1);
 }
 
-static int		get_player_nbr(int ac, char **av, t_arena *arena)
-{
-	int			out;
-	t_player	*p;
-
-	out = 0;
-	p = arena->players;
-	while (p != NULL)
-	{
-		out++;
-		p = p->next;
-	}
-	while (ac--)
-	{
-		if (strcmp("-n", av[0]) == 0)
-		{
-			ac -= 2;
-			av += 2;
-		}
-		out++;
-		ac--;
-		av++;
-	}
-	return (out);
-}
-
-static t_player *create_player(int player_id, t_arena *arena, int fd)
+static void create_player(int player_id, t_arena *arena, char *file_name)
 {
 	t_player	*new;
 	t_player	*i;
@@ -88,11 +62,10 @@ static t_player *create_player(int player_id, t_arena *arena, int fd)
 	}
 	new->id = player_id;
 	new->last_live = 0;
-	get_input(fd, new);
-	return (new);
+	new->file_name = file_name;
 }
 
-void			save_players(int ac, char **av, t_arena *arena)
+void		save_players(int ac, char **av, t_arena *arena)
 {
 	int			player_id;
 	int			attempt;
@@ -113,15 +86,39 @@ void			save_players(int ac, char **av, t_arena *arena)
 		else
 			while (!is_free_player_id(player_id, arena->players, ac, av))
 				player_id++;
-		if ((fd = open(av[0], O_RDONLY)) < 0)
-			ft_error(ft_strjoin("Error : Cannot open file ", av[0]));
-
-		new = create_player(player_id, arena);
-		load_player(new, arena, get_player_nbr(players, ac, av));
+		new = create_player(player_id, arena, av[0]);
 	}
 }
 
-void			free_players(t_arena *arena)
+void		load_players(t_arena *arena)
+{
+	t_player	*i;
+	int			n;
+	int			total;
+
+	total = 0;
+	i = arena->players;
+	while (i != NULL)
+	{
+		total++;
+		i = i->next;
+	}
+	if (total < 1 || total > MAX_PLAYERS)
+	{
+		ft_putendl("Error : too many players");
+		exit(1);
+	}
+	i = arena->players;
+	n = total;
+	while (i != NULL)
+	{
+		get_player_code(i, arena, arena->memory + (n - 1) / total * MEM_SIZE);
+		n--;
+		i = i->next;
+	}
+}
+
+void		free_players(t_arena *arena)
 {
 	t_player	*next;
 	t_player	*current;

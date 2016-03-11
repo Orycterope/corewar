@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/11 10:08:17 by rporcon          ###   ########.fr        #
+#    Created: 2016/03/11 16:50:07 by tvermeil          #+#    #+#              #
+#    Updated: 2016/03/11 16:50:16 by tvermeil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJ_PATH = ../obj/libft
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-CPPFLAGS = -I $(INC_PATH)
+CPPFLAGS = -I $(INC_PATH) -I $(INC_PATH)/printf
 
 SRC_NAME =    ft_memset.c \
 		    	ft_bzero.c \
@@ -65,12 +65,14 @@ SRC_NAME =    ft_memset.c \
    		    	ft_strtrim.c \
    		    	ft_strsplit.c \
    		    	ft_itoa.c \
+   		    	ft_itoa_base.c \
    		    	ft_putchar.c \
    		    	ft_putstr.c \
    		    	ft_putendl.c \
    		    	ft_putnbr.c \
    		    	ft_putchar_fd.c \
    		    	ft_putstr_fd.c \
+				ft_putstr_spec.c \
    		    	ft_putendl_fd.c \
    		    	ft_putnbr_fd.c \
    		    	ft_lstnew.c \
@@ -79,8 +81,21 @@ SRC_NAME =    ft_memset.c \
    		    	ft_lstadd.c \
    		    	ft_lstiter.c \
    		    	ft_lstmap.c \
+				ft_tostr.c \
 				ft_endianness.c \
 				get_next_line.c \
+  				printf/cast.c \
+				printf/alias.c \
+				printf/converter.c \
+				printf/utf.c \
+				printf/flags.c \
+				printf/wrapper.c \
+				printf/precision.c \
+				printf/ft_printf.c \
+				printf/get_conversion_parts.c \
+				printf/get_string.c \
+				printf/itoa.c \
+				printf/itoa_base.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
@@ -90,7 +105,7 @@ OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 all: $(NAME)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
-	@mkdir -p $(OBJ_PATH)
+	@mkdir -p $(OBJ_PATH) $(OBJ_PATH)/printf
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 	@echo -n .
 
@@ -100,7 +115,7 @@ $(NAME): $(OBJ)
 
 clean:
 	@-cd .. && rm -fv $(addprefix obj/libft/,$(OBJ_NAME))
-	@rmdir $(OBJ_PATH) ../obj 2> /dev/null || true
+	@rmdir $(OBJ_PATH)/printf $(OBJ_PATH) ../obj 2> /dev/null || true
 
 fclean: clean
 	@-cd .. && rm -fv libft.a
