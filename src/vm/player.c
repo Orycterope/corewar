@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:27:55 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/11 17:41:58 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/11 18:29:18 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,8 @@ void			load_players(t_arena *arena)
 	n = total;
 	while (i != NULL)
 	{
-		get_player_code(i, arena, arena->memory + (n - 1) / total * MEM_SIZE);
+		i->begin = (arena->memory + (n - 1) / total * MEM_SIZE);
+		get_player_code(i);
 		n--;
 		i = i->next;
 	}
