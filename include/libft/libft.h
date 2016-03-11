@@ -6,7 +6,7 @@
 /*   By: tvermeil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 12:24:10 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/11 16:49:44 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/11 17:18:50 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 char				*ft_tostr(char c);
 int					ft_write_big_endian(long long n, void *dst, size_t length);
 long long			ft_read_big_endian(void *src, size_t length);
+int					ft_printf(const char *format, ...);
 
 #endif
