@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/11 16:08:57 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/11 17:20:30 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ typedef struct			s_data
 	char				*filename;
 	char				*name;
 	char				*comment;
+	char				*cor;
+	int					cor_len;
 	t_label				*label;
 }						t_data;
 
