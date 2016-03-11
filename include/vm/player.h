@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:37:26 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/11 18:48:27 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/11 20:49:13 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void					get_input(int fd, t_player *player,
 		unsigned int *prog_size);
 void					get_player_code(t_player *player);
 void					save_players(int ac, char **av, t_arena *arena);
+void					load_players(t_arena *arena);
 void					free_players(t_arena *arena);
 
 #endif

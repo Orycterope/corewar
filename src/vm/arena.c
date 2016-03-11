@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:05:42 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/11 20:45:31 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/11 20:54:16 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	dump_memory(t_arena *arena)
 	{
 		if (i % 32 == 0 && i != MEM_SIZE - 1)
 			ft_printf("\n%0#6x : ", i);
-		ft_printf("%02x", arena->memory[i]);
+		ft_printf("%02x", (unsigned char)arena->memory[i]);
 		ft_putchar(' ');
 		i++;
 	}

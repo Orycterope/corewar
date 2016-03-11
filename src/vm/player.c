@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:27:55 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/11 20:42:28 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/11 20:57:22 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void			save_players(int ac, char **av, t_arena *arena)
 	int			player_id;
 	int			attempt;
 
-	while (ac--)
+	while (ac-- > 0)
 	{
 		player_id = 1;
 		if (ft_strcmp("-n", av[0]) == 0)
@@ -114,7 +114,7 @@ void			load_players(t_arena *arena)
 	n = total;
 	while (i != NULL)
 	{
-		i->begin = (arena->memory + (n - 1) / total * MEM_SIZE);
+		i->begin = (arena->memory + (n - 1) * MEM_SIZE / total);
 		get_player_code(i);
 		n--;
 		i = i->next;
