@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:05:42 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/11 19:08:22 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/11 20:45:31 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	display_champions(t_arena *arena)
 		p = n;
 		while (p--)
 			i = i->next;
-		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !",
+		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
 				i->id, i->champ_size, i->name, i->comment);
 	}
 }
