@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:37:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/11 14:10:46 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/11 17:36:35 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static char			*get_comment(int fd, char *buf, int ret, int i)
 
 	comment = ft_memalloc(COMMENT_LENGTH + 1);
 	comment[COMMENT_LENGTH] = '\0';
-	while (i < COMMENT_LENGTH)
+	while (i < COMMENT_LENGTH + 4)
 	{
 		if ((ret = read(fd, buf, BUFF_SIZE)) == -1)
 		{
@@ -94,16 +94,15 @@ static char			*get_comment(int fd, char *buf, int ret, int i)
 	return (comment);
 }
 
-void				get_input(int fd, t_player *player)
+void				get_input(int fd, t_player *player, unsigned int *prog_size)
 {
 	int 			ret;
 	char			buf[BUFF_SIZE];
 	int				i;
-	unsigned int	prog_size;
 
 	i = 0;
 	check_magic(fd, buf, ret, i);
 	player->name = get_name(fd, buf, ret, i);
-	prog_size = get_prog_size(fd, buf, ret, i);
+	*prog_size = get_prog_size(fd, buf, ret, i);
 	player->comment = get_comment(fd, buf, ret, i);
 }
