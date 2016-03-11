@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:03:23 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/11 17:36:26 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/11 18:17:07 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_arena
 	int			cycle_to_die;
 	int			last_check_cycle;
 	int			checks_without_decrement;
+	int			dump_cycle;
 	t_process	*processes;
 }				t_arena;
 

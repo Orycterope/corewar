@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 18:59:26 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/11 21:58:15 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/11 22:08:20 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void	parser(int fd, t_data *data)
 {
 	char	*buf;
 
+	buf = NULL;
 	while (get_next_line(fd, &buf) > 0)
 	{
 		read_name_comment(data, buf);

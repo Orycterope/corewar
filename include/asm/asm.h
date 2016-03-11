@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/11 21:03:28 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/11 22:06:54 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,18 @@
 # include "../../include/libft/get_next_line.h"
 # include "op.h"
 
+# define STI "sti"
+
 typedef struct			s_instruc
 {
 	struct s_instruc	*next;
 	char				*name;
 	int					opcode;
+	char				*param_1;
+	char				*param_2;
+	char				*param_3;
+	char				*param_4;
+	int					ocp;
 }						t_instruc;
 
 typedef struct			s_label
@@ -60,5 +67,6 @@ void					print_lbl_lst(t_label **lst);
 t_instruc				*inst_new_elem(char *name);
 void					addend_inst_lst(t_instruc **lst, t_instruc *new_elem);
 void					print_inst_lst(t_instruc **lst);
+int						check_add_lbl(char *buf);
 
 #endif

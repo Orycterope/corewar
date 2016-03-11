@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:27:55 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/11 17:41:58 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/11 20:57:22 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@ static int	is_free_player_id(int id, t_player *p, int ac, char **av)
 {
 	if (id < 1)
 		return (0);
+	ac--;
+	av++;
 	while (p != NULL)
 	{
 		if (p->id == id)
 			return (0);
+		p = p->next;
 	}
-	while (--ac)
+	while (ac-- > 0)
 	{
 		if (ft_strcmp("-n", av[0]) == 0)
 		{
@@ -31,7 +34,7 @@ static int	is_free_player_id(int id, t_player *p, int ac, char **av)
 		   av += 2;
 		   ac -= 2;
 		}
-		ac--;
+		av++;
 	}
 	return (1);
 }
@@ -69,10 +72,8 @@ void			save_players(int ac, char **av, t_arena *arena)
 {
 	int			player_id;
 	int			attempt;
-	int			fd;
-	t_player	*new;
 
-	while (ac--)
+	while (ac-- > 0)
 	{
 		player_id = 1;
 		if (ft_strcmp("-n", av[0]) == 0)
@@ -87,6 +88,7 @@ void			save_players(int ac, char **av, t_arena *arena)
 			while (!is_free_player_id(player_id, arena->players, ac, av))
 				player_id++;
 		create_player(player_id, arena, av[0]);
+		av++;
 	}
 }
 
@@ -112,7 +114,8 @@ void			load_players(t_arena *arena)
 	n = total;
 	while (i != NULL)
 	{
-		get_player_code(i, arena, arena->memory + (n - 1) / total * MEM_SIZE);
+		i->begin = (arena->memory + (n - 1) * MEM_SIZE / total);
+		get_player_code(i);
 		n--;
 		i = i->next;
 	}
