@@ -20,13 +20,13 @@ int			ft_write_big_endian(long long n, void *dst, size_t lenght)
 
 long long	ft_read_big_endian(void *src, size_t length)
 {
-	long long	n;
-	long long	power;
-	char		*ptr;
+	long long		n;
+	long long		power;
+	unsigned char	*ptr;
 
 	n = 0;
 	power = 1;
-	ptr = (char *)src;
+	ptr = (unsigned char *)src;
 	while (length > 0)
 	{
 		n += ((long long)ptr[length - 1]) * power;

@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:37:26 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/11 17:35:19 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/11 20:49:13 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,11 @@ typedef struct			s_player
 	struct s_player		*next;
 }						t_player;
 
-void					get_input(int fd, t_player *player);
+void					get_input(int fd, t_player *player,
+		unsigned int *prog_size);
+void					get_player_code(t_player *player);
 void					save_players(int ac, char **av, t_arena *arena);
+void					load_players(t_arena *arena);
 void					free_players(t_arena *arena);
 
 #endif

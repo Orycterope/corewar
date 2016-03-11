@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:05:42 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/11 17:20:25 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/11 20:54:16 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_arena	*create_arena(void)
 	new->last_check_cycle = 0;
 	new->checks_without_decrement = 0;
 	new->processes = NULL;
+	new->dump_cycle = -1;
 	return (new);
 }
 
@@ -51,7 +52,7 @@ void	display_champions(t_arena *arena)
 		p = n;
 		while (p--)
 			i = i->next;
-		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !",
+		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
 				i->id, i->champ_size, i->name, i->comment);
 	}
 }
@@ -59,19 +60,17 @@ void	display_champions(t_arena *arena)
 void	dump_memory(t_arena *arena)
 {
 	int		i;
-	char	*hex;
 
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		hex = ft_itoa_base(arena->memory[i], "0123456789ABCDEF");
-		ft_putstr(hex);
-		free(hex);
-		ft_putchar(' ');
 		if (i % 32 == 0 && i != MEM_SIZE - 1)
-			ft_printf("\n%#04x : ", i);
+			ft_printf("\n%0#6x : ", i);
+		ft_printf("%02x", (unsigned char)arena->memory[i]);
+		ft_putchar(' ');
 		i++;
 	}
+	ft_putchar('\n');
 }
 
 void	destroy_arena(t_arena *arena)
