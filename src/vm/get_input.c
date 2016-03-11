@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:37:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/11 21:27:45 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/11 21:30:15 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void			check_magic(int fd, char *buf, int ret, t_player *p)
 	if (magic[0] != 0 || magic[1] != 234 || magic[2] != 131
 			|| magic[3] != 243)
 	{
-		ft_printf("Error: File %s has an invalid header.", p->file_name);
+		ft_printf("Error: File %s has an invalid header.\n", p->file_name);
 		exit(1);
 	}
 }
