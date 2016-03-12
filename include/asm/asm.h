@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/11 23:45:37 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/12 16:37:50 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct			s_instruc
 	char				*param_2;
 	char				*param_3;
 	char				*param_4;
-	int					ocp;
+	char				ocp;
 }						t_instruc;
 
 typedef struct			s_label
@@ -49,6 +49,7 @@ typedef struct			s_data
 	char				*cor;
 	int					cor_len;
 	t_label				*label;
+	int					line;
 }						t_data;
 
 void					init_data(t_data *data);
@@ -56,13 +57,15 @@ void					free_data(t_data *data);
 void					set_filename(t_data *data, char *name);
 int						is_in_str(char c, char *str);
 char					*rm_char(char *str, char *rem);
+void					free_strsplit(char **arr);
+char					set_ocp(char ocp, char index, char val);
 int						read_name_comment(t_data *data, char *str);
 void					parser(int fd, t_data *data);
 
-void					error_limit(char *err,char *str, char *str2, int limit);
+void					error_line(t_data *data, char *err);
+void					error_limit(t_data *data, char *err,char *str, int limit);
 void					error_at(char *err, int line, int column);
-void					error_third(char *err, char *str, char *str2);
-void					error_str(char *err, char *str);
+void					error_str(t_data *data, char *err, char *str);
 void					error(char *err);
 
 t_label					*lbl_new_elem(char *name);

@@ -6,109 +6,69 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 18:59:26 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/12 00:09:40 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/12 19:54:36 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int		is_in_str(char c, char *str)
+char	*name_comment(int index)
 {
-	int		i;
-	int		ret;
+	if (index == 1)
+		return (NAME_CMD_STRING);
+	return (COMMENT_CMD_STRING);
+}
+
+int		name_comment_len(int index)
+{
+	if (index == 1)
+		return (PROG_NAME_LENGTH);
+	return (COMMENT_LENGTH);
+}
+
+char	*ft_pass_space_tab(char *str)
+{
+	int	index;
+
+	index = 0;
+	while (str[index] != '\0' && (str[index] == ' ' || str[index] == '\t'))
+		index++;
+	return (str + index);
+}
+
+int		parse_nm_cmt(t_data *data, char **s, char *str, int index)
+{
+	int				ret;
+	unsigned int	len;
+	char			**arr;
+	char			*cmd;
 
 	ret = 0;
-	i = 0;
-	while (str[i] != '\0')
+	len = name_comment_len(index);
+	cmd = name_comment(index);
+	str	= ft_pass_space_tab(str);
+	if (ft_strncmp(str, cmd, ft_strlen(cmd)) == 0 && *ft_pass_space_tab(str + ft_strlen(cmd)) == '\"')
 	{
-		if (c == str[i])
-			ret++;
-		i++;
-	}
-	return (ret);
-}
-
-char	*rm_char(char *str, char *rem)
-{
-	char	*ret;
-	int		len;
-	int		i;
-	int		j;
-
-	len = 0;
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (is_in_str(str[i], rem) == 0)
-			len++;
-		i++;
-	}
-	if ((ret = (char *)malloc(sizeof(char) * ++len)) == NULL)
-		error("Malloc error");
-	ft_bzero(ret, len);
-	i = 0;
-	j = 0;
-	while (str[j] != '\0')
-	{
-		if (is_in_str(str[j], rem) == 0)
-			ret[i++] = str[j];
-		j++;
-	}
-	return (ret);
-}
-
-void	free_strsplit(char **arr)
-{
-	int		i;
-
-	i = 0;
-	while (arr[i] == 0)
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-}
-
-int		parse_nm_cmt(t_data *data, char *str, char *cmd, unsigned int length)
-{
-	int		ret;
-	char	**arr;
-	char	*str2;
-	char	*tmp;
-	int		len;
-
-	ret = 0;
-	arr = ft_strsplit(str, '"');
-	str2 = rm_char(arr[0], " \t");
-	ft_putendl(cmd);
-	ft_putendl(str2);
-	if (data->name == NULL && //ft_strncmp(cmd, str2, strlen(str2)) == 0 &&
-												ft_strcmp(cmd, str2) == 0)
-	{
-		len = length + 1;
-		if (arr[2] == 0)
+		if (is_in_str('"', str) == 2)
 		{
-			if (ft_strlen(str) > length)
-				error_limit("Error : length of \"", cmd,
-						"\" is too large (limit is ", length);
-			if ((tmp = (char *)malloc(sizeof(char) * len)) == NULL)
-				error("Malloc error");
-			if () TODO
-			data->name = ft_strdup(arr[1]);
-			data->name = ft_strdup(arr[1]);
-			ft_putendl(data->name);
-			ret = 1;
+			arr = ft_strsplit(str, '"');
+			if (arr[2] == 0 || (arr[2] + ft_strlen(arr[2])) == ft_pass_space_tab(arr[2]))
+			{
+				if (*s != NULL)
+					error_str(data, cmd, " is already set");
+				if (ft_strlen(arr[1]) > len)
+					error_limit(data, "length of string is too large in ", cmd, len);
+				*s = ft_strdup(arr[1]);
+			}
+			else
+				error_str(data, "character after '\"' in ", cmd);
+			free_strsplit(arr);
 		}
 		else
-			error_str("Error : character after '\"' in ", cmd);
+			error_str(data, "to many '\"' in ", cmd);
 	}
-	else if (data->name != NULL && ft_strcmp(cmd, str2) == 0)
-		error_third("Error : ", cmd, " is already set");
-	else if (data->name == NULL && ft_strcmp(cmd, str2) == 0 && ft_strncmp(cmd, str2, ft_strlen(str2)) != 0)
-		error_str("Error : character before '\"' in ", cmd);
-	free_strsplit(arr);
-	free(str2);
+	else if (ft_strncmp(str, cmd, ft_strlen(cmd)) == 0 && *ft_pass_space_tab(str + ft_strlen(cmd)) != '\"')
+		error_str(data, "character between '\"' and ", cmd);
 	return (ret);
 }
 
@@ -117,17 +77,22 @@ int		read_name_comment(t_data *data, char *str)
 	int		ret;
 
 	ret = 0;
-	if (is_in_str('"', str) == 2)
-	{
-		ret = parse_nm_cmt(data, str, NAME_CMD_STRING, PROG_NAME_LENGTH);
-		ret = parse_nm_cmt(data, str, COMMENT_CMD_STRING, COMMENT_LENGTH);
-//		if (data->comment == NULL &&
-//				ft_strncmp(COMMENT_CMD_STRING, str2, ft_strlen(COMMENT_CMD_STRING)) == 0)
-//		{
-			//COMMENT_LENGTH;
-//			ret = 1;
-//		}
-	}
+	if ((ret = parse_nm_cmt(data, &data->name, str, 1)) == 0)
+		ret = parse_nm_cmt(data, &data->comment, str, 2);
+	return (ret);
+}
+
+int		is_comment(char *str)
+{
+	int		ret;
+
+	str = rm_char(str, " \t");
+	ret = 0;
+	if (ft_strcmp(str, "") == 0)
+		ret = 1;
+	else if (str[0] == COMMENT_CHAR)
+		ret = 1;
+	free(str);
 	return (ret);
 }
 
@@ -138,7 +103,19 @@ void	parser(int fd, t_data *data)
 	buf = NULL;
 	while (get_next_line(fd, &buf) > 0)
 	{
-		read_name_comment(data, buf);
+		if (is_comment(buf))
+		{
+//			ft_putendl("com");
+		}
+		if (read_name_comment(data, buf))
+		{
+//			ft_putendl("name comment");
+		}
 		free(buf);
+		data->line++;
 	}
+	if (data->name != NULL)
+		ft_putendl(data->name);
+	if (data->comment != NULL)
+		ft_putendl(data->comment);
 }

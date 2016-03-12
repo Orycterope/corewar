@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 19:38:06 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/11 22:23:32 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/12 14:28:28 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	init_data(t_data *data)
 	data->cor = NULL;
 	data->cor_len = 0;
 	data->label = NULL;
+	data->line = 1;
 }
 
 void	free_data(t_data *data)
