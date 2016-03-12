@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 19:38:06 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/11 22:23:32 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/12 19:09:46 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,20 +104,12 @@ void	write_file(t_data *data)
 int		main(int argc, char *argv[])
 {
 	t_data	data;
+	t_label	*lbl_lst;
 	int		fd;
 	int		i;
-	//HAAAAaaaa !!!...
-//	t_instruc	*new_elem;
-//	t_instruc	*lbl_list;
-//	new_elem = NULL;
-//	lbl_list = NULL;
 
 	i = 1;
-//	new_elem = inst_new_elem("l2");
-//	addend_inst_lst(&lbl_list, new_elem);
-//	new_elem = inst_new_elem("test");
-//	addend_inst_lst(&lbl_list, new_elem);
-//	print_inst_lst(&lbl_list);
+	lbl_lst = NULL;
 	while (i < argc)
 	{
 		init_data(&data);

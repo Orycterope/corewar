@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/11 22:15:39 by jriallan         ###   ########.fr        #
+#    Updated: 2016/03/12 19:08:57 by rporcon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,8 @@ SRC_NAME = asm.c \
 		   instruc_list_fct.c \
 		   label_list_fct.c \
 		   parser.c \
+		   label_inst_manip.c \
+		   check_inst_param.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
@@ -121,6 +123,6 @@ check_clone:
 	git clone "$$(git --git-dir=.git config --get remote.origin.url)" check_clone
 
 useful: 
-	@echo "   /\_/\ \n =( °w° )= \n   )   ( \n  (__ __) \n		© by rporcon"
+	@echo "   /\_/\ \n =( °w° )= \n   )   ( \n  (__ __) \n		© by kouloubacho"
 
 .PHONY: all clean fclean re

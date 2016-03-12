@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/11 23:45:37 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/12 19:07:18 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 # include "../../include/libft/get_next_line.h"
 # include "op.h"
 
-//HHAAAAAAaAaaAaaaaaa.....
-# define STI "sti"
-
 typedef struct			s_instruc
 {
 	struct s_instruc	*next;
@@ -30,14 +27,13 @@ typedef struct			s_instruc
 	char				*param_1;
 	char				*param_2;
 	char				*param_3;
-	char				*param_4;
-	int					ocp;
+	char				ocp;
 }						t_instruc;
 
 typedef struct			s_label
 {
 	struct s_label		*next;
-	struct s_instruct	*insts;
+	t_instruc			*insts;
 	char				*name;
 }						t_label;
 
@@ -71,6 +67,14 @@ void					print_lbl_lst(t_label **lst);
 t_instruc				*inst_new_elem(char *name);
 void					addend_inst_lst(t_instruc **lst, t_instruc *new_elem);
 void					print_inst_lst(t_instruc **lst);
-int						check_add_lbl(char *buf);
+int						check_add_lbl(char *buf, t_label *lbl_lst);
+int						check_add_instruc(char *buf, t_label *lbl_lst);
+int						check_opcode(char *str, t_instruc *inst);
+void					check_opcode_suit(char *str, t_instruc *inst);
+char					check_first_2param(char *str, t_instruc *inst);
+char					check_second_2param(char *str, t_instruc *inst);
+void					check_reg(char *str);
+void					check_indirect(char *str);
+void					check_direct(char *str);
 
 #endif

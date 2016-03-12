@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 18:59:26 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/12 00:09:40 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/12 18:48:14 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		parse_nm_cmt(t_data *data, char *str, char *cmd, unsigned int length)
 						"\" is too large (limit is ", length);
 			if ((tmp = (char *)malloc(sizeof(char) * len)) == NULL)
 				error("Malloc error");
-			if () TODO
+//			if () TODO
 			data->name = ft_strdup(arr[1]);
 			data->name = ft_strdup(arr[1]);
 			ft_putendl(data->name);
