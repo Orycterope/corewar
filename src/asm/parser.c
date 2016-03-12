@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 18:59:26 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/12 20:01:36 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/12 21:03:27 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,11 @@ int		parse_nm_cmt(t_data *data, char **s, char *str, int index)
 					error_str(data, cmd, " is already set");
 				if (ft_strlen(arr[1]) > len)
 					error_limit(data, "length of string is too large in ", cmd, len);
-				*s = ft_strdup(arr[1]);
+				if ((*s = (char *)malloc(sizeof(char) * len)) == NULL)
+					error("Malloc error");
+				ft_bzero(*s, len);
+				ft_strcpy(*s, arr[1]);
+				ret = 1;
 			}
 			else
 				error_str(data, "character after '\"' in ", cmd);
@@ -109,13 +113,13 @@ void	parser(int fd, t_data *data)
 		}
 		if (read_name_comment(data, buf))
 		{
-//			ft_putendl("name comment");
+//			ft_putendl("name or comment");
 		}
 		free(buf);
 		data->line++;
 	}
-	if (data->name != NULL)
-		ft_putendl(data->name);
-	if (data->comment != NULL)
-		ft_putendl(data->comment);
+	if (data->name == NULL)
+		error_str(NULL, "Error : missing ", NAME_CMD_STRING);
+	if (data->comment == NULL)
+		error_str(NULL, "Error : missing ", COMMENT_CMD_STRING);
 }

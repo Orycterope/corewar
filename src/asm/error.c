@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 20:30:52 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/12 20:01:54 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/12 20:21:50 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,12 @@ void	error_at(char *err, int line, int column)
 
 void	error_line(t_data *data, char *err)
 {
-	ft_putstr("Error line ");
-	ft_putnbr(data->line);
-	ft_putstr(" : ");
+	if (data != NULL)
+	{
+		ft_putstr("Error line ");
+		ft_putnbr(data->line);
+		ft_putstr(" : ");
+	}
 	ft_putendl(err);
 	exit(1);
 }
@@ -40,9 +43,12 @@ void	error(char *err)
 
 void	error_str(t_data *data, char *err, char *str)
 {
-	ft_putstr("Error line ");
-	ft_putnbr(data->line);
-	ft_putstr(" : ");
+	if (data != NULL)
+	{
+		ft_putstr("Error line ");
+		ft_putnbr(data->line);
+		ft_putstr(" : ");
+	}
 	ft_putstr(err);
 	ft_putendl(str);
 	exit(1);
@@ -50,9 +56,12 @@ void	error_str(t_data *data, char *err, char *str)
 
 void	error_limit(t_data *data, char *err, char *str, int limit)
 {
-	ft_putstr("Error line ");
-	ft_putnbr(data->line);
-	ft_putstr(" : ");
+	if (data != NULL)
+	{
+		ft_putstr("Error line ");
+		ft_putnbr(data->line);
+		ft_putstr(" : ");
+	}
 	ft_putstr(err);
 	ft_putstr(str);
 	ft_putstr(" (limit is ");

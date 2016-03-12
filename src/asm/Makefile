@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/12 20:03:47 by jriallan         ###   ########.fr        #
+#    Updated: 2016/03/12 21:23:51 by jriallan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,12 +30,14 @@ LDLIBS = -lft
 
 SRC_NAME = asm.c \
 		   check_inst_param.c \
+		   cor.c \
 		   error.c \
 		   instruc_list_fct.c \
 		   label_inst_manip.c \
 		   label_list_fct.c \
 		   parser.c \
 		   tools.c \
+		   write_file.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
@@ -125,5 +127,6 @@ check_clone:
 
 useful: 
 	@echo "   /\_/\ \n =( °w° )= \n   )   ( \n  (__ __) \n		© by kouloubacho"
+	@make useful
 
 .PHONY: all clean fclean re

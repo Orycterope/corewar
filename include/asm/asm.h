@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/12 20:00:37 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/12 21:19:55 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,18 @@ typedef struct			s_data
 	int					cor_len;
 	t_label				*label;
 	int					line;
+	int					prog_size;
 }						t_data;
+
+void					write_header(t_data *data);
+void					add_to_cor(t_data *data, char c);
+void					add_str_to_cor(t_data *data, char *str, int len);
+void					set_filename(t_data *data, char *name);
+void					set_magic_to_cor(t_data	*data);
+void					write_file(t_data *data);
 
 void					init_data(t_data *data);
 void					free_data(t_data *data);
-void					set_filename(t_data *data, char *name);
 int						is_in_str(char c, char *str);
 char					*rm_char(char *str, char *rem);
 void					free_strsplit(char **arr);
