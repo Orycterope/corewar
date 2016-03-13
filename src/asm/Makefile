@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/12 21:23:51 by jriallan         ###   ########.fr        #
+#    Updated: 2016/03/13 18:32:15 by rporcon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC_NAME = asm.c \
 		   instruc_list_fct.c \
 		   label_inst_manip.c \
 		   label_list_fct.c \
+		   check_reg_d_ind.c \
 		   parser.c \
 		   tools.c \
 		   write_file.c \

@@ -6,27 +6,48 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 10:53:52 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/12 19:07:15 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/13 18:31:03 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
+char	check_first_1param(char *str, t_instruc *inst)
+{
+	char	ocp;
+	
+	ocp = '0';
+	if (inst->opcode == 12 || inst->opcode == 15 || inst->opcode == 9
+		|| inst->opcode == 1)
+	{
+		if (str[0] == DIRECT_CHAR)
+			check_direct(str);
+		return (ocp);
+	}
+	else if (inst->opcode == 16 && str[0] == 'r')
+	{
+		check_reg(str);
+		return (ocp);
+	}
+	return (ocp);
+}
 
 char	check_first_2param(char *str, t_instruc *inst)
 {
 	char	ocp;
 
-	ocp = '0'; // just for init error, wait ocp_fct
-	if (inst->opcode == 3)
+	ocp = '0';
+	if (inst->opcode == 3 && str[0] == 'r')
 	{
 		check_reg(str);
 		return (ocp);
 	}
 	else if (inst->opcode == 2 || inst->opcode == 13)
 	{
-		check_direct(str);
-		check_indirect(str);
+		if (str[0] == DIRECT_CHAR)
+			check_direct(str);
+		else
+			check_indirect(str);
 		return (ocp);
 	}
 	return (0);
@@ -35,50 +56,103 @@ char	check_first_2param(char *str, t_instruc *inst)
 char	check_second_2param(char *str, t_instruc *inst)
 {
 	char	ocp;
+	char	*trim;
 
-	ocp = '0'; // just for init error, wait ocp_fct
-	if (inst->opcode == 2 || inst->opcode == 13)
+	ocp = '0';
+	trim = ft_strtrim(str);
+	if ((inst->opcode == 2 || inst->opcode == 13) && trim[0] == 'r')
 	{
-		check_reg(str);
+		check_reg(trim);
 		return (ocp);
 	}
 	else if (inst->opcode == 3)
 	{
-		check_indirect(str);
-		check_reg(str);
+		check_indirect(trim);
+		if (trim[0] == 'r')
+			check_reg(trim);
 		return (ocp);
 	}
 	return (0);
 }
 
-void	check_reg(char *str)
+char	check_first_3param(char *str, t_instruc *inst)
 {
-	int		i;
-	int		reg_check;
+	char	ocp;
 
-	i = 1;
-	reg_check = 0;
-	if (ft_isdigit(str[i]))
-		reg_check = ft_atoi(str + i);
-	while (str[i])
+	ocp = '0';
+	if ((inst->opcode == 11 || inst->opcode == 4 || inst->opcode == 5) &&
+		str[0] == 'r')
 	{
-		if (ft_isdigit(str[i]) == 0)
-			error("reg error");
-		i++;
+		check_reg(str);
+		return (ocp);
 	}
-	if (str[0] != 'r' || reg_check < 0 || reg_check > 99 || is_in_str('r',
-				str) > 1)
-		error("reg error");
+	else if (inst->opcode == 6 || inst->opcode == 7 || inst->opcode == 8 ||
+			inst->opcode == 10 || inst->opcode == 14)
+	{
+		if (str[0] == 'r')
+			check_reg(str);
+		else if (str[0] == DIRECT_CHAR)
+			check_direct(str);
+		else 
+			check_indirect(str);
+	}
+	return (ocp);
 }
 
-void	check_direct(char *str)
+char	check_second_3param(char *str, t_instruc *inst)
 {
-	if (str[0] != '%' && is_in_str('%', str) != 1)
-		error("direct error");
+	char	ocp;
+	char	*trim;
+
+	ocp = '0';
+	trim = ft_strtrim(str);
+	if ((inst->opcode == 4 || inst->opcode == 5) && str[0] == 'r')
+	{
+		check_reg(trim);
+		return (ocp);
+	}
+	else if (inst->opcode == 11 || inst->opcode == 6 || inst->opcode == 7 ||
+			inst->opcode == 8)
+	{
+		if (trim[0] == 'r')
+			check_reg(trim);
+		else if (trim[0] == DIRECT_CHAR)
+			check_direct(trim);
+		else
+			check_indirect(trim);
+		return (ocp);
+	}
+	else if (inst->opcode == 10 || inst->opcode == 14)
+	{
+		if (trim[0] == DIRECT_CHAR)
+			check_direct(trim);	
+		else if (trim[0] == 'r')
+			check_reg(trim);
+		return (ocp);
+	}
+	return (ocp);
 }
 
-void	check_indirect(char *str)
+char	check_third_3param(char *str, t_instruc *inst)
 {
-	if (str[0] != ':' && ft_isdigit(str[0]) == 0)
-		error("indirect error");
+	char	ocp;
+	char	*trim;
+
+	ocp = '0';
+	trim = ft_strtrim(str);
+	if ((inst->opcode == 4 || inst->opcode == 5 || inst->opcode == 6 ||
+		inst->opcode == 7 || inst->opcode == 8 || inst->opcode == 10 ||
+		inst->opcode == 14) && str[0] == 'r')
+	{
+		check_reg(trim);
+		return (ocp);
+	}
+	else if (inst->opcode == 1)
+	{
+		if (trim[0] == DIRECT_CHAR)
+			check_direct(trim);
+		else if (trim[0] == 'r')
+			check_reg(trim);
+	}
+	return (ocp);
 }

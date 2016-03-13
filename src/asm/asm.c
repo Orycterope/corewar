@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 19:38:06 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/12 21:43:21 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/13 10:24:34 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,10 @@ void	usage(int argc, char *argv[])
 int		main(int argc, char *argv[])
 {
 	t_data	data;
-	t_label	*lbl_lst;
 	int		fd;
 	int		i;
 
 	i = 1;
-	lbl_lst = NULL;
 	while (i < argc)
 	{
 		init_data(&data);

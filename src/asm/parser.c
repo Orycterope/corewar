@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 18:59:26 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/12 21:03:27 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/13 18:31:06 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,19 +102,25 @@ int		is_comment(char *str)
 
 void	parser(int fd, t_data *data)
 {
-	char	*buf;
+	char		*buf;
+	t_label		*lbl_lst;
+	t_instruc	*inst_lst;
 
 	buf = NULL;
+	lbl_lst = NULL;
+	inst_lst = NULL;
 	while (get_next_line(fd, &buf) > 0)
 	{
 		if (is_comment(buf))
 		{
-//			ft_putendl("com");
+			ft_putendl("com");
 		}
 		if (read_name_comment(data, buf))
 		{
-//			ft_putendl("name or comment");
+			ft_putendl("name or comment");
 		}
+		check_add_lbl(buf, lbl_lst);
+		check_add_instruc(buf, lbl_lst, inst_lst);
 		free(buf);
 		data->line++;
 	}

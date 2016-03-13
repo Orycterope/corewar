@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/12 21:19:55 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/13 18:33:40 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void					write_file(t_data *data);
 void					init_data(t_data *data);
 void					free_data(t_data *data);
 int						is_in_str(char c, char *str);
+char					*ft_pass_space_tab(char *str);
 char					*rm_char(char *str, char *rem);
 void					free_strsplit(char **arr);
 char					set_ocp(char ocp, char index, char val);
@@ -78,11 +79,17 @@ t_instruc				*inst_new_elem(char *name);
 void					addend_inst_lst(t_instruc **lst, t_instruc *new_elem);
 void					print_inst_lst(t_instruc **lst);
 int						check_add_lbl(char *buf, t_label *lbl_lst);
-int						check_add_instruc(char *buf, t_label *lbl_lst);
+int						check_add_instruc(char *buf, t_label *lbl_lst,
+						t_instruc *inst_lst);
+int						check_opcode_name(char *str);
 int						check_opcode(char *str, t_instruc *inst);
 void					check_opcode_suit(char *str, t_instruc *inst);
+char					check_first_1param(char *str, t_instruc *inst);
 char					check_first_2param(char *str, t_instruc *inst);
 char					check_second_2param(char *str, t_instruc *inst);
+char					check_first_3param(char *str, t_instruc *inst);
+char					check_second_3param(char *str, t_instruc *inst);
+char					check_third_3param(char *str, t_instruc *inst);
 void					check_reg(char *str);
 void					check_indirect(char *str);
 void					check_direct(char *str);
