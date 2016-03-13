@@ -6,13 +6,25 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2016/03/11 11:00:01 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/13 13:55:44 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/asm/asm.h"
+#include "op.h"
 
-t_op    op_tab[17] =
+typedef	struct	s_op
+{
+	char	*name;
+	int		param_nbr;
+	int		param_type[3];
+	char	op_code;
+	int		cycles;
+	char	*comment;
+	int		c1;
+	int		c2;
+}				t_op;
+
+t_op	op_tab[17] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
@@ -25,7 +37,7 @@ t_op    op_tab[17] =
 		"ou  (or   r1, r2, r3   r1 | r2 -> r3", 1, 0},
 	{"xor", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 8, 6,
 		"ou (xor  r1, r2, r3   r1^r2 -> r3", 1, 0},
-	{"zjmp", 1, {T_DIR}, 9, 20, "jump if zero", 0, 1},
+	{"zjmp", 1, {T_DIR}, 9, 20, "jump if (zero", 0, 1},
 	{"ldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 10, 25,
 		"load index", 1, 1},
 	{"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25,
