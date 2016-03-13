@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:55:35 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/13 14:10:30 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/13 16:32:29 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,20 @@ static char **create_copy_registers(char **registers, int player_id)
 
 	i = -1;
 	new = (char **)ft_memalloc(REG_NUMBER);
+	if (new == NULL)
+		return (NULL);
 	while (++i < REG_NUMBER)
 	{
-		new[i] = (char *)ft_memalloc(REG_SIZE);
+		new[i] = (char *)malloc(REG_SIZE);
+		if (new[i] == NULL)
+			return (new);
 		if (registers == NULL)
 			ft_bzero(new[i], REG_SIZE);
 		else
 			ft_memcpy(new[i], registers[i], REG_SIZE);
 	}
-	ft_write_big_endian((long long)player_id, new[0], REG_SIZE);
+	player_id++;
+	//ft_write_big_endian((long long)player_id, reg[0], REG_SIZE);
 	return (new);
 }
 
@@ -71,9 +76,12 @@ void	kill_process(t_process *process)
 			i = i->next;
 		i->next = process->next;
 	}
-	r = -1;
-	while (++r < REG_NUMBER)
-		free(process->registers[r]);
-	free(process->registers);
+	if (process->registers != NULL)
+	{
+		r = -1;
+		while (++r < REG_NUMBER && process->registers[r] != NULL)
+			free(process->registers[r]); //wy u not work ?
+		free(process->registers);
+	}
 	free(process);
 }
