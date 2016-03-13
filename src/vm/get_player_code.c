@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:12:23 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/13 14:49:49 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/13 15:05:37 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,16 @@ void		get_player_code(t_player *player)
 {
 	int				fd;
 	unsigned int	prog_size;
-	unsigned int	prog_size_read;
 
-	prog_size_read = 0;
+	player->champ_size = 0;
 	if ((fd = open(player->file_name, O_RDONLY)) < 0)
 	{
 		ft_printf("Error: Open file %s failed.", player->file_name);
 		exit(1);
 	}
 	get_input(fd, player, &prog_size);
-	player->begin = read_prog(fd, player->begin, &prog_size_read);
-	if (prog_size != prog_size_read)
+	player->begin = read_prog(fd, player->begin, &player->champ_size);
+	if (prog_size != player->champ_size)
 	{
 		ft_printf("Error: File %s has a code size that differs \
 from what its header says.\n", player->file_name);
