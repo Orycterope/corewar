@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:05:42 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/11 20:54:16 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/13 14:23:35 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,15 @@ void	display_champions(t_arena *arena)
 {
 	t_player	*i;
 	int			total;
-	int			n;
-	int			p;
 
 	ft_putendl("Introducing contestants...");
 	total = 0;
 	i = arena->players;
 	while (i != NULL)
 	{
-		total++;
-		i = i->next;
-	}
-	n = total;
-	while (n--)
-	{
-		i = arena->players;
-		p = n;
-		while (p--)
-			i = i->next;
 		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
 				i->id, i->champ_size, i->name, i->comment);
+		i = i->next;
 	}
 }
 
