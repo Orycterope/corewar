@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:27:55 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/13 14:33:54 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/13 18:49:02 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,8 @@ void			free_players(t_arena *arena)
 	while (current != NULL)
 	{
 		next = current->next;
+		free(current->name);
+		free(current->comment);
 		free(current);
 		current = next;
 	}

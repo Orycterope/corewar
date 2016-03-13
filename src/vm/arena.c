@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:05:42 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/13 14:23:35 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/13 18:49:50 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	destroy_arena(t_arena *arena)
 {
 	while (arena->processes != NULL)
 		kill_process(arena->processes);
+	free_players(arena);
 	free(arena->memory);
 	free(arena);
 }
