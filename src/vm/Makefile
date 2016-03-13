@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/11 18:53:35 by tvermeil         ###   ########.fr        #
+#    Updated: 2016/03/13 13:57:01 by tvermeil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRC_NAME =	arena.c \
 			get_input.c \
 			get_player_code.c \
 			main.c \
-			#op.c \
+			op.c \
 
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
