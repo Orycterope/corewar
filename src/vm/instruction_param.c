@@ -6,13 +6,17 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 15:39:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/13 21:38:09 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/13 22:49:22 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "process.h"
 #include "libft.h"
 #include "parameters.h"
+#include "instructions.h"
+#include "operation.h"
+
+extern t_op	g_op_tab[17];
 
 void		decode_ocp(t_process *process, t_parameters *param)
 {
@@ -71,7 +75,22 @@ int			check_registers(t_parameters param, t_process *process)
 	return (0);
 }
 
-int			sti(t_process *process)
+int			execute_instruction(t_process *process)
+{
+	int(*instruction[16])(t_process *process) =
+	{alive, load, store, addition, soustraction, ft_and, ft_or, ft_xor, zjump, load_index,
+		store_index, ft_fork, long_load, long_load_index, long_fork, aff};
+	int	i;
+
+	i = 0;
+	while (g_op_tab[i].op_code != process->pc[0] && i < 16)
+		i++;
+	if (i == 16)
+		return (1);
+	return ((*instruction[i])(process));
+}
+
+int			store_index(t_process *process)
 {
 	t_parameters	param;
 
@@ -84,7 +103,6 @@ int			sti(t_process *process)
 	params_value(process, &param);
 	if (param.value[0] > REG_NUMBER || check_registers(param, process) == 1)
 		return (param.jump);
-	ft_write_big_endian(0x78eaf202, process->registers[0], 4);
 	ft_memcpy(process->pc + param.value[1] + param.value[2],
 			process->registers[param.value[0] - 1], REG_SIZE);
 	return (param.jump);

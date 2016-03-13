@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:37:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/11 21:30:15 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/13 22:52:01 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static char			*get_name(int fd, char *buf, int ret, int i)
 
 	name = ft_memalloc(PROG_NAME_LENGTH + 1);
 	name[PROG_NAME_LENGTH] = '\0';
-	while (i < PROG_NAME_LENGTH + 4) //
+	while (i < PROG_NAME_LENGTH)
 	{
 		if ((ret = read(fd, buf, BUFF_SIZE)) == -1)
 		{
@@ -54,6 +54,15 @@ static char			*get_name(int fd, char *buf, int ret, int i)
 		}
 		else
 			name[i] = buf[0];
+		i++;
+	}
+	while (i < PROG_NAME_LENGTH + 4)
+	{
+		if ((ret = read(fd, buf, BUFF_SIZE)) == -1)
+		{
+			ft_putendl("Error : The reading has failed.");
+			exit(1);
+		}
 		i++;
 	}
 	return (name);
@@ -83,7 +92,7 @@ static char			*get_comment(int fd, char *buf, int ret, int i)
 
 	comment = ft_memalloc(COMMENT_LENGTH + 1);
 	comment[COMMENT_LENGTH] = '\0';
-	while (i < COMMENT_LENGTH + 4)
+	while (i < COMMENT_LENGTH)
 	{
 		if ((ret = read(fd, buf, BUFF_SIZE)) == -1)
 		{
@@ -92,6 +101,15 @@ static char			*get_comment(int fd, char *buf, int ret, int i)
 		}
 		else
 			comment[i] = buf[0];
+		i++;
+	}
+	while (i < COMMENT_LENGTH + 4)
+	{
+		if ((ret = read(fd, buf, BUFF_SIZE)) == -1)
+		{
+			ft_putendl("Error : The reading has failed.");
+			exit(1);
+		}
 		i++;
 	}
 	return (comment);
