@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:12:23 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/13 15:05:37 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/13 15:13:13 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		get_player_code(t_player *player)
 	player->champ_size = 0;
 	if ((fd = open(player->file_name, O_RDONLY)) < 0)
 	{
-		ft_printf("Error: Open file %s failed.", player->file_name);
+		ft_printf("Error: Open file %s failed.\n", player->file_name);
 		exit(1);
 	}
 	get_input(fd, player, &prog_size);
@@ -56,7 +56,7 @@ from what its header says.\n", player->file_name);
 	}
 	if ((close(fd)) == -1)
 	{
-		ft_printf("Error: Close file %s failed.", player->file_name);
+		ft_printf("Error: Close file %s failed.\n", player->file_name);
 		exit (1);
 	}
 }
