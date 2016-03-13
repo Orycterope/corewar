@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:22:14 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/13 22:22:40 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/13 23:20:39 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ typedef	struct	s_op
 	char	op_code;
 	int		cycles;
 	char	*comment;
-	int		c1;
+	int		has_ocp;
 	int		c2;
 }				t_op;
 
-#endif 
+#endif
