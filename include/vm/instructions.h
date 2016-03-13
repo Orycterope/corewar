@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:19:58 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/13 22:23:51 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/13 22:40:23 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int				ft_xor(t_process *process);
 int				zjump(t_process *process);
 int				load_index(t_process *process);
 int				store_index(t_process *process);
-int				fork(t_process *process);
+int				ft_fork(t_process *process);
 int				long_load(t_process *process);
 int				long_load_index(t_process *process);
 int				long_fork(t_process *process);
