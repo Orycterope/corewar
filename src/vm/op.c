@@ -6,23 +6,12 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2016/03/13 14:21:54 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/13 22:26:44 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
-
-typedef	struct	s_op
-{
-	char	*name;
-	int		param_nbr;
-	char	param_type[3];
-	char	op_code;
-	int		cycles;
-	char	*comment;
-	int		c1;
-	int		c2;
-}				t_op;
+#include "operation.h"
 
 t_op	g_op_tab[17] =
 {

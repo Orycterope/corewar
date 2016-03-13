@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:03:23 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/11 18:17:07 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/13 22:11:56 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct	s_arena
 }				t_arena;
 
 t_arena			*create_arena(void);
+char			*mem(char *ptr, int	idx, t_arena *arena);
 void			destroy_arena(t_arena *arena);
 void			display_champions(t_arena *arena);
 void			dump_memory(t_arena *arena);

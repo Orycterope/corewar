@@ -6,11 +6,12 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:55:35 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/13 18:38:33 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/13 22:01:56 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "process.h"
+#include "execution.h"
 
 static char **create_copy_registers(char **registers, int player_id)
 {
@@ -49,7 +50,7 @@ void	create_process(int player, char *pc, t_arena *arena, char **registers)
 	new->registers = create_copy_registers(registers, player);
 	new->pc = pc;
 	new->carry = 0;
-	new->cycles_to_wait = 0;
+	new->cycles_to_wait = get_wait_time(new);
 	new->lives = 0;
 	new->arena = arena;
 	new->next = arena->processes;

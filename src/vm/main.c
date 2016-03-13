@@ -6,11 +6,12 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:08:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/13 14:12:49 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/13 22:14:04 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "arena.h"
+#include "execution.c"
 
 static void	check_dump(char **argv, t_arena *arena)
 {
@@ -63,6 +64,7 @@ int				main(int argc, char **argv)
 	load_players(arena);
 	display_champions(arena);
 	dump_memory(arena);
+	start_fight(arena);
 	destroy_arena(arena);
 	return (0);
 }
