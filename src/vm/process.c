@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:55:35 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/13 16:32:29 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/13 18:38:33 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,21 @@ static char **create_copy_registers(char **registers, int player_id)
 	int			i;
 	char		**new;
 
-	i = -1;
-	new = (char **)ft_memalloc(REG_NUMBER);
+	new = (char **)malloc(sizeof(char *) * REG_NUMBER);
 	if (new == NULL)
 		return (NULL);
+	i = -1;
 	while (++i < REG_NUMBER)
 	{
 		new[i] = (char *)malloc(REG_SIZE);
 		if (new[i] == NULL)
-			return (new);
-		if (registers == NULL)
+			new[i] = NULL;
+		else if (registers == NULL)
 			ft_bzero(new[i], REG_SIZE);
 		else
 			ft_memcpy(new[i], registers[i], REG_SIZE);
 	}
-	player_id++;
-	//ft_write_big_endian((long long)player_id, reg[0], REG_SIZE);
+	ft_write_big_endian((long long)player_id, new[0], REG_SIZE);
 	return (new);
 }
 
@@ -80,7 +79,7 @@ void	kill_process(t_process *process)
 	{
 		r = -1;
 		while (++r < REG_NUMBER && process->registers[r] != NULL)
-			free(process->registers[r]); //wy u not work ?
+			free(process->registers[r]);
 		free(process->registers);
 	}
 	free(process);
