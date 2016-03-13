@@ -6,12 +6,13 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:08:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/13 22:49:45 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/13 22:59:31 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "arena.h"
 #include "parameters.h"
+#include "execution.h"
 
 static void	check_dump(char **argv, t_arena *arena)
 {
@@ -63,7 +64,7 @@ int				main(int argc, char **argv)
 	save_players(argc, argv, arena);
 	load_players(arena);
 	display_champions(arena);
-	execute_instruction(arena->processes);
+	start_fight(arena);
 	dump_memory(arena);
 	destroy_arena(arena);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 20:30:34 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/13 22:26:14 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/13 23:13:37 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void			start_fight(t_arena *arena)
 	while (arena->processes != NULL)
 	{
 		execute_processes(arena);
-		if (arena->cycle > arena->last_check_cycle + arena->cycle_to_die)
+		if (arena->cycle >= arena->last_check_cycle + arena->cycle_to_die)
 		{
 			lives = count_lives(arena);
 			check_processes(arena);
