@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:12:23 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/11 21:31:27 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/13 14:47:09 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void		get_player_code(t_player *player)
 	prog_size_read = 0;
 	if ((fd = open(player->file_name, O_RDONLY)) < 0)
 	{
-		ft_putendl("Error: Open failed.");
+		ft_printf("Error: Open file %s failed.", player->name);
 		exit(1);
 	}
 	get_input(fd, player, &prog_size);
@@ -52,7 +52,12 @@ void		get_player_code(t_player *player)
 	if (prog_size != prog_size_read)
 	{
 		ft_printf("Error: File %s has a code size that differs \
-				from what its header says\n", player->file_name);
+from what its header says.\n", player->file_name);
 		exit(1);
+	}
+	if ((close(fd)) == -1)
+	{
+		ft_printf("Error: Close file %s failed.", player->name);
+		exit (1);
 	}
 }
