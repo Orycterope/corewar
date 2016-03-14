@@ -6,18 +6,19 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:52:23 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/13 18:31:42 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/14 16:54:17 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int		check_add_lbl(char *buf, t_label *lbl_lst)
+int			check_add_lbl(char *buf, t_label *lbl_lst, t_data *data)
 {
-	t_label	*new_elem;
-	char	**sp_lbl_name;
-	char	*colon_chr;
+	t_label		*new_elem;
+	char		**sp_lbl_name;
+	char		*colon_chr;
 
+	data = data - 1 + 1; //
 	new_elem = NULL;
 	sp_lbl_name = NULL;
 	if (is_in_str(LABEL_CHAR, buf) == 1)
@@ -37,136 +38,102 @@ int		check_add_lbl(char *buf, t_label *lbl_lst)
 	return (0);
 }
 
-int		check_add_instruc(char *buf, t_label *lbl_lst, t_instruc
-		*inst_lst)
+int			check_add_instruc(char *buf, t_label *lbl_lst, t_instruc *inst_lst,
+								t_data *data)
 {
-	t_instruc	*new_elem;
 	t_label		*tmp_lbl;
 	char		*trim;
 	char		**inst_line;
+	t_instruc	*new_elem;
 
-	new_elem = NULL;
-	tmp_lbl = NULL;
-	inst_line = NULL;
-	trim = NULL;
+	init_check_add_instruc_var(&inst_line, &tmp_lbl, &trim, &new_elem);
 	if (lbl_lst)
 	{
 		tmp_lbl = lbl_lst;
 		while (tmp_lbl->next)
 			tmp_lbl = tmp_lbl->next;
 	}
-	if ((trim = ft_strtrim(buf)) == NULL)
-		error("Malloc error");
+	ft_printf("[%s]", buf);
+	if (*buf != '\0')
+		trim = real_trim(buf);
 	if (is_in_str(' ', trim) > 0)
 	{
 		if ((inst_line = ft_strsplit(trim, ' ')) == NULL)
 			error("Malloc error");
-		new_elem = inst_new_elem(inst_line[0]);
+//		ft_printf("(%s)\n", trim);
+/*		ft_printf("[%s]-\n", inst_line[0]);
+		ft_printf("[%s]\n", inst_line[1]); */
+//		ft_putnbr(is_in_str(SEPARATOR_CHAR, trim));
+//		ft_putnbr(check_opcode_name(inst_line[0]));
+//		ft_printf("{%d}\n", is_in_str(SEPARATOR_CHAR, trim));
 		if (is_in_str(SEPARATOR_CHAR, trim) == 0 && check_opcode_name(
 			inst_line[0]) == 1)
-		{
-			if (check_opcode(inst_line[0], new_elem) == 1)
-				check_opcode_suit(inst_line[0], new_elem);
-			check_first_1param(inst_line[0], new_elem);
-			new_elem->param_1 = inst_line[1];
-			addend_inst_lst(&inst_lst, new_elem);
-			if (tmp_lbl)
-				tmp_lbl->insts = new_elem;	
-			return (1);
-		}
+			new_elem = inst_one_param(inst_line, inst_lst, data);
 		else if (is_in_str(SEPARATOR_CHAR, trim) == 1 && check_opcode_name(
 				inst_line[0]) == 1)
-		{
-			if (check_opcode(inst_line[0], new_elem) == 1)
-				check_opcode_suit(inst_line[0], new_elem);
-			// first p
-			check_first_2param(inst_line[1], new_elem);
-			new_elem->param_1 = inst_line[1];
-			if ((inst_line = ft_strsplit(trim, SEPARATOR_CHAR)) == NULL)
-				error("Malloc error");
-			// second p
-			check_second_2param(inst_line[1], new_elem);
-			new_elem->param_2 = ft_pass_space_tab(inst_line[1]);
-			addend_inst_lst(&inst_lst, new_elem);
-			if (tmp_lbl)
-				tmp_lbl->insts = new_elem;
-			return (1);
-		}
+			new_elem = inst_two_params(inst_line, inst_lst, trim, data);
 		else if (is_in_str(SEPARATOR_CHAR, trim) == 2 && check_opcode_name(
 				inst_line[0]) == 1)
-		{
-			if (check_opcode(inst_line[0], new_elem) == 1)
-				check_opcode_suit(inst_line[0], new_elem);
-			check_first_3param(inst_line[1], new_elem);
-			new_elem->param_1 = inst_line[1];
-			if ((inst_line = ft_strsplit(trim, SEPARATOR_CHAR)) == NULL)
-				error("Malloc error");
-			check_second_3param(inst_line[1], new_elem);
-			new_elem->param_2 = ft_pass_space_tab(inst_line[1]);
-			check_third_3param(inst_line[2], new_elem);
-			new_elem->param_3 = ft_pass_space_tab(inst_line[2]);
-			addend_inst_lst(&inst_lst, new_elem);
-			if (tmp_lbl)
-				tmp_lbl->insts = new_elem;
-			return (1);
-		}
+			new_elem = inst_three_params(inst_line, inst_lst, trim, data);
+		if (tmp_lbl && new_elem != NULL)
+			tmp_lbl->insts = new_elem;
 	}
+	ft_putendl("END");
 	return (0);
 }
 
-int		check_opcode_name(char *str)
-{	
-	if (ft_strcmp(str, "lfork") == 0 || ft_strcmp(str, "sti") == 0 ||
-		ft_strcmp(str, "fork") == 0 || ft_strcmp(str, "lld") == 0 ||
-		ft_strcmp(str, "ld") == 0 || ft_strcmp(str, "ld") == 0 ||
-		ft_strcmp(str, "add") == 0 || ft_strcmp(str, "zjmp") == 0 ||
-		ft_strcmp(str, "sub") == 0 || ft_strcmp(str, "ldi") == 0 ||
-		ft_strcmp(str, "st") == 0 || ft_strcmp(str, "add") == 0 ||
-		ft_strcmp(str, "live") == 0 || ft_strcmp(str, "xor") == 0 ||
-		ft_strcmp(str, "lldi") == 0 || ft_strcmp(str, "add") == 0)
-		return (1);
-	return (0);
-}
-
-int		check_opcode(char *str, t_instruc *inst)
+t_instruc	*inst_one_param(char **inst_line, t_instruc *inst_lst, t_data *data)
 {
-	if (ft_strcmp(str, "lfork") == 0)
-		inst->opcode = 15;
-	else if (ft_strcmp(str, "sti") == 0)
-		inst->opcode = 11;
-	else if (ft_strcmp(str, "fork") == 0)
-		inst->opcode = 12;
-	else if (ft_strcmp(str, "lld") == 0)
-		inst->opcode = 13;
-	else if (ft_strcmp(str, "ld") == 0)
-		inst->opcode = 2;
-	else if (ft_strcmp(str, "add") == 0)
-		inst->opcode = 4;
-	else if (ft_strcmp(str, "zjmp") == 0)
-		inst->opcode = 9;
-	else if (ft_strcmp(str, "sub") == 0)
-		inst->opcode = 5;	
-	else if (ft_strcmp(str, "ldi") == 0)
-		inst->opcode = 10;
-	else if (ft_strcmp(str, "or") == 0)
-		inst->opcode = 7;
-	else
-		return (1);
-	return (0);
+	t_instruc	*new_elem;
+
+	new_elem = NULL;
+	new_elem = inst_new_elem(inst_line[0]);
+	if (check_opcode(inst_line[0], new_elem) == 1)
+		check_opcode_suit(inst_line[0], new_elem);
+	check_first_1param(inst_line[0], new_elem, data);
+	new_elem->param_1 = inst_line[1];
+	addend_inst_lst(&inst_lst, new_elem);
+	return (new_elem);
 }
 
-void	check_opcode_suit(char *str, t_instruc *inst)
+t_instruc	*inst_two_params(char **inst_line, t_instruc *inst_lst, char *trim,
+								t_data *data)
 {
-	if (ft_strcmp(str, "st") == 0)
-		inst->opcode = 3;
-	else if (ft_strcmp(str, "aff") == 0)
-		inst->opcode = 16;
-	else if (ft_strcmp(str, "live") == 0)
-		inst->opcode = 1;
-	else if (ft_strcmp(str, "xor") == 0)
-		inst->opcode = 8;
-	else if (ft_strcmp(str, "lldi") == 0)
-		inst->opcode = 14;
-	else if (ft_strcmp(str, "add") == 0)
-		inst->opcode = 6;
+	t_instruc	*new_elem;
+
+	new_elem = NULL;
+	new_elem = inst_new_elem(inst_line[0]);
+	if (check_opcode(inst_line[0], new_elem) == 1)
+		check_opcode_suit(inst_line[0], new_elem);
+	// first p
+	check_first_2param(inst_line[1], new_elem, data);
+	new_elem->param_1 = inst_line[1];
+	if ((inst_line = ft_strsplit(trim, SEPARATOR_CHAR)) == NULL)
+		error("Malloc error");
+	// second p
+	check_second_2param(inst_line[1], new_elem, data);
+	new_elem->param_2 = ft_pass_space_tab(inst_line[1]);
+	addend_inst_lst(&inst_lst, new_elem);
+	return (new_elem);
+}
+
+t_instruc	*inst_three_params(char **inst_line, t_instruc *inst_lst,
+			char *trim, t_data *data)
+{
+	t_instruc	*new_elem;
+
+	new_elem = NULL;
+	new_elem = inst_new_elem(inst_line[0]);
+	if (check_opcode(inst_line[0], new_elem) == 1)
+		check_opcode_suit(inst_line[0], new_elem);
+	check_first_3param(inst_line[1], new_elem, data);
+	new_elem->param_1 = inst_line[1];
+	if ((inst_line = ft_strsplit(trim, SEPARATOR_CHAR)) == NULL)
+		error("Malloc error");
+	check_second_3param(inst_line[1], new_elem, data);
+	new_elem->param_2 = ft_pass_space_tab(inst_line[1]);
+	check_third_3param(inst_line[2], new_elem, data);
+	new_elem->param_3 = ft_pass_space_tab(inst_line[2]);
+	addend_inst_lst(&inst_lst, new_elem);
+	return (new_elem);
 }

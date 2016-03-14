@@ -6,17 +6,18 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 12:44:03 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/13 18:31:46 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/14 16:40:46 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	check_reg(char *str)
+void	check_reg(char *str, t_data *data)
 {
 	int		i;
 	int		reg_check;
 
+	data = data - 1 + 1; //
 	i = 1;
 	reg_check = 0;
 	if (ft_isdigit(str[i]) == 1)
@@ -31,17 +32,20 @@ void	check_reg(char *str)
 		error("reg error");
 }
 
-void	check_direct(char *str)
+void	check_direct(char *str, t_data *data)
 {
+	data = data - 1 + 1; //
+
 	if (str[0] != '%' && is_in_str('%', str) != 1)
 		error("direct error");
 }
 
-void	check_indirect(char *str)
+void	check_indirect(char *str, t_data *data)
 {
 	int		i;
 	int		ind_check;
 
+	data = data - 1 + 1; //
 	i = 1;
 	ind_check = 0;
 	if (str[0] == ':')
