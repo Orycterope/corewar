@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:52:23 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/14 16:54:17 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/14 17:14:25 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,11 @@ int			check_add_instruc(char *buf, t_label *lbl_lst, t_instruc *inst_lst,
 		while (tmp_lbl->next)
 			tmp_lbl = tmp_lbl->next;
 	}
-	ft_printf("[%s]", buf);
-	if (*buf != '\0')
-		trim = real_trim(buf);
+	trim = real_trim(buf);
 	if (is_in_str(' ', trim) > 0)
 	{
 		if ((inst_line = ft_strsplit(trim, ' ')) == NULL)
 			error("Malloc error");
-//		ft_printf("(%s)\n", trim);
-/*		ft_printf("[%s]-\n", inst_line[0]);
-		ft_printf("[%s]\n", inst_line[1]); */
-//		ft_putnbr(is_in_str(SEPARATOR_CHAR, trim));
-//		ft_putnbr(check_opcode_name(inst_line[0]));
-//		ft_printf("{%d}\n", is_in_str(SEPARATOR_CHAR, trim));
 		if (is_in_str(SEPARATOR_CHAR, trim) == 0 && check_opcode_name(
 			inst_line[0]) == 1)
 			new_elem = inst_one_param(inst_line, inst_lst, data);
@@ -78,7 +70,6 @@ int			check_add_instruc(char *buf, t_label *lbl_lst, t_instruc *inst_lst,
 		if (tmp_lbl && new_elem != NULL)
 			tmp_lbl->insts = new_elem;
 	}
-	ft_putendl("END");
 	return (0);
 }
 
@@ -105,12 +96,10 @@ t_instruc	*inst_two_params(char **inst_line, t_instruc *inst_lst, char *trim,
 	new_elem = inst_new_elem(inst_line[0]);
 	if (check_opcode(inst_line[0], new_elem) == 1)
 		check_opcode_suit(inst_line[0], new_elem);
-	// first p
 	check_first_2param(inst_line[1], new_elem, data);
 	new_elem->param_1 = inst_line[1];
 	if ((inst_line = ft_strsplit(trim, SEPARATOR_CHAR)) == NULL)
 		error("Malloc error");
-	// second p
 	check_second_2param(inst_line[1], new_elem, data);
 	new_elem->param_2 = ft_pass_space_tab(inst_line[1]);
 	addend_inst_lst(&inst_lst, new_elem);

@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 12:44:03 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/14 16:40:46 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/14 17:14:21 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	check_reg(char *str, t_data *data)
 void	check_direct(char *str, t_data *data)
 {
 	data = data - 1 + 1; //
-
 	if (str[0] != '%' && is_in_str('%', str) != 1)
 		error("direct error");
 }

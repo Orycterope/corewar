@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 10:53:52 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/14 16:14:31 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/14 17:14:23 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	check_second_2param(char *str, t_instruc *inst, t_data *data)
 	char	ocp;
 	char	*trim;
 
-	data = data - 1 + 1; //	
+	data = data - 1 + 1; //
 	ocp = '0';
 	trim = ft_strtrim(str);
 	if ((inst->opcode == 2 || inst->opcode == 13) && trim[0] == 'r')
@@ -82,7 +82,7 @@ char	check_first_3param(char *str, t_instruc *inst, t_data *data)
 {
 	char	ocp;
 
-	data = data - 1 + 1; //	
+	data = data - 1 + 1; //
 	ocp = '0';
 	ft_printf("%s", str);
 	if ((inst->opcode == 11 || inst->opcode == 4 || inst->opcode == 5) &&
@@ -98,7 +98,7 @@ char	check_first_3param(char *str, t_instruc *inst, t_data *data)
 			check_reg(str, data);
 		else if (str[0] == DIRECT_CHAR)
 			check_direct(str, data);
-		else 
+		else
 			check_indirect(str, data);
 	}
 	return (ocp);
@@ -109,7 +109,7 @@ char	check_second_3param(char *str, t_instruc *inst, t_data *data)
 	char	ocp;
 	char	*trim;
 
-	data = data - 1 + 1; //	
+	data = data - 1 + 1; //
 	ocp = '0';
 	trim = ft_strtrim(str);
 	if ((inst->opcode == 4 || inst->opcode == 5) && str[0] == 'r')
@@ -144,7 +144,7 @@ char	check_third_3param(char *str, t_instruc *inst, t_data *data)
 	char	ocp;
 	char	*trim;
 
-	data = data - 1 + 1; //	
+	data = data - 1 + 1; //
 	ocp = '0';
 	trim = ft_strtrim(str);
 	if ((inst->opcode == 4 || inst->opcode == 5 || inst->opcode == 6 ||
