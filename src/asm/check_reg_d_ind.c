@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 12:44:03 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/14 17:14:21 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/14 19:48:22 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,25 @@ void	check_reg(char *str, t_data *data)
 	int		i;
 	int		reg_check;
 
-	data = data - 1 + 1; //
 	i = 1;
 	reg_check = 0;
 	if (ft_isdigit(str[i]) == 1)
 		reg_check = ft_atoi(str + i);
-	while (str[i] && str[i] != ',')
+	while (str[i] != '\0' && str[i] != ',')
 	{
 		if (ft_isdigit(str[i]) != 1)
-			error("reg error");
+			error_line(data, "reg error");
 		i++;
 	}
 	if (str[0] != 'r' || reg_check < 0 || is_in_str('r', str) > 1)
-		error("reg error");
+		error_line(data, "reg error");
 }
 
 void	check_direct(char *str, t_data *data)
 {
 	data = data - 1 + 1; //
 	if (str[0] != '%' && is_in_str('%', str) != 1)
-		error("direct error");
+		error_line(data, "direct error");
 }
 
 void	check_indirect(char *str, t_data *data)

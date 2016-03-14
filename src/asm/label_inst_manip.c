@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:52:23 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/14 17:14:25 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/14 19:48:19 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ int			check_add_lbl(char *buf, t_label *lbl_lst, t_data *data)
 	{
 		if ((sp_lbl_name = ft_strsplit(buf, LABEL_CHAR)) == NULL)
 			error("Malloc error");
-		colon_chr = ft_strchr(buf, LABEL_CHAR);
+		if (!(colon_chr = ft_strchr(buf, LABEL_CHAR)) || buf == colon_chr)
+			return (0);
 		colon_chr = colon_chr - 1;
-		if (*colon_chr != DIRECT_CHAR && *colon_chr != ' '
-			&& *colon_chr != '	')
+		if (is_in_str(*colon_chr, " \t") == 0 && (*colon_chr) != DIRECT_CHAR)
 		{
 			new_elem = lbl_new_elem(sp_lbl_name[0]);
 			addend_lbl_lst(&lbl_lst, new_elem);
+			return (1);
 		}
-		return (1);
 	}
 	return (0);
 }
@@ -67,8 +67,11 @@ int			check_add_instruc(char *buf, t_label *lbl_lst, t_instruc *inst_lst,
 		else if (is_in_str(SEPARATOR_CHAR, trim) == 2 && check_opcode_name(
 				inst_line[0]) == 1)
 			new_elem = inst_three_params(inst_line, inst_lst, trim, data);
+		else
+			return (0);
 		if (tmp_lbl && new_elem != NULL)
-			tmp_lbl->insts = new_elem;
+			tmp_lbl->insts = new_elem; // need to check
+		return (1);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 16:18:27 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/14 16:59:41 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/14 19:07:59 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ char	*real_trim(char *str)
 		return (NULL);
 	while (str[i] != '\0')
 		i = next_word(&buf, &buf_len, str, i);
+	add_to_buf(&buf, &buf_len, '\0');
 	return (buf);
 }

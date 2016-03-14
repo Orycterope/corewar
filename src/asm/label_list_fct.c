@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 10:53:16 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/12 18:37:49 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/14 19:42:34 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_label		*lbl_new_elem(char *name)
 	if (new_element != NULL)
 	{
 		new_element->next = NULL;
+		new_element->insts = NULL;
 		new_element->name = name;
 	}
 	return (new_element);

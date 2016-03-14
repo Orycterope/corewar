@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/14 17:14:26 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/14 19:48:17 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int						check_add_instruc(char *buf, t_label *lbl_lst,
 int						check_opcode_name(char *str);
 int						check_opcode(char *str, t_instruc *inst);
 void					check_opcode_suit(char *str, t_instruc *inst);
-char					check_first_1param(char *str, t_instruc *inst,
+void					check_first_1param(char *str, t_instruc *inst,
 						t_data *data);
 char					check_first_2param(char *str, t_instruc *inst,
 						t_data *data);
