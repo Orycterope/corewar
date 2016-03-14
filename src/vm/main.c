@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:08:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/13 22:59:31 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/14 19:15:27 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static void	print_winner(t_arena *arena)
 The winner is %s ! Its last words : \"%s\".",
 best->last_live, best->name, best->comment);
 }
+
 int				main(int argc, char **argv)
 {
 	t_arena	*arena;

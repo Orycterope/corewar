@@ -9,7 +9,7 @@ int			ft_write_big_endian(long long n, void *dst, size_t lenght)
 		return (0);
 	dest = (char *)(dst + lenght - 1);
 	i = 0;
-	while (i < lenght && n != 0)
+	while (i < lenght)
 	{
 		*dest-- = (n & 0xFF);
 		n >>= 8;
