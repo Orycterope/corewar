@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/15 14:35:45 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/15 18:06:22 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <unistd.h>
 # include "../../include/libft/get_next_line.h"
 # include "op.h"
-# include "op.c"
 
 typedef struct			s_instruc
 {
@@ -62,14 +61,7 @@ typedef	struct			s_op
 	int					c2;
 }						t_op;
 
-t_op	op_tab[17] =
-{
-	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
-	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
-	{"st", 2, {T_REG, T_IND | T_REG}, 3, 5, "store", 1, 0},
-	{"add", 3, {T_REG, T_REG, T_REG}, 4, 10, "addition", 1, 0},
-	{"sub", 3, {T_REG, T_REG, T_REG}, 5, 10, "soustraction", 1, 0},
-	{"and", 3, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}, 6, 6,
+extern t_op	g_op[];
 
 void					write_header(t_data *data);
 void					add_to_cor(t_data *data, char c);
@@ -106,7 +98,6 @@ int						check_add_instruc(char *buf, t_label *lbl_lst,
 						t_instruc *inst_lst, t_data *data);
 int						check_opcode_name(char *str);
 int						check_opcode(char *str, t_instruc *inst);
-void					check_opcode_suit(char *str, t_instruc *inst);
 void					check_first_1param(char *str, t_instruc *inst,
 						t_data *data);
 char					check_first_2param(char *str, t_instruc *inst,

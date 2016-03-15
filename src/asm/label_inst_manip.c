@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:52:23 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/15 14:35:49 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/15 17:56:57 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,7 @@ t_instruc	*inst_one_param(char **inst_line, t_instruc *inst_lst, t_data *data)
 
 	new_elem = NULL;
 	new_elem = inst_new_elem(inst_line[0]);
-	if (check_opcode(inst_line[0], new_elem) == 1)
-		check_opcode_suit(inst_line[0], new_elem);
+	check_opcode(inst_line[0], new_elem); 
 	check_first_1param(inst_line[0], new_elem, data);
 	new_elem->param_1 = inst_line[1];
 	addend_inst_lst(&inst_lst, new_elem);
@@ -100,8 +99,7 @@ t_instruc	*inst_two_params(char **inst_line, t_instruc *inst_lst, char *trim,
 
 	new_elem = NULL;
 	new_elem = inst_new_elem(inst_line[0]);
-	if (check_opcode(inst_line[0], new_elem) == 1)
-		check_opcode_suit(inst_line[0], new_elem);
+	check_opcode(inst_line[0], new_elem);
 	check_first_2param(inst_line[1], new_elem, data);
 	new_elem->param_1 = inst_line[1];
 	if ((inst_line = ft_strsplit(trim, SEPARATOR_CHAR)) == NULL)
@@ -119,8 +117,7 @@ t_instruc	*inst_three_params(char **inst_line, t_instruc *inst_lst,
 
 	new_elem = NULL;
 	new_elem = inst_new_elem(inst_line[0]);
-	if (check_opcode(inst_line[0], new_elem) == 1)
-		check_opcode_suit(inst_line[0], new_elem);
+	check_opcode(inst_line[0], new_elem);
 	check_first_3param(inst_line[1], new_elem, data);
 	new_elem->param_1 = inst_line[1];
 	if ((inst_line = ft_strsplit(trim, SEPARATOR_CHAR)) == NULL)
