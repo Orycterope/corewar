@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/14 19:48:17 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/15 14:35:45 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include "../../include/libft/get_next_line.h"
 # include "op.h"
+# include "op.c"
 
 typedef struct			s_instruc
 {
@@ -27,7 +28,7 @@ typedef struct			s_instruc
 	char				*param_1;
 	char				*param_2;
 	char				*param_3;
-	char				ocp;
+	int					ocp;
 }						t_instruc;
 
 typedef struct			s_label
@@ -49,6 +50,27 @@ typedef struct			s_data
 	int					prog_size;
 }						t_data;
 
+typedef	struct			s_op
+{
+	char				*name;
+	int					param_nbr;
+	int					param_type[3];
+	char				op_code;
+	int					cycles;
+	char				*comment;
+	int					c1;
+	int					c2;
+}						t_op;
+
+t_op	op_tab[17] =
+{
+	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
+	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
+	{"st", 2, {T_REG, T_IND | T_REG}, 3, 5, "store", 1, 0},
+	{"add", 3, {T_REG, T_REG, T_REG}, 4, 10, "addition", 1, 0},
+	{"sub", 3, {T_REG, T_REG, T_REG}, 5, 10, "soustraction", 1, 0},
+	{"and", 3, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}, 6, 6,
+
 void					write_header(t_data *data);
 void					add_to_cor(t_data *data, char c);
 void					add_str_to_cor(t_data *data, char *str, int len);
@@ -62,7 +84,7 @@ int						is_in_str(char c, char *str);
 char					*ft_pass_space_tab(char *str);
 char					*rm_char(char *str, char *rem);
 void					free_strsplit(char **arr);
-char					set_ocp(char ocp, char index, char val);
+int						set_ocp(int ocp, int index, int val);
 int						read_name_comment(t_data *data, char *str);
 void					parser(int fd, t_data *data);
 
@@ -101,8 +123,8 @@ t_instruc				*inst_one_param(char **inst_line, t_instruc *inst_lst,
 						t_data *data);
 t_instruc				*inst_two_params(char **inst_line, t_instruc *inst_lst,
 						char *trim, t_data *data);
-t_instruc				*inst_three_params(char **inst_line, t_instruc *inst_lst,
-						char *trim, t_data *data);
+t_instruc				*inst_three_params(char **inst_line, t_instruc *inst_lst
+						,char *trim, t_data *data);
 char					*real_trim(char *str);
 void					check_reg(char *str, t_data *data);
 void					check_indirect(char *str, t_data *data);

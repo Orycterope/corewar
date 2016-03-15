@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:52:23 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/14 19:48:19 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/15 14:35:49 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,10 @@ int			check_add_instruc(char *buf, t_label *lbl_lst, t_instruc *inst_lst,
 		else
 			return (0);
 		if (tmp_lbl && new_elem != NULL)
+		{
+			ft_putendl("{New elem add to lbl_list}");
 			tmp_lbl->insts = new_elem; // need to check
+		}
 		return (1);
 	}
 	return (0);

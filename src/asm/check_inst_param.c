@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 10:53:52 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/14 19:48:21 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/15 14:35:54 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,15 @@ void	check_first_1param(char *str, t_instruc *inst, t_data *data)
 		|| inst->opcode == 1)
 	{
 		if (str[0] == DIRECT_CHAR)
-		{
 			check_direct(str, data);
-			inst->ocp = set_ocp(inst->ocp, 0, 2); 
-		}
+		inst->ocp = set_ocp(inst->ocp, 0, 2); 
 	}
 	else if (inst->opcode == 16 && str[0] == 'r')
 	{
 		check_reg(str, data);
 		inst->ocp = set_ocp(inst->ocp, 0, 1);
 	}
+	ft_printf("->%X %D \n", inst->ocp, inst->ocp);
 }
 
 char	check_first_2param(char *str, t_instruc *inst, t_data *data)
