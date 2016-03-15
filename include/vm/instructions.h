@@ -6,28 +6,30 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:19:58 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/13 22:40:23 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/15 18:36:10 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef	INSTRUCTIONS_H
 # define INSTRUCTIONS_H
+# define PR	process->registers
+# define RBE	ft_read_big_endian
 
-int				alive(t_process *process);
-int				load(t_process *process);
-int				store(t_process *process);
-int				addition(t_process *process);
-int				soustraction(t_process *process);
-int				ft_and(t_process *process);
-int				ft_or(t_process *process);
-int				ft_xor(t_process *process);
-int				zjump(t_process *process);
-int				load_index(t_process *process);
-int				store_index(t_process *process);
-int				ft_fork(t_process *process);
-int				long_load(t_process *process);
-int				long_load_index(t_process *process);
-int				long_fork(t_process *process);
-int				aff(t_process *process);
+int				alive(t_process *process, int i);
+int				load(t_process *process, int i);
+int				store(t_process *process, int i);
+int				addition(t_process *process, int i);
+int				soustraction(t_process *process, int i);
+int				ft_and(t_process *process, int i);
+int				ft_or(t_process *process, int i);
+int				ft_xor(t_process *process, int i);
+int				zjump(t_process *process, int i);
+int				load_index(t_process *process, int i);
+int				store_index(t_process *process, int i);
+int				ft_fork(t_process *process, int i);
+int				long_load(t_process *process, int i);
+int				long_load_index(t_process *process, int i);
+int				long_fork(t_process *process, int i);
+int				aff(t_process *process, int i);
 
 #endif
