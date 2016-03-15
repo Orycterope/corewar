@@ -6,20 +6,22 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:05:42 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/13 22:13:01 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/15 17:30:32 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "arena.h"
 
-/*char	*mem(char *ptr, int	idx, t_arena *arena)
+char	*mem(char *pc, char	*dst, int idx, t_arena *arena)
 {
-	ptr -= arena->memory;
+	char	*ptr;
+
+	ptr = pc;
 	if (idx)
-		ptr %= IDX_MOD;
-	ptr %= MEM_SIZE;
-	return (ptr + arena->memory);
-}*/
+		ptr = pc + (dst - pc) % IDX_MOD;
+	ptr = arena->memory + (ptr - arena->memory) % MEM_SIZE;
+	return (ptr);
+}
 
 t_arena	*create_arena(void)
 {
