@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 16:28:11 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/15 17:57:02 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/16 12:22:17 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		check_opcode(char *str, t_instruc *inst)
 	i = 0;
 	while (g_op[i].name != 0)
 	{
-		if (ft_strcmp(str, g_op[i].name))
+		if (ft_strcmp(str, g_op[i].name) == 0)
 		{
 			inst->opcode = g_op[i].op_code;
 			return (1);

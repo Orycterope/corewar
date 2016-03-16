@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/15 18:06:22 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/16 12:22:41 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,18 @@ int						set_ocp(int ocp, int index, int val);
 int						read_name_comment(t_data *data, char *str);
 void					parser(int fd, t_data *data);
 
+/*
+** Error management:
+*/
 void					error_line(t_data *data, char *err);
 void					error_limit(t_data *data, char *err,char *str, int limit);
 void					error_at(char *err, int line, int column);
 void					error_str(t_data *data, char *err, char *str);
 void					error(char *err);
 
+/*
+** Label and Instructions:
+*/
 t_label					*lbl_new_elem(char *name);
 void					addend_lbl_lst(t_label **lst, t_label *new_elem);
 void					print_lbl_lst(t_label **lst);
@@ -95,7 +101,7 @@ void					print_inst_lst(t_instruc **lst);
 int						check_add_lbl(char *buf, t_label *lbl_lst,
 						t_data *data);
 int						check_add_instruc(char *buf, t_label *lbl_lst,
-						t_instruc *inst_lst, t_data *data);
+						t_instruc **inst_lst, t_data *data);
 int						check_opcode_name(char *str);
 int						check_opcode(char *str, t_instruc *inst);
 void					check_first_1param(char *str, t_instruc *inst,
@@ -110,12 +116,12 @@ char					check_second_3param(char *str, t_instruc *inst,
 						t_data *data);
 char					check_third_3param(char *str, t_instruc *inst,
 						t_data *data);
-t_instruc				*inst_one_param(char **inst_line, t_instruc *inst_lst,
+t_instruc				*inst_one_param(char **inst_line, t_instruc **inst_lst,
 						t_data *data);
-t_instruc				*inst_two_params(char **inst_line, t_instruc *inst_lst,
+t_instruc				*inst_two_params(char **inst_line, t_instruc **inst_lst,
 						char *trim, t_data *data);
-t_instruc				*inst_three_params(char **inst_line, t_instruc *inst_lst
-						,char *trim, t_data *data);
+t_instruc				*inst_three_params(char **inst_line, t_instruc
+						**inst_lst, char *trim, t_data *data);
 char					*real_trim(char *str);
 void					check_reg(char *str, t_data *data);
 void					check_indirect(char *str, t_data *data);

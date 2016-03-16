@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:52:23 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/15 17:56:57 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/16 12:22:37 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int			check_add_lbl(char *buf, t_label *lbl_lst, t_data *data)
 	return (0);
 }
 
-int			check_add_instruc(char *buf, t_label *lbl_lst, t_instruc *inst_lst,
+int			check_add_instruc(char *buf, t_label *lbl_lst, t_instruc **inst_lst,
 								t_data *data)
 {
 	t_label		*tmp_lbl;
@@ -79,7 +79,8 @@ int			check_add_instruc(char *buf, t_label *lbl_lst, t_instruc *inst_lst,
 	return (0);
 }
 
-t_instruc	*inst_one_param(char **inst_line, t_instruc *inst_lst, t_data *data)
+t_instruc	*inst_one_param(char **inst_line, t_instruc **inst_lst,
+						t_data *data)
 {
 	t_instruc	*new_elem;
 
@@ -88,11 +89,11 @@ t_instruc	*inst_one_param(char **inst_line, t_instruc *inst_lst, t_data *data)
 	check_opcode(inst_line[0], new_elem); 
 	check_first_1param(inst_line[0], new_elem, data);
 	new_elem->param_1 = inst_line[1];
-	addend_inst_lst(&inst_lst, new_elem);
+	addend_inst_lst(inst_lst, new_elem);
 	return (new_elem);
 }
 
-t_instruc	*inst_two_params(char **inst_line, t_instruc *inst_lst, char *trim,
+t_instruc	*inst_two_params(char **inst_line, t_instruc **inst_lst, char *trim,
 								t_data *data)
 {
 	t_instruc	*new_elem;
@@ -106,11 +107,11 @@ t_instruc	*inst_two_params(char **inst_line, t_instruc *inst_lst, char *trim,
 		error("Malloc error");
 	check_second_2param(inst_line[1], new_elem, data);
 	new_elem->param_2 = ft_pass_space_tab(inst_line[1]);
-	addend_inst_lst(&inst_lst, new_elem);
+	addend_inst_lst(inst_lst, new_elem);
 	return (new_elem);
 }
 
-t_instruc	*inst_three_params(char **inst_line, t_instruc *inst_lst,
+t_instruc	*inst_three_params(char **inst_line, t_instruc **inst_lst,
 			char *trim, t_data *data)
 {
 	t_instruc	*new_elem;
@@ -126,6 +127,6 @@ t_instruc	*inst_three_params(char **inst_line, t_instruc *inst_lst,
 	new_elem->param_2 = ft_pass_space_tab(inst_line[1]);
 	check_third_3param(inst_line[2], new_elem, data);
 	new_elem->param_3 = ft_pass_space_tab(inst_line[2]);
-	addend_inst_lst(&inst_lst, new_elem);
+	addend_inst_lst(inst_lst, new_elem);
 	return (new_elem);
 }
