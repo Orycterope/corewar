@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/16 12:22:41 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/16 16:03:13 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,18 +104,8 @@ int						check_add_instruc(char *buf, t_label *lbl_lst,
 						t_instruc **inst_lst, t_data *data);
 int						check_opcode_name(char *str);
 int						check_opcode(char *str, t_instruc *inst);
-void					check_first_1param(char *str, t_instruc *inst,
-						t_data *data);
-char					check_first_2param(char *str, t_instruc *inst,
-						t_data *data);
-char					check_second_2param(char *str, t_instruc *inst,
-						t_data *data);
-char					check_first_3param(char *str, t_instruc *inst,
-						t_data *data);
-char					check_second_3param(char *str, t_instruc *inst,
-						t_data *data);
-char					check_third_3param(char *str, t_instruc *inst,
-						t_data *data);
+void					check_params(char *str, t_instruc *inst, t_data *data,
+						int *order);
 t_instruc				*inst_one_param(char **inst_line, t_instruc **inst_lst,
 						t_data *data);
 t_instruc				*inst_two_params(char **inst_line, t_instruc **inst_lst,

@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 20:31:56 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/12 21:00:42 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/16 15:59:59 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	set_filename(t_data *data, char *name)
 	data->filename = tmp;
 }
 
-void	set_magic_to_cor(t_data	*data)
+void	set_magic_to_cor(t_data *data)
 {
 	int		magic;
 

@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 18:59:26 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/16 12:07:55 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/16 16:03:09 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void	parser(int fd, t_data *data)
 	inst_lst = NULL;
 	while (get_next_line(fd, &buf) > 0)
 	{
+//		ft_printf("{->%s<-}", buf);
 		if (is_comment(buf))
 			ft_putendl("[IS COMMENT]");
 		else if (read_name_comment(data, buf))
