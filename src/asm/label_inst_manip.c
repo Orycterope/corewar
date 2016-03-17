@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:52:23 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/17 12:42:39 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/17 16:22:33 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_instruc	*inst_one_param(char **inst_line, t_instruc **inst_lst,
 						t_data *data)
 {
 	t_instruc	*new_elem;
-	int			*order;
+	int			order;
 
 	new_elem = NULL;
 	order = 0;

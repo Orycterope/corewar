@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 11:59:12 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/17 12:42:44 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/17 16:10:46 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		is_indirect(char *trim, t_data *data, t_instruc *inst, int *order)
 	if (trim[0] == ':' || ft_isdigit(trim[0]) || trim[0] == '-'
 		|| trim[0] == '+')
 	{
-		check_direct(trim, data);
+		check_indirect(trim, data);
 		inst->ocp = set_ocp(inst->ocp, *order, 2);
 		*order = *order + 1;
 		return (1);

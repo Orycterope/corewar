@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 12:44:03 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/17 12:42:47 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/17 16:19:18 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ void	check_indirect(char *str, t_data *data)
 		while (str[i] && str[i] != ',')
 		{
 			if (ft_isdigit(str[i]) != 1)
-				error("indirect error");
+				error_line(data, "indirect error");
 			i++;
 		}
 	}
 	if (str[0] != ':' && ft_isdigit(str[0]) != 1)
-		error("indirect error");
+		error_line(data, "indirect error");
 }

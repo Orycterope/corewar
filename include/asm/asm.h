@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/17 14:25:19 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/17 16:22:48 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct			s_instruc
 	char				*param_1;
 	char				*param_2;
 	char				*param_3;
+	char				*trim;
 	int					ocp;
 }						t_instruc;
 
@@ -87,7 +88,7 @@ void					parser(t_data *data);
 ** Error management:
 */
 void					error_line(t_data *data, char *err);
-void					error_limit(t_data *data, char *err, char *str, int lm);
+void					error_limit(t_data *data, char *err,char *str, int limit);
 void					error_at(char *err, int line, int column);
 void					error_str(t_data *data, char *err, char *str);
 void					error(char *err);
@@ -116,6 +117,12 @@ t_instruc				*inst_two_params(char **inst_line, t_instruc **inst_lst,
 t_instruc				*inst_three_params(char **inst_line, t_instruc
 						**inst_lst, char *trim, t_data *data);
 char					*real_trim(char *str);
+void					if_one_param(int i, t_data *data, t_instruc *inst,
+						int *order);
+void					if_two_params(int i, t_data *data, t_instruc *inst,
+						int *order);
+void					if_three_params(int i, t_data *data, t_instruc *inst,
+						int *order);
 int						is_direct(char *trim, t_data *data, t_instruc *inst,
 						int *order);
 int						is_indirect(char *trim, t_data *data, t_instruc *inst,

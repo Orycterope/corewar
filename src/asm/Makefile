@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/17 12:46:25 by rporcon          ###   ########.fr        #
+#    Updated: 2016/03/17 16:21:18 by rporcon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ LDLIBS = -lft
 
 SRC_NAME =	asm.c \
 			check_inst_param.c \
-			check_inst_param_2.c \
+			if_params.c \
+			is_reg_d_ind.c \
 			check_reg_d_ind.c \
 			cor.c \
 			error.c \
