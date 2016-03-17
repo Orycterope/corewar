@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 12:44:03 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/14 20:38:16 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/17 12:42:47 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	check_reg(char *str, t_data *data)
 
 void	check_direct(char *str, t_data *data)
 {
-	data = data - 1 + 1; //
 	if (str[0] != '%' && is_in_str('%', str) != 1)
 		error_line(data, "direct error");
 }
@@ -43,7 +42,6 @@ void	check_indirect(char *str, t_data *data)
 	int		i;
 	int		ind_check;
 
-	data = data - 1 + 1; //
 	i = 1;
 	ind_check = 0;
 	if (str[0] == ':')
