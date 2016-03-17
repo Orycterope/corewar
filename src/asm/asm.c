@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 19:38:06 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/17 09:41:12 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/17 12:46:10 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_data(t_data *data)
 	data->cor_len = 0;
 	data->label = NULL;
 	data->line = 1;
-	data->prog_size = 10;
+	data->prog_size = 4294967295;
 }
 
 void	free_data(t_data *data)
@@ -46,7 +46,6 @@ void	usage(int argc, char *argv[])
 int		main(int argc, char *argv[])
 {
 	t_data	data;
-	int		fd;
 	int		i;
 
 	i = 1;
@@ -54,10 +53,10 @@ int		main(int argc, char *argv[])
 	{
 		init_data(&data);
 		set_filename(&data, argv[i]);
-		fd = open(argv[i], O_RDONLY);
-		if (fd < 0)
+		data.fd = open(argv[i], O_RDONLY);
+		if (data.fd < 0)
 			error("Open fail");
-		parser(fd, &data);
+		parser(&data);
 		write_header(&data);
 		//build();
 		write_file(&data);

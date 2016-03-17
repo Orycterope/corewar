@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 20:31:56 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/16 15:59:59 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/17 11:09:29 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,4 +106,3 @@ void	write_file(t_data *data)
 		error("Open fail");
 	write(fd, data->cor, data->cor_len);
 }
-

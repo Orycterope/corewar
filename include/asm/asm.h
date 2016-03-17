@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/17 12:42:35 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/17 12:45:59 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include "../../include/libft/get_next_line.h"
 # include "op.h"
+# include "error.h"
 
 typedef struct			s_instruc
 {
@@ -39,6 +40,7 @@ typedef struct			s_label
 
 typedef struct			s_data
 {
+	int					fd;
 	char				*filename;
 	char				*name;
 	char				*comment;
@@ -69,6 +71,7 @@ void					add_str_to_cor(t_data *data, char *str, int len);
 void					set_filename(t_data *data, char *name);
 void					set_magic_to_cor(t_data	*data);
 void					write_file(t_data *data);
+void					add_nm_cmt(t_data *data, char **s, int len, int index);
 
 void					init_data(t_data *data);
 void					free_data(t_data *data);
@@ -78,7 +81,7 @@ char					*rm_char(char *str, char *rem);
 void					free_strsplit(char **arr);
 int						set_ocp(int ocp, int index, int val);
 int						read_name_comment(t_data *data, char *str);
-void					parser(int fd, t_data *data);
+void					parser(t_data *data);
 
 /*
 ** Error management:

@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/17 12:36:11 by rporcon          ###   ########.fr        #
+#    Updated: 2016/03/17 12:46:25 by rporcon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -133,6 +133,8 @@ check_clone:
 
 useful: 
 	@echo "   /\_/\ \n =( °w° )= \n   )   ( \n  (__ __) \n		© by kouloubacho"
+	@pmset sleepnow
+	@sleep 6
 	@make useful
 
 .PHONY: all clean fclean re
