@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:52:23 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/16 16:03:11 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/17 12:42:39 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int			check_add_instruc(char *buf, t_label *lbl_lst, t_instruc **inst_lst,
 	char		**inst_line;
 	t_instruc	*new_elem;
 
+	buf = check_comm(buf, data);
 	init_check_add_instruc_var(&inst_line, &tmp_lbl, &trim, &new_elem);
 	if (lbl_lst)
 	{
@@ -79,7 +80,7 @@ t_instruc	*inst_one_param(char **inst_line, t_instruc **inst_lst,
 						t_data *data)
 {
 	t_instruc	*new_elem;
-	int			order;
+	int			*order;
 
 	new_elem = NULL;
 	order = 0;

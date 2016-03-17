@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/17 11:13:03 by jriallan         ###   ########.fr        #
+#    Updated: 2016/03/17 12:46:25 by rporcon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ LDLIBS = -lft
 
 SRC_NAME =	asm.c \
 			check_inst_param.c \
+			check_inst_param_2.c \
 			check_reg_d_ind.c \
 			cor.c \
 			error.c \
@@ -42,7 +43,7 @@ SRC_NAME =	asm.c \
 			real_trim.c \
 			tools.c \
 			write_file.c \
-			op.c 
+			op.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

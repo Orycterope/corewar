@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/17 12:26:07 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/17 14:25:19 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,16 @@ t_instruc				*inst_two_params(char **inst_line, t_instruc **inst_lst,
 t_instruc				*inst_three_params(char **inst_line, t_instruc
 						**inst_lst, char *trim, t_data *data);
 char					*real_trim(char *str);
+int						is_direct(char *trim, t_data *data, t_instruc *inst,
+						int *order);
+int						is_indirect(char *trim, t_data *data, t_instruc *inst,
+						int *order);
+int						is_register(char *trim, t_data *data, t_instruc *inst,
+						int *order);
 void					check_reg(char *str, t_data *data);
 void					check_indirect(char *str, t_data *data);
 void					check_direct(char *str, t_data *data);
+char					*check_comm(char *str, t_data *data);
 void					init_check_add_instruc_var(char ***inst_line,
 						t_label **tmp_lbl, char **trim, t_instruc **new_elem);
 
