@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 18:59:26 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/17 11:09:00 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/17 12:22:14 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,27 +205,65 @@ int		is_comment(char *str)
 	return (ret);
 }
 
+int		chk_after_lbl(char *buf, char **next)
+{
+	int		i;
+
+	i = 0;
+	while (buf[i] != '\0' && buf[i] != LABEL_CHAR)
+	{
+		i++;
+	}
+	if (buf[i] == LABEL_CHAR)
+	{
+		buf = ft_pass_space_tab(buf + i + 1);
+		if (ft_strlen(buf) > 0)
+		{
+			*next = ft_strdup(buf);
+			return (1);
+		}
+	}
+	return (0);
+}
+
+void	routes(t_data *data, char *buf, t_label *lbl_lst, t_instruc *inst_lst)
+{
+	char		*next;
+
+	if (is_comment(buf))
+		ft_putendl("[IS COMMENT]");
+	else if (read_name_comment(data, buf))
+		ft_putendl("[NAME || COMMENT]");
+	else if (check_add_lbl(buf, lbl_lst, data))
+	{
+		ft_putendl("[LBL]");
+		next = NULL;
+		if (chk_after_lbl(buf, &next))
+			check_add_instruc(next, lbl_lst, &inst_lst, data);
+		if (next != NULL)
+		{
+			ft_putendl("next :");
+			ft_putendl(next);
+			free(next);
+		}
+	}
+	else if (check_add_instruc(buf, lbl_lst, &inst_lst, data))
+		ft_putendl("[INSTRUC]");
+	else
+		error_line(data, "lexical error");
+}
+
 void	parser(t_data *data)
 {
 	char		*buf;
 	t_label		*lbl_lst;
 	t_instruc	*inst_lst;
 
-	buf = NULL;
 	lbl_lst = NULL;
 	inst_lst = NULL;
-	while (get_next_line(data->fd, &buf) > 0)
+	while ((buf = NULL) == NULL && get_next_line(data->fd, &buf) > 0)
 	{
-		if (is_comment(buf))
-			ft_putendl("[IS COMMENT]");
-		else if (read_name_comment(data, buf))
-			ft_putendl("[NAME || COMMENT]");
-		else if (check_add_lbl(buf, lbl_lst, data))
-			ft_putendl("[LBL]");
-		else if (check_add_instruc(buf, lbl_lst, &inst_lst, data))
-			ft_putendl("[INSTRUC]");
-		else
-			error_line(data, "lexical error");
+		routes(data, buf, lbl_lst, inst_lst);
 		free(buf);
 		data->line++;
 	}

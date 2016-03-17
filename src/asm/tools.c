@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 14:59:06 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/16 15:21:46 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/17 12:24:46 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	free_strsplit(char **arr)
 	free(arr);
 }
 
-int			set_ocp(int ocp, int index, int val)
+int		set_ocp(int ocp, int index, int val)
 {
 	if ((val == 0 || val == 1 || val == 2 || val == 3) &&
 			(index == 0 || index == 1 || index == 2 || index == 3))

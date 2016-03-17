@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 21:14:30 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/16 16:13:06 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/17 12:03:59 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,6 @@
 void	write_header(t_data *data)
 {
 	set_magic_to_cor(data);
-	ft_putendl("------------");
-	ft_putendl(data->name);
-	ft_putendl("------------");
-	ft_putendl(data->comment);
-	ft_putendl("------------");
 	add_str_to_cor(data, data->name, PROG_NAME_LENGTH);
 	add_to_cor(data, 0);
 	add_to_cor(data, 0);

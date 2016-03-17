@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/17 11:14:32 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/17 12:26:07 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void					parser(t_data *data);
 ** Error management:
 */
 void					error_line(t_data *data, char *err);
-void					error_limit(t_data *data, char *err,char *str, int limit);
+void					error_limit(t_data *data, char *err, char *str, int lm);
 void					error_at(char *err, int line, int column);
 void					error_str(t_data *data, char *err, char *str);
 void					error(char *err);
