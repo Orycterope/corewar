@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 18:59:26 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/16 16:30:24 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/17 11:09:00 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,13 +217,13 @@ void	parser(t_data *data)
 	while (get_next_line(data->fd, &buf) > 0)
 	{
 		if (is_comment(buf))
-			;
+			ft_putendl("[IS COMMENT]");
 		else if (read_name_comment(data, buf))
-			;
+			ft_putendl("[NAME || COMMENT]");
 		else if (check_add_lbl(buf, lbl_lst, data))
-			;
-		else if (check_add_instruc(buf, lbl_lst, inst_lst, data))
-			;
+			ft_putendl("[LBL]");
+		else if (check_add_instruc(buf, lbl_lst, &inst_lst, data))
+			ft_putendl("[INSTRUC]");
 		else
 			error_line(data, "lexical error");
 		free(buf);

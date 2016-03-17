@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 11:15:36 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/14 19:48:16 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/16 16:00:20 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_instruc	*inst_new_elem(char *name)
 		new_element->param_2 = NULL;
 		new_element->param_3 = NULL;
 		new_element->ocp = 0;
-
 	}
 	return (new_element);
 }
@@ -37,7 +36,7 @@ void		addend_inst_lst(t_instruc **lst, t_instruc *new_elem)
 	t_instruc	*tmp;
 
 	tmp = *lst;
-	if (tmp == NULL)
+	if (*lst == NULL)
 		*lst = new_elem;
 	else
 	{

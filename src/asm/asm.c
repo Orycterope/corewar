@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 19:38:06 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/15 18:25:52 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/17 11:10:02 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		main(int argc, char *argv[])
 		write_file(&data);
 		free_data(&data);
 		i++;
-	} 
+	}
 	usage(argc, argv);
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/15 12:58:00 by jriallan         ###   ########.fr        #
+#    Updated: 2016/03/17 11:13:03 by jriallan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,12 +37,12 @@ SRC_NAME =	asm.c \
 			instruc_list_fct.c \
 			label_inst_manip.c \
 			label_list_fct.c \
-			op.c \
 			opcode_check.c \
 			parser.c \
 			real_trim.c \
 			tools.c \
 			write_file.c \
+			op.c 
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
