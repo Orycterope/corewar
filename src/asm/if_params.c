@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 16:12:47 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/18 12:27:56 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/18 15:10:12 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	three_params_first(int i, t_data *data, t_instruc *inst, int *order)
 		if (is_register(inst->trim, data, inst, order) == 1)
 			return ;
 		else
-			error_line(data, "incorrect param WTF u doing");	
+			error_line(data, "incorrect param WTF u doing");
 	}
 	else if (g_op[i].param_type[*order] == (T_REG | T_DIR | T_IND))
 	{
@@ -112,7 +112,7 @@ void	three_params_first(int i, t_data *data, t_instruc *inst, int *order)
 		else if (is_indirect(inst->trim, data, inst, order) == 1)
 			return ;
 		else
-			error_line(data, "incorrect param WTF u doing");		
+			error_line(data, "incorrect param WTF u doing");
 	}
 	else
 		error_line(data, "what happen OMG");
@@ -120,12 +120,12 @@ void	three_params_first(int i, t_data *data, t_instruc *inst, int *order)
 
 void	three_params_second(int i, t_data *data, t_instruc *inst, int *order)
 {
-	if (g_op[i].param_type[*order] ==  T_REG)
+	if (g_op[i].param_type[*order] == T_REG)
 	{
 		if (is_register(inst->trim, data, inst, order) == 1)
 			return ;
 		else
-			error_line(data, "incorrect param WTF u doing");	
+			error_line(data, "incorrect param WTF u doing");
 	}
 	else if (g_op[i].param_type[*order] == (T_REG | T_DIR | T_IND))
 	{
@@ -150,16 +150,15 @@ void	three_params_second(int i, t_data *data, t_instruc *inst, int *order)
 	else
 		error_line(data, "what happen OMG");
 }
-
 
 void	three_params_third(int i, t_data *data, t_instruc *inst, int *order)
 {
-	if (g_op[i].param_type[*order] ==  T_REG)
+	if (g_op[i].param_type[*order] == T_REG)
 	{
 		if (is_register(inst->trim, data, inst, order) == 1)
 			return ;
 		else
-			error_line(data, "incorrect param WTF u doing");	
+			error_line(data, "incorrect param WTF u doing");
 	}
 	else if (g_op[i].param_type[*order] == (T_DIR | T_REG))
 	{
@@ -171,3 +170,4 @@ void	three_params_third(int i, t_data *data, t_instruc *inst, int *order)
 			error_line(data, "incorrect param WTF u doing");
 	}
 }
+
