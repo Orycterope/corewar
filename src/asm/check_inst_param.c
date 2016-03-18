@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 10:53:52 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/17 12:42:42 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/18 12:25:35 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 void	check_params(char *str, t_instruc *inst, t_data *data, int *order)
 {
 	int		i;
-	char	*trim;
 
 	i = 0;
-	trim = ft_strtrim(str);
+	inst->trim = ft_strtrim(str);
 //	if (g_op[i].param_nbr < 0 && g_op[i].param_nbr > 5)
 //		error_line(data, "Incorrect number of params");
 	while (g_op[i].name != 0)
@@ -26,150 +25,11 @@ void	check_params(char *str, t_instruc *inst, t_data *data, int *order)
 		if (inst->opcode == g_op[i].op_code)
 		{
 			if (g_op[i].param_nbr == 1)
-			{
-				ft_putstr("1 param");
-				if (g_op[i].param_type[0] == T_DIR)
-				{
-					if (is_direct(trim, data, inst, order) == 1)
-						return ;
-					else
-						error_line(data, "incorrect param WTF u doing");
-				}
-				else if (g_op[i].param_type[0] == T_REG)
-				{
-					if (is_register(trim, data, inst, order) == 1)
-						return ;
-					else
-						error_line(data, "incorrect param WTF u doing");
-				}
-				else
-					error_line(data, "what happen OMG");
-			}
+				if_one_param(i, data, inst, order);
 			else if (g_op[i].param_nbr == 2)
-			{
-				ft_putstr("2 params");
-				if (*order == 0)
-				{
-					if (g_op[i].param_type[*order] == (T_DIR | T_IND))
-					{
-						ft_putstr(" T_DIR | T_IND");
-						if (is_direct(trim, data, inst, order) == 1)
-							return ;
-						else if (is_indirect(trim, data, inst, order) == 1)
-							return ;
-						else
-							error_line(data, "incorrect param WTF u doing");
-					}
-					else if (g_op[i].param_type[*order] == T_REG)
-					{
-						if (is_register(trim, data, inst, order) == 1)
-							return ;
-						else
-							error_line(data, "incorrect param WTF u doing");
-					}
-					else
-						error_line(data, "what happen OMG");
-				}
-				else if (*order == 1)
-				{
-					if (g_op[i].param_type[*order] == T_REG)
-					{
-						if (is_register(trim, data, inst, order) == 1)
-							return ;
-						else
-							error_line(data, "incorrect param WTF u doing");
-					}
-					else if (g_op[i].param_type[*order] == (T_IND | T_REG))
-					{
-						if (is_indirect(trim, data, inst, order) == 1)
-							return ;
-						else if (is_register(trim, data, inst, order) == 1)
-							return ;
-						else
-							error_line(data, "incorrect param WTF u doing");
-					}
-					else
-						error_line(data, "what happen OMG");
-				}
-			}
+				if_two_params(i, data, inst, order);
 			else if (g_op[i].param_nbr == 3)
-			{
-				ft_putstr("3 params");
-				if (*order == 0)
-				{
-					if (g_op[i].param_type[*order] == T_REG)
-					{
-						if (is_register(trim, data, inst, order) == 1)
-							return ;
-						else
-							error_line(data, "incorrect param WTF u doing");	
-					}
-					else if (g_op[i].param_type[*order] == (T_REG | T_DIR | T_IND))
-					{
-						if (is_register(trim, data, inst, order) == 1)
-							return ;
-						else if (is_direct(trim, data, inst, order) == 1)
-							return ;
-						else if (is_indirect(trim, data, inst, order) == 1)
-							return ;
-						else
-							error_line(data, "incorrect param WTF u doing");		
-					}
-					else
-						error_line(data, "what happen OMG");
-				}
-				else if (*order == 1)
-				{
-					if (g_op[i].param_type[*order] ==  T_REG)
-					{
-						if (is_register(trim, data, inst, order) == 1)
-							return ;
-						else
-							error_line(data, "incorrect param WTF u doing");	
-					}
-					else if (g_op[i].param_type[*order] == (T_REG | T_DIR | T_IND))
-					{
-						if (is_register(trim, data, inst, order) == 1)
-							return ;
-						else if (is_direct(trim, data, inst, order) == 1)
-							return ;
-						else if (is_indirect(trim, data, inst, order) == 1)
-							return ;
-						else
-							error_line(data, "incorrect param WTF u doing");
-					}
-					else if (g_op[i].param_type[*order] == (T_DIR | T_REG))
-					{
-						if (is_direct(trim, data, inst, order) == 1)
-							return ;
-						else if (is_register(trim, data, inst, order) == 1)
-							return ;
-						else
-							error_line(data, "incorrect param WTF u doing");
-					}
-					else
-						error_line(data, "what happen OMG");
-				}
-				else if (*order == 2)
-				{
-					if (g_op[i].param_type[*order] ==  T_REG)
-					{
-						if (is_register(trim, data, inst, order) == 1)
-							return ;
-						else
-							error_line(data, "incorrect param WTF u doing");	
-					}
-					else if (g_op[i].param_type[*order] == (T_DIR | T_REG))
-					{
-						if (is_direct(trim, data, inst, order) == 1)
-							return ;
-						else if (is_register(trim, data, inst, order) == 1)
-							return ;
-						else
-							error_line(data, "incorrect param WTF u doing");
-					}
-				}
-			}
+				if_three_params(i, data, inst, order);
 		}
 		i++;
 	}

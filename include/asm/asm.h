@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/17 14:25:19 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/18 12:28:03 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct			s_instruc
 	char				*param_1;
 	char				*param_2;
 	char				*param_3;
+	char				*trim;
+	char				*lbl_addr;
 	int					ocp;
 }						t_instruc;
 
@@ -76,6 +78,7 @@ void					add_nm_cmt(t_data *data, char **s, int len, int index);
 void					init_data(t_data *data);
 void					free_data(t_data *data);
 int						is_in_str(char c, char *str);
+int						str_is_in_str(char *search, char *str);
 char					*ft_pass_space_tab(char *str);
 char					*rm_char(char *str, char *rem);
 void					free_strsplit(char **arr);
@@ -87,7 +90,7 @@ void					parser(t_data *data);
 ** Error management:
 */
 void					error_line(t_data *data, char *err);
-void					error_limit(t_data *data, char *err, char *str, int lm);
+void					error_limit(t_data *data, char *err,char *str, int limit);
 void					error_at(char *err, int line, int column);
 void					error_str(t_data *data, char *err, char *str);
 void					error(char *err);
@@ -97,13 +100,13 @@ void					error(char *err);
 */
 t_label					*lbl_new_elem(char *name);
 void					addend_lbl_lst(t_label **lst, t_label *new_elem);
-void					print_lbl_lst(t_label **lst);
+void					print_lbl_lst(t_label *lst);
 t_instruc				*inst_new_elem(char *name);
 void					addend_inst_lst(t_instruc **lst, t_instruc *new_elem);
-void					print_inst_lst(t_instruc **lst);
-int						check_add_lbl(char *buf, t_label *lbl_lst,
+void					print_inst_lst(t_instruc *lst);
+int						check_add_lbl(char *buf, t_label **lbl_lst,
 						t_data *data);
-int						check_add_instruc(char *buf, t_label *lbl_lst,
+int						check_add_instruc(char *buf, t_label **lbl_lst,
 						t_instruc **inst_lst, t_data *data);
 int						check_opcode_name(char *str);
 int						check_opcode(char *str, t_instruc *inst);
@@ -116,6 +119,22 @@ t_instruc				*inst_two_params(char **inst_line, t_instruc **inst_lst,
 t_instruc				*inst_three_params(char **inst_line, t_instruc
 						**inst_lst, char *trim, t_data *data);
 char					*real_trim(char *str);
+void					if_one_param(int i, t_data *data, t_instruc *inst,
+						int *order);
+void					if_two_params(int i, t_data *data, t_instruc *inst,
+						int *order);
+void					two_params_first(int i, t_data *data, t_instruc *inst,
+						int *order);
+void					two_params_second(int i, t_data *data, t_instruc *inst,
+						int *order);
+void					if_three_params(int i, t_data *data, t_instruc *inst,
+						int *order);
+void					three_params_first(int i, t_data *data, t_instruc *inst,
+						int *order);
+void					three_params_second(int i, t_data *data, t_instruc *inst
+						, int *order);
+void					three_params_third(int i, t_data *data, t_instruc *inst,
+						int *order);
 int						is_direct(char *trim, t_data *data, t_instruc *inst,
 						int *order);
 int						is_indirect(char *trim, t_data *data, t_instruc *inst,

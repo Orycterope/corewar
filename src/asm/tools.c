@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 14:59:06 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/17 12:24:46 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/18 11:12:37 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int		str_is_in_str(char *search, char *str)
 		return (0);
 	if (str == NULL)
 		return (0);
-	while (search[i] != '\0')
+	while (str[i] != '\0')
 	{
-		if (is_in_str(search[i], str) > 0)
+		if (is_in_str(str[i], search) == 0)
 			return (1);
 		i++;
 	}
