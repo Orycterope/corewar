@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 18:59:26 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/18 14:34:20 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/18 16:43:33 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,8 +226,8 @@ int		chk_after_lbl(char *buf, char **next)
 	return (0);
 }
 
-// routes ???POURQUOI OMG TROLOLOLOLOLOLOL XD LOL PTDR TRIPLEXD KTHXBYE
-void	routes(t_data *data, char *buf, t_label **lbl_lst, t_instruc **inst_lst)
+
+void	routes(t_data *data, char *buf, t_label **lbl_lst)
 {
 	char		*next;
 
@@ -240,7 +240,7 @@ void	routes(t_data *data, char *buf, t_label **lbl_lst, t_instruc **inst_lst)
 		ft_putendl("[LBL]");
 		next = NULL;
 		if (chk_after_lbl(buf, &next))
-			check_add_instruc(next, lbl_lst, inst_lst, data);
+			check_add_instruc(next, data);
 		if (next != NULL)
 		{
 			ft_putendl("next :");
@@ -248,7 +248,7 @@ void	routes(t_data *data, char *buf, t_label **lbl_lst, t_instruc **inst_lst)
 			free(next);
 		}
 	}
-	else if (check_add_instruc(buf, lbl_lst, inst_lst, data))
+	else if (check_add_instruc(buf, data))
 		ft_putendl("[INSTRUC]");
 	else
 		error_line(data, "lexical error");
@@ -259,14 +259,11 @@ void	routes(t_data *data, char *buf, t_label **lbl_lst, t_instruc **inst_lst)
 void	parser(t_data *data)
 {
 	char		*buf;
-	t_label		*lbl_lst;
-	t_instruc	*inst_lst;
 
-	lbl_lst = NULL;
-	inst_lst = NULL;
+	data->label = NULL;
 	while ((buf = NULL) == NULL && get_next_line(data->fd, &buf) > 0)
 	{
-		routes(data, buf, &lbl_lst, &inst_lst);
+		routes(data, buf, &data->label);
 		free(buf);
 		data->line++;
 	}

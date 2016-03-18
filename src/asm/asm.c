@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 19:38:06 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/17 12:46:10 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/18 16:43:37 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		main(int argc, char *argv[])
 			error("Open fail");
 		parser(&data);
 		write_header(&data);
-		//build();
+		build(&data);
 		write_file(&data);
 		free_data(&data);
 		i++;
