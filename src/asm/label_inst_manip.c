@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:52:23 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/18 12:28:01 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/18 15:10:05 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,11 @@ int			check_add_instruc(char *buf, t_label **lbl_lst, t_instruc **inst_lst,
 	char		**inst_line;
 	t_instruc	*new_elem;
 
-	tmp_lbl = *lbl_lst;
 	buf = check_comm(buf, data);
 	init_check_add_instruc_var(&inst_line, &tmp_lbl, &trim, &new_elem);
+	tmp_lbl = *lbl_lst;
 	if (tmp_lbl)
 	{
-		print_lbl_lst(tmp_lbl);
 		while (tmp_lbl->next)
 			tmp_lbl = tmp_lbl->next;
 	}
@@ -77,7 +76,7 @@ int			check_add_instruc(char *buf, t_label **lbl_lst, t_instruc **inst_lst,
 		else
 			return (0);
 		if (tmp_lbl && new_elem != NULL)
-			tmp_lbl->insts = new_elem; // need to check
+			tmp_lbl->insts = new_elem;
 		return (1);
 	}
 	return (0);
@@ -111,16 +110,10 @@ t_instruc	*inst_two_params(char **inst_line, t_instruc **inst_lst, char *trim,
 	t_instruc	*new_elem;
 	char		**inst_params;
 	int			order;
-	int			i;
 
 	new_elem = NULL;
 	inst_params = NULL;
 	order = 0;
-	i = 0;
-	while (inst_line[i])
-		i++;
-	if (i > 3)
-		error_line(data, "Incorrect number of params");
 	new_elem = inst_new_elem(inst_line[0]);
 	check_opcode(inst_line[0], new_elem);
 	check_params(inst_line[1], new_elem, data, &order);
@@ -139,16 +132,10 @@ t_instruc	*inst_three_params(char **inst_line, t_instruc **inst_lst,
 	t_instruc	*new_elem;
 	char		**inst_params;
 	int			order;
-	int			i;
 
 	new_elem = NULL;
 	inst_params = NULL;
 	order = 0;
-	i = 0;
-	while (inst_line[i])
-		i++;
-	if (i > 4)
-		error_line(data, "Incorrect number of params");
 	new_elem = inst_new_elem(inst_line[0]);
 	check_opcode(inst_line[0], new_elem);
 	check_params(inst_line[1], new_elem, data, &order);

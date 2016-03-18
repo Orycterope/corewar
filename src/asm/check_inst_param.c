@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 10:53:52 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/18 12:25:35 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/18 15:10:16 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	check_params(char *str, t_instruc *inst, t_data *data, int *order)
 
 	i = 0;
 	inst->trim = ft_strtrim(str);
-//	if (g_op[i].param_nbr < 0 && g_op[i].param_nbr > 5)
-//		error_line(data, "Incorrect number of params");
 	while (g_op[i].name != 0)
 	{
 		if (inst->opcode == g_op[i].op_code)
@@ -33,7 +31,6 @@ void	check_params(char *str, t_instruc *inst, t_data *data, int *order)
 		}
 		i++;
 	}
-//	ft_printf("->%X %D \n", inst->ocp, inst->ocp);
 }
 
 char	*check_comm(char *str, t_data *data)

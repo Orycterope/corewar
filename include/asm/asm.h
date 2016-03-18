@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/18 12:28:03 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/18 14:58:35 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct			s_instruc
 	char				*param_3;
 	char				*trim;
 	char				*lbl_addr;
+	char				*lbl_name;
 	int					ocp;
 }						t_instruc;
 
@@ -84,6 +85,8 @@ char					*rm_char(char *str, char *rem);
 void					free_strsplit(char **arr);
 int						set_ocp(int ocp, int index, int val);
 int						read_name_comment(t_data *data, char *str);
+void					routes(t_data *data, char *buf, t_label **lbl_lst,
+						t_instruc **inst_lst);
 void					parser(t_data *data);
 
 /*
@@ -104,8 +107,7 @@ void					print_lbl_lst(t_label *lst);
 t_instruc				*inst_new_elem(char *name);
 void					addend_inst_lst(t_instruc **lst, t_instruc *new_elem);
 void					print_inst_lst(t_instruc *lst);
-int						check_add_lbl(char *buf, t_label **lbl_lst,
-						t_data *data);
+int						check_add_lbl(char *buf, t_label **lbl_lst, t_data *data);
 int						check_add_instruc(char *buf, t_label **lbl_lst,
 						t_instruc **inst_lst, t_data *data);
 int						check_opcode_name(char *str);
