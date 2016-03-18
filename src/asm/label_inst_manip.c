@@ -6,13 +6,13 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:52:23 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/17 16:22:33 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/18 12:28:01 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int			check_add_lbl(char *buf, t_label *lbl_lst, t_data *data)
+int			check_add_lbl(char *buf, t_label **lbl_lst, t_data *data)
 {
 	t_label		*new_elem;
 	char		**sp_lbl_name;
@@ -20,6 +20,7 @@ int			check_add_lbl(char *buf, t_label *lbl_lst, t_data *data)
 
 	new_elem = NULL;
 	sp_lbl_name = NULL;
+	colon_chr = NULL;
 	if (is_in_str(LABEL_CHAR, buf) == 1)
 	{
 		if ((sp_lbl_name = ft_strsplit(buf, LABEL_CHAR)) == NULL)
@@ -29,15 +30,17 @@ int			check_add_lbl(char *buf, t_label *lbl_lst, t_data *data)
 		colon_chr = colon_chr - 1;
 		if (is_in_str(*colon_chr, " \t") == 0 && (*colon_chr) != DIRECT_CHAR)
 		{
+			if (str_is_in_str(LABEL_CHARS, sp_lbl_name[0]) == 1)
+				error_line(data, "Incorrect label name");
 			new_elem = lbl_new_elem(sp_lbl_name[0]);
-			addend_lbl_lst(&lbl_lst, new_elem);
+			addend_lbl_lst(lbl_lst, new_elem);
 			return (1);
 		}
 	}
 	return (0);
 }
 
-int			check_add_instruc(char *buf, t_label *lbl_lst, t_instruc **inst_lst,
+int			check_add_instruc(char *buf, t_label **lbl_lst, t_instruc **inst_lst,
 								t_data *data)
 {
 	t_label		*tmp_lbl;
@@ -45,11 +48,12 @@ int			check_add_instruc(char *buf, t_label *lbl_lst, t_instruc **inst_lst,
 	char		**inst_line;
 	t_instruc	*new_elem;
 
+	tmp_lbl = *lbl_lst;
 	buf = check_comm(buf, data);
 	init_check_add_instruc_var(&inst_line, &tmp_lbl, &trim, &new_elem);
-	if (lbl_lst)
+	if (tmp_lbl)
 	{
-		tmp_lbl = lbl_lst;
+		print_lbl_lst(tmp_lbl);
 		while (tmp_lbl->next)
 			tmp_lbl = tmp_lbl->next;
 	}
@@ -67,6 +71,9 @@ int			check_add_instruc(char *buf, t_label *lbl_lst, t_instruc **inst_lst,
 		else if (is_in_str(SEPARATOR_CHAR, trim) == 2 && check_opcode_name(
 				inst_line[0]) == 1)
 			new_elem = inst_three_params(inst_line, inst_lst, trim, data);
+		else if (is_in_str(SEPARATOR_CHAR, trim) > 3 && ft_strchr(trim,
+				COMMENT_CHAR) == NULL)
+			error_line(data, "Incorrect number of params");
 		else
 			return (0);
 		if (tmp_lbl && new_elem != NULL)
@@ -81,9 +88,15 @@ t_instruc	*inst_one_param(char **inst_line, t_instruc **inst_lst,
 {
 	t_instruc	*new_elem;
 	int			order;
+	int			i;
 
 	new_elem = NULL;
 	order = 0;
+	i = 0;
+	while (inst_line[i])
+		i++;
+	if (i > 2)
+		error_line(data, "Incorrect number of params");
 	new_elem = inst_new_elem(inst_line[0]);
 	check_opcode(inst_line[0], new_elem);
 	check_params(inst_line[1], new_elem, data, &order);
@@ -98,10 +111,16 @@ t_instruc	*inst_two_params(char **inst_line, t_instruc **inst_lst, char *trim,
 	t_instruc	*new_elem;
 	char		**inst_params;
 	int			order;
+	int			i;
 
 	new_elem = NULL;
 	inst_params = NULL;
 	order = 0;
+	i = 0;
+	while (inst_line[i])
+		i++;
+	if (i > 3)
+		error_line(data, "Incorrect number of params");
 	new_elem = inst_new_elem(inst_line[0]);
 	check_opcode(inst_line[0], new_elem);
 	check_params(inst_line[1], new_elem, data, &order);
@@ -120,10 +139,16 @@ t_instruc	*inst_three_params(char **inst_line, t_instruc **inst_lst,
 	t_instruc	*new_elem;
 	char		**inst_params;
 	int			order;
+	int			i;
 
 	new_elem = NULL;
 	inst_params = NULL;
 	order = 0;
+	i = 0;
+	while (inst_line[i])
+		i++;
+	if (i > 4)
+		error_line(data, "Incorrect number of params");
 	new_elem = inst_new_elem(inst_line[0]);
 	check_opcode(inst_line[0], new_elem);
 	check_params(inst_line[1], new_elem, data, &order);
