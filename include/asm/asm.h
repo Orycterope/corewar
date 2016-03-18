@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/18 16:43:28 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/18 20:06:30 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct			s_data
 	int					cor_len;
 	t_label				*label;
 	int					line;
+	unsigned char		*prog;
 	int					prog_size;
 }						t_data;
 
@@ -69,6 +70,10 @@ extern t_op	g_op[];
 
 void					write_header(t_data *data);
 void					add_to_cor(t_data *data, char c);
+void					add_to_prog(t_data *data, unsigned char c);
+void					add_param_to_prog(t_data *data, t_instruc *inst,
+						char *lbl_name);
+void					print_prog(t_data *data);
 void					add_str_to_cor(t_data *data, char *str, int len);
 void					set_filename(t_data *data, char *name);
 void					set_magic_to_cor(t_data	*data);
@@ -83,6 +88,12 @@ char					*ft_pass_space_tab(char *str);
 char					*rm_char(char *str, char *rem);
 void					free_strsplit(char **arr);
 int						set_ocp(int ocp, int index, int val);
+int						get_ocp(int ocp, int index);
+void    				set_register(t_data *data, char *param_1);
+void					set_direct(t_data *data, char *param_1, char *lbl_name,
+						t_inst *inst_lst);
+int						label_exist(t_data *data, char *param_name,
+						char *lbl_name);
 int						read_name_comment(t_data *data, char *str);
 void					routes(t_data *data, char *buf, t_label **lbl_lst);
 void					parser(t_data *data);
@@ -117,6 +128,7 @@ t_instruc				*inst_two_params(char **inst_line, char *trim,
 						t_data *data);
 t_instruc				*inst_three_params(char **inst_line, char *trim,
 						t_data *data);
+t_label					*add_last_label(t_data *data);
 char					*real_trim(char *str);
 void					if_one_param(int i, t_data *data, t_instruc *inst,
 						int *order);

@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:52:23 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/18 16:43:24 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/18 20:06:36 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,27 @@ int			check_add_lbl(char *buf, t_label **lbl_lst, t_data *data)
 	return (0);
 }
 
-int			check_add_instruc(char *buf, t_data *data)
+t_label		*add_last_label(t_data *data)
 {
 	t_label		*tmp_lbl;
-	char		*trim;
-	char		**inst_line;
-	t_instruc	*new_elem;
 
-	buf = check_comm(buf, data);
-	init_check_add_instruc_var(&inst_line, &trim, &new_elem);
 	tmp_lbl = data->label;
 	if (tmp_lbl)
 	{
 		while (tmp_lbl->next)
 			tmp_lbl = tmp_lbl->next;
 	}
+	return (tmp_lbl);
+}
+
+int			check_add_instruc(char *buf, t_data *data)
+{
+	char		*trim;
+	char		**inst_line;
+	t_instruc	*new_elem;
+
+	buf = check_comm(buf, data);
+	init_check_add_instruc_var(&inst_line, &trim, &new_elem);
 	trim = real_trim(buf);
 	if (is_in_str(' ', trim) > 0)
 	{
@@ -82,6 +88,7 @@ int			check_add_instruc(char *buf, t_data *data)
 t_instruc	*inst_one_param(char **inst_line, t_data *data)
 {
 	t_instruc	*new_elem;
+	t_label		*tmp_lbl;
 	int			order;
 	int			i;
 
@@ -96,7 +103,8 @@ t_instruc	*inst_one_param(char **inst_line, t_data *data)
 	check_opcode(inst_line[0], new_elem);
 	check_params(inst_line[1], new_elem, data, &order);
 	new_elem->param_1 = inst_line[1];
-	addend_inst_lst(&data->label->insts, new_elem);
+	tmp_lbl = add_last_label(data);
+	addend_inst_lst(&tmp_lbl->insts, new_elem);
 	return (new_elem);
 }
 
@@ -104,6 +112,7 @@ t_instruc	*inst_two_params(char **inst_line, char *trim,
 								t_data *data)
 {
 	t_instruc	*new_elem;
+	t_label		*tmp_lbl;
 	char		**inst_params;
 	int			order;
 
@@ -118,13 +127,15 @@ t_instruc	*inst_two_params(char **inst_line, char *trim,
 		error("Malloc error");
 	check_params(inst_params[1], new_elem, data, &order);
 	new_elem->param_2 = ft_pass_space_tab(inst_line[1]);
-	addend_inst_lst(&data->label->insts, new_elem);
+	tmp_lbl = add_last_label(data);
+	addend_inst_lst(&tmp_lbl->insts, new_elem);
 	return (new_elem);
 }
 
 t_instruc	*inst_three_params(char **inst_line, char *trim, t_data *data)
 {
 	t_instruc	*new_elem;
+	t_label		*tmp_lbl;
 	char		**inst_params;
 	int			order;
 
@@ -141,6 +152,7 @@ t_instruc	*inst_three_params(char **inst_line, char *trim, t_data *data)
 	new_elem->param_2 = ft_pass_space_tab(inst_line[1]);
 	check_params(inst_params[2], new_elem, data, &order);
 	new_elem->param_3 = ft_pass_space_tab(inst_line[2]);
-	addend_inst_lst(&data->label->insts, new_elem);
+	tmp_lbl = add_last_label(data);
+	addend_inst_lst(&tmp_lbl->insts, new_elem);
 	return (new_elem);
 }
