@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 20:30:52 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/17 15:54:24 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/18 14:40:43 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	error_at(char *err, int line, int column)
 	exit(1);
 }
 
-void	error_line(char *err)
+void	error_line(t_data *data, char *err)
 {
 	if (data != NULL)
 	{
@@ -41,7 +41,7 @@ void	error(char *err)
 	exit(1);
 }
 
-void	error_str(char *err, char *str)
+void	error_str(t_data *data,  char *err, char *str)
 {
 	if (data != NULL)
 	{
@@ -54,7 +54,7 @@ void	error_str(char *err, char *str)
 	exit(1);
 }
 
-void	error_limit(char *err, char *str, int limit)
+void	error_limit(t_data *data, char *err, char *str, int limit)
 {
 	if (data != NULL)
 	{
