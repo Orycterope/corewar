@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/18 20:06:30 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/18 20:48:22 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,10 @@ int						set_ocp(int ocp, int index, int val);
 int						get_ocp(int ocp, int index);
 void    				set_register(t_data *data, char *param_1);
 void					set_direct(t_data *data, char *param_1, char *lbl_name,
-						t_inst *inst_lst);
+						t_instruc *inst_lst);
 int						label_exist(t_data *data, char *param_name,
 						char *lbl_name);
+int						add_diff(t_data *data, int position, t_instruc *inst);
 int						read_name_comment(t_data *data, char *str);
 void					routes(t_data *data, char *buf, t_label **lbl_lst);
 void					parser(t_data *data);

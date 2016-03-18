@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 15:26:20 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/18 20:06:28 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/18 20:48:24 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,24 @@ int		get_ocp(int ocp, int index)
 	return (-1);
 }
 
-int		addr_diff(t_data *data, int position, t_instruc *inst_lst)
+int		addr_diff(t_data *data, int position, t_instruc *inst)
 {
-	
+	int		diff;
+
+	diff = 0;
+	(void)data;
+	(void)position;
+	(void)inst;
+	return (diff);
 }
 
-void	set_direct(t_data *data, char *param_1, char *lbl_name)
+void	set_direct(t_data *data, char *param_1, char *lbl_name,
+					t_instruc *inst)
 {
 	int		val;
 	int		i;
 
+	(void)inst;
 	if (param_1[1] == LABEL_CHAR)
 	{
 		val = label_exist(data, param_1 + 2, lbl_name);
