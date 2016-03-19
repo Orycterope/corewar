@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:17:18 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/16 16:23:28 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/19 21:52:57 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int		load(t_process *process, int i)
 {
 	t_parameters	param;
 
+	ft_putchar('A');
 	param.o = 2;
 	decode_ocp(process, &param, i);
 	param.jump = 1 + g_op_tab[i].has_ocp;
@@ -47,13 +48,22 @@ int		load(t_process *process, int i)
 	if (check_registers(&param, process, i) == 1 || param.type[1] != REG_CODE
 	|| check_param_error(process, param, i) == 1 || g_op_tab[i].param_nbr < 2
 	|| g_op_tab[i].param_nbr > 4)
+	{
+		ft_putchar('B');
 		return (param.jump);
+	}
+	ft_putchar('K');
 	if (param.type[0] == REG_CODE)
 		param.value[0] = ft_read_big_endian(PR[param.value[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)
 		PV[0] = RBE(mem(process->pc + PV[0], 1, PA, process), REG_SIZE);
+	ft_printf("%d\n", PV[1]);
+	ft_putchar('M');
 	ft_write_big_endian(param.value[0], PR[param.value[1] - 1], REG_SIZE);
+	ft_putchar('N');
 	change_carry(process, PV[0]);
+	ft_putchar('O');
+	ft_putendl("a");
 	return (param.jump);
 }
 

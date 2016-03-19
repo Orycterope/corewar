@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:55:35 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/13 22:01:56 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/19 21:10:51 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,17 @@ static char **create_copy_registers(char **registers, int player_id)
 		if (new[i] == NULL)
 			new[i] = NULL;
 		else if (registers == NULL)
-			ft_bzero(new[i], REG_SIZE);
+		{
+			if (i == 0)
+				ft_write_big_endian((long long)player_id, new[0], REG_SIZE);
+			else
+				ft_bzero(new[i], REG_SIZE);
+		}
+		else if (registers[0] && i == 0)
+			ft_memcpy(new[0], registers[0], REG_SIZE);
 		else
 			ft_memcpy(new[i], registers[i], REG_SIZE);
 	}
-	ft_write_big_endian((long long)player_id, new[0], REG_SIZE);
 	return (new);
 }
 
@@ -60,6 +66,8 @@ void	create_process(int player, char *pc, t_arena *arena, char **registers)
 void	fork_process(t_process *process, char *pc)
 {
 	create_process(process->player, pc, process->arena, process->registers);
+	process->arena->processes->carry = process->carry;
+	process->arena->processes->lives = process->lives;
 }
 
 void	kill_process(t_process *process)

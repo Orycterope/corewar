@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:05:42 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/19 17:03:45 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/19 21:11:06 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ char	*mem(char *ptr, int idx, t_arena *arena, t_process *process)
 	if (idx)
 		temp %= IDX_MOD;
 	temp %= MEM_SIZE;
-	if ((process->pc + temp - arena->memory) > MEM_SIZE)
+	if (process->pc + temp - arena->memory < 0)
+		temp += MEM_SIZE;
+	if ((process->pc + temp - arena->memory) >= MEM_SIZE)
 		return (temp + arena->memory);
 	else
 		return (process->pc + temp);
