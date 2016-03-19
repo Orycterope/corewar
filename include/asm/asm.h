@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/18 20:48:22 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/19 19:12:56 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void					write_header(t_data *data);
 void					add_to_cor(t_data *data, char c);
 void					add_to_prog(t_data *data, unsigned char c);
 void					add_param_to_prog(t_data *data, t_instruc *inst,
-						char *lbl_name);
+						char *lbl_name, int inst_pos);
 void					print_prog(t_data *data);
 void					add_str_to_cor(t_data *data, char *str, int len);
 void					set_filename(t_data *data, char *name);
@@ -89,12 +89,12 @@ char					*rm_char(char *str, char *rem);
 void					free_strsplit(char **arr);
 int						set_ocp(int ocp, int index, int val);
 int						get_ocp(int ocp, int index);
-void    				set_register(t_data *data, char *param_1);
-void					set_direct(t_data *data, char *param_1, char *lbl_name,
-						t_instruc *inst_lst);
+void					set_register(t_data *data, char *param_1);
+void					set_direct(t_data *data, char *param, char *lbl_name,
+						int inst_pos);
 int						label_exist(t_data *data, char *param_name,
 						char *lbl_name);
-int						add_diff(t_data *data, int position, t_instruc *inst);
+int						addr_diff(t_data *data, char *lbl_name, int inst_pos);
 int						read_name_comment(t_data *data, char *str);
 void					routes(t_data *data, char *buf, t_label **lbl_lst);
 void					parser(t_data *data);
@@ -104,7 +104,8 @@ void					build(t_data *data);
 ** Error management:
 */
 void					error_line(t_data *data, char *err);
-void					error_limit(t_data *data, char *err,char *str, int limit);
+void					error_limit(t_data *data, char *err, char *str,
+						int limit);
 void					error_at(char *err, int line, int column);
 void					error_str(t_data *data, char *err, char *str);
 void					error(char *err);
@@ -118,7 +119,8 @@ void					print_lbl_lst(t_label *lst);
 t_instruc				*inst_new_elem(char *name);
 void					addend_inst_lst(t_instruc **lst, t_instruc *new_elem);
 void					print_inst_lst(t_instruc *lst);
-int						check_add_lbl(char *buf, t_label **lbl_lst, t_data *data);
+int						check_add_lbl(char *buf, t_label **lbl_lst,
+						t_data *data);
 int						check_add_instruc(char *buf, t_data *data);
 int						check_opcode_name(char *str);
 int						check_opcode(char *str, t_instruc *inst);

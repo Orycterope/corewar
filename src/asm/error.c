@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 20:30:52 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/18 19:28:30 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/19 11:17:00 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	error(char *err)
 	exit(1);
 }
 
-void	error_str(t_data *data,  char *err, char *str)
+void	error_str(t_data *data, char *err, char *str)
 {
 	if (data != NULL)
 	{

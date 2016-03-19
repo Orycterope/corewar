@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 16:12:47 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/18 20:48:39 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/19 11:14:57 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,4 +170,3 @@ void	three_params_third(int i, t_data *data, t_instruc *inst, int *order)
 			error_line(data, "incorrect param WTF u doing");
 	}
 }
-

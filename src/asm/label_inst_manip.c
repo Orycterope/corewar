@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:52:23 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/18 20:48:33 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/19 19:13:03 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ t_instruc	*inst_two_params(char **inst_line, char *trim,
 	if ((inst_params = ft_strsplit(trim, SEPARATOR_CHAR)) == NULL)
 		error("Malloc error");
 	check_params(inst_params[1], new_elem, data, &order);
-	new_elem->param_2 = ft_pass_space_tab(inst_line[1]);
+	new_elem->param_2 = ft_pass_space_tab(inst_params[1]);
 	tmp_lbl = add_last_label(data);
 	addend_inst_lst(&tmp_lbl->insts, new_elem);
 	return (new_elem);
@@ -149,9 +149,9 @@ t_instruc	*inst_three_params(char **inst_line, char *trim, t_data *data)
 	if ((inst_params = ft_strsplit(trim, SEPARATOR_CHAR)) == NULL)
 		error("Malloc error");
 	check_params(inst_params[1], new_elem, data, &order);
-	new_elem->param_2 = ft_pass_space_tab(inst_line[1]);
+	new_elem->param_2 = ft_pass_space_tab(inst_params[1]);
 	check_params(inst_params[2], new_elem, data, &order);
-	new_elem->param_3 = ft_pass_space_tab(inst_line[2]);
+	new_elem->param_3 = ft_pass_space_tab(inst_params[2]);
 	tmp_lbl = add_last_label(data);
 	addend_inst_lst(&tmp_lbl->insts, new_elem);
 	return (new_elem);
