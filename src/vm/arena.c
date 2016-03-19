@@ -6,21 +6,25 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:05:42 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/15 21:53:14 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/19 16:02:53 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "arena.h"
+#include "process.h"
 
-char	*mem(char *ptr, int idx, t_arena *arena)
+char	*mem(char *ptr, int idx, t_arena *arena, t_process *process)
 {
 	int	temp;
 
-	temp = ptr - arena->memory;
+	temp = ptr - process->pc;
 	if (idx)
 		temp %= IDX_MOD;
 	temp %= MEM_SIZE;
-	return (temp + arena->memory);
+	if ((process->pc + temp - arena->memory) > MEM_SIZE)
+		return (temp + arena->memory);
+	else
+		return (process->pc + temp);
 }
 
 t_arena	*create_arena(void)

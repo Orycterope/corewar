@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 20:35:06 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/15 23:27:17 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/16 15:34:05 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ void			params_value(t_process *process, t_parameters *param, int j);
 int				check_registers(t_parameters *param, t_process *process, int j);
 int				execute_instruction(t_process *process);
 int				check_param_error(t_process *process, t_parameters params, int i);
+void			change_carry(t_process *process, unsigned int value);
 
 #endif

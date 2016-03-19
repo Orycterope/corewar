@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 15:39:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/15 23:27:14 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/16 15:02:03 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ void		params_value(t_process *process, t_parameters *param, int j)
 	{
 		if (param->type[i] == REG_CODE)
 		{
-			param->value[i] = ft_read_big_endian(process->pc + param->jump, 1);
+			param->value[i] = RBE(process->pc + param->jump, 1);
 			param->jump += 1;
 		}
-		else if (param->type[i] == DIR_CODE && param->o != 11)
+		else if (param->type[i] == DIR_CODE && param->o != 11 && param->o != 10)
 		{
 			param->value[i] = RBE(process->pc + param->jump, DIR_SIZE);
 			param->jump += DIR_SIZE;
@@ -124,34 +124,4 @@ int			check_param_error(t_process *process, t_parameters param, int i)
 			return (1);
 	}
 	return (0);
-}
-
-
-int			store_index(t_process *process, int i)
-{
-	t_parameters	param;
-
-	param.o = 11;
-	decode_ocp(process, &param, i);
-	param.jump = 1 + g_op_tab[i].has_ocp;
-	if (g_op_tab[i].has_ocp == 0)
-		return (1);
-	params_value(process, &param, i);
-	if (check_registers(&param, process, i) == 1 || g_op_tab[i].param_nbr < 3
-	|| check_param_error(process, param, i) == 1 || g_op_tab[i].param_nbr > 4)
-		return (param.jump);
-	if (param.type[0] == REG_CODE)
-		PV[0] = RBE(PR[PV[0] - 1], REG_SIZE);
-	else if (param.type[0] == IND_CODE)
-		PV[0] = RBE(mem(process->pc + PV[0], 1, PA), REG_SIZE) % IDX_MOD;
-	if (param.type[1] == REG_CODE)
-		PV[1] = RBE(PR[PV[1] - 1], REG_SIZE) % IDX_MOD;
-	else if (param.type[1] == IND_CODE)
-		PV[1] = RBE(mem(process->pc + PV[1], 1, PA), REG_SIZE) % IDX_MOD;
-	if (param.type[2] == REG_CODE)
-		PV[2] = RBE(PR[PV[2] - 1], REG_SIZE) % IDX_MOD;
-	else if (param.type[2] == IND_CODE)
-		PV[2] = RBE(mem(process->pc + PV[2], 1, PA), REG_SIZE) % IDX_MOD;
-	WBE(PV[0], mem(process->pc + PV[1] + PV[2], 1, PA), REG_SIZE);
-	return (param.jump);
 }

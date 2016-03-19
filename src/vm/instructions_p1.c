@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:17:18 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/15 23:09:33 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/16 16:23:28 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		alive(t_process *process, int i)
 	t_player		*temp;
 
 	param.type[0] = DIR_CODE;
-	param.value[0] = ft_read_big_endian(process->pc + 1, DIR_SIZE);
+	param.value[0] = RBE(mem(process->pc + 1, 1, PA, process), DIR_SIZE);
 	process->lives += 1;
 	temp = process->arena->players;
 	while (temp != NULL && temp->id != param.value[0])
@@ -51,8 +51,9 @@ int		load(t_process *process, int i)
 	if (param.type[0] == REG_CODE)
 		param.value[0] = ft_read_big_endian(PR[param.value[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)
-		PV[0] = RBE(mem(process->pc + PV[0], 1, PA), REG_SIZE);
+		PV[0] = RBE(mem(process->pc + PV[0], 1, PA, process), REG_SIZE);
 	ft_write_big_endian(param.value[0], PR[param.value[1] - 1], REG_SIZE);
+	change_carry(process, PV[0]);
 	return (param.jump);
 }
 
@@ -72,11 +73,11 @@ int		store(t_process *process, int i)
 	if (param.type[0] == REG_CODE)
 		param.value[0] = ft_read_big_endian(PR[param.value[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)
-		PV[0] = RBE(mem(process->pc + PV[0], 1, PA), REG_SIZE);
+		PV[0] = RBE(mem(process->pc + PV[0], 1, PA, process), REG_SIZE);
 	if (param.type[1] == REG_CODE)
 		ft_write_big_endian(PV[0], PR[PV[1] - 1], REG_SIZE);
 	else if (param.type[1] == IND_CODE)
-		ft_write_big_endian(PV[0], mem(process->pc + PV[1], 1, PA), REG_SIZE);
+		WBE(PV[0], mem(process->pc + PV[1], 1, PA, process), REG_SIZE);
 	return (param.jump);
 }
 
@@ -97,12 +98,13 @@ int		addition(t_process *process, int i)
 	if (param.type[0] == REG_CODE)
 		param.value[0] = ft_read_big_endian(PR[param.value[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)
-		PV[0] = RBE(mem(process->pc + PV[0], 1, PA), REG_SIZE);
+		PV[0] = RBE(mem(process->pc + PV[0], 1, PA, process), REG_SIZE);
 	if (param.type[1] == REG_CODE)
 		param.value[1] = ft_read_big_endian(PR[param.value[1] - 1], REG_SIZE);
 	else if (param.type[1] == IND_CODE)
-		PV[1] = RBE(mem(process->pc + PV[1], 1, PA), REG_SIZE);
+		PV[1] = RBE(mem(process->pc + PV[1], 1, PA, process), REG_SIZE);
 	WBE(PV[0] + PV[1], PR[PV[2] - 1], REG_SIZE);
+	change_carry(process, (PV[0] + PV[1]));
 	return (param.jump);
 }
 
@@ -123,11 +125,12 @@ int		soustraction(t_process *process, int i)
 	if (param.type[0] == REG_CODE)
 		param.value[0] = ft_read_big_endian(PR[param.value[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)
-		PV[0] = RBE(mem(process->pc + PV[0], 1, PA), REG_SIZE);
+		PV[0] = RBE(mem(process->pc + PV[0], 1, PA, process), REG_SIZE);
 	if (param.type[1] == REG_CODE)
 		param.value[1] = ft_read_big_endian(PR[param.value[1] - 1], REG_SIZE);
 	else if (param.type[1] == IND_CODE)
-		PV[1] = RBE(mem(process->pc + PV[1], 1, PA), REG_SIZE);
+		PV[1] = RBE(mem(process->pc + PV[1], 1, PA, process), REG_SIZE);
 	WBE(PV[0] - PV[1], PR[PV[2] - 1], REG_SIZE);
+	change_carry(process, (PV[0] - PV[1]));
 	return (param.jump);
 }
