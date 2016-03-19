@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 15:26:20 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/19 19:12:59 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/19 20:22:16 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,40 @@ int		get_ocp(int ocp, int index)
 
 int		get_params_size_ocp(int ocp)
 {
-	return (0);
+	int		arr[4];
+	int		i;
+	int		ret;
+
+	arr[0] = get_ocp(ocp, 0);
+	arr[1] = get_ocp(ocp, 1);
+	arr[2] = get_ocp(ocp, 2);
+	arr[3] = get_ocp(ocp, 3);
+	if (arr[0] == 0 && arr[1] == 0 && arr[2] == 0 && arr[3] == 0)
+		return (DIR_SIZE);
+	i = 0;
+	ret = 1;
+	while (i < 4)
+	{
+		ft_printf("arr[i]:%d\n", arr[i]);
+		if (arr[i] == 1)
+		{
+			ret += REG_SIZE;
+			ft_putendl("add 4");
+		}
+		if (arr[i] == 2)
+		{
+			ret += DIR_SIZE;
+			ft_putendl("add 4");
+		}
+		if (arr[i] == 3)
+		{
+			ret += IND_SIZE;
+			ft_putendl("add 2");
+		}
+		i++;
+	}
+	ft_printf("ocp return :%d\n", ret);
+	return (ret);
 }
 
 int		addr_diff(t_data *data, char *lbl_name, int inst_pos)
@@ -101,7 +134,6 @@ int		addr_diff(t_data *data, char *lbl_name, int inst_pos)
 
 	i = 0;
 	count = 0;
-	diff = 0;
 	tmp_lbl = data->label;
 	while (tmp_lbl)
 	{
@@ -115,27 +147,44 @@ int		addr_diff(t_data *data, char *lbl_name, int inst_pos)
 		}
 		tmp_lbl = tmp_lbl->next;
 	}
+
+	int		cmp;
+
+	cmp	= i;
 	i = 0;
 	tmp_lbl = data->label;
+	diff = 0;
 	while (tmp_lbl)
 	{
 		tmp_inst = tmp_lbl->insts;
 		while (tmp_inst)
 		{
+			ft_putstr("ocp:");
+			ft_putnbr(tmp_inst->ocp);
+			ft_putendl(";");
+			ft_putstr("size:");
+			ft_putnbr(get_params_size_ocp(tmp_inst->ocp));
+			ft_putendl(";");
 			if (i == inst_pos)
-			{
-				ft_printf("{.->%s<-.}\n", tmp_inst->name);
 				count = 1;
-			}
+			if (i == cmp)
+				count = 0;
 			if (count == 1)
 			{
-				diff += 1;
+				ft_putendl("0000000");
+				diff += 1 + get_params_size_ocp(tmp_inst->ocp);
+				ft_putendl("diff:");
+				ft_putnbr(diff);
+				ft_putendl("<;");
 			}
 			i++;
 			tmp_inst = tmp_inst->next;
 		}
 		tmp_lbl = tmp_lbl->next;
 	}
+	ft_putendl("diff:");
+	ft_putnbr(diff);
+	ft_putendl("<;");
 	return (0);
 }
 
@@ -147,8 +196,9 @@ void	set_direct(t_data *data, char *param, char *lbl_name,
 
 	if (param[1] == LABEL_CHAR)
 	{
-		ft_printf("{%s}", param);
+		ft_printf("go to {%s}\n", param);
 		val = label_exist(data, param + 2, lbl_name);
+		ft_putendl("found !");
 		addr_diff(data, param + 2, inst_pos);
 	}
 	else
