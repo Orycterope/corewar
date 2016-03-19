@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/07 18:54:02 by tvermeil         ###   ########.fr        #
+#    Updated: 2016/03/17 14:44:47 by tvermeil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SUB_MAKEFILES = libft \
 				src/asm \
 				src/vm \
 
-all: libft.a asm vm
+all: libft.a asm corewar
 
 libft.a:
 	@make -C libft all
@@ -24,7 +24,7 @@ libft.a:
 asm:
 	@make -C src/asm all
 
-vm:
+corewar:
 	@make -C src/vm all
 
 clean:

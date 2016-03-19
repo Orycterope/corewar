@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 20:30:34 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/14 19:17:17 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/15 17:34:18 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ static void		execute_processes(t_arena *arena)
 	{
 		if (p->cycles_to_wait == 0)
 		{
-			//p->pc = mem(p->pc + execute_instruction(p), 0);
-			p->pc += execute_instruction(p);
+			p->pc = mem(p->pc, p->pc + execute_instruction(p), 0, arena);
 			p->cycles_to_wait = get_wait_time(p);
 		}
 		p->cycles_to_wait--;
