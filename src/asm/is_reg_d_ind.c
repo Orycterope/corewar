@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 11:59:12 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/19 11:16:51 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/20 20:33:10 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,20 @@ int		is_register(char *trim, t_data *data, t_instruc *inst, int *order)
 	{
 		check_reg(trim, data);
 		inst->ocp = set_ocp(inst->ocp, *order, 1);
+		*order = *order + 1;
+		return (1);
+	}
+	return (0);
+}
+
+int		without_ocp(char *trim, t_data *data, t_instruc *inst, int *order)
+{
+	if (trim[0] == DIRECT_CHAR)
+	{
+		check_direct(trim, data);
+		if (trim[0] == DIRECT_CHAR && trim[1] == LABEL_CHAR)
+			inst->lbl_addr = trim + 2;
+		inst->ocp = -1;
 		*order = *order + 1;
 		return (1);
 	}
