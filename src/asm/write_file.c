@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 21:14:30 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/17 12:03:59 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/20 22:28:15 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ void	write_header(t_data *data)
 	add_to_cor(data, 0);
 	add_to_cor(data, 0);
 	add_to_cor(data, 0);
+	ft_putstr("Writing prog :");
+	ft_putnbr(data->prog_size);
+	ft_putendl("");
+	add_str_to_cor(data, (char *)data->prog, data->prog_size);
 	ft_putstr("Writing output program to ");
 	ft_putendl(data->filename);
 }

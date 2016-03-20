@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 19:38:06 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/19 11:12:34 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/20 22:29:59 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int		main(int argc, char *argv[])
 		if (data.fd < 0)
 			error("Open fail");
 		parser(&data);
-		write_header(&data);
 		build(&data);
+		write_header(&data);
 		write_file(&data);
 		free_data(&data);
 		i++;
