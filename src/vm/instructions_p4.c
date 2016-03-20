@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 14:15:33 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/19 21:35:58 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/20 17:23:39 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "parameters.h"
 #include "arena.h"
 #include "operation.h"
+#include "read_write.h"
 
 extern	t_op	g_op_tab[];
 
@@ -31,18 +32,18 @@ int			store_index(t_process *process, int i)
 	|| check_param_error(process, param, i) == 1 || g_op_tab[i].param_nbr > 4)
 		return (param.jump);
 	if (param.type[0] == REG_CODE)
-		PV[0] = RBE(PR[PV[0] - 1], REG_SIZE);
+		PV[0] = rm(PR[PV[0] - 1], REG_SIZE, PA);
 	else if (param.type[0] == IND_CODE)
-		PV[0] = RBE(mem(process->pc + PV[0], 1, PA, process), REG_SIZE);
+		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PA);
 	if (param.type[1] == REG_CODE)
-		PV[1] = RBE(PR[PV[1] - 1], REG_SIZE);
+		PV[1] = rm(PR[PV[1] - 1], REG_SIZE, PA);
 	else if (param.type[1] == IND_CODE)
-		PV[1] = RBE(mem(process->pc + PV[1], 1, PA, process), REG_SIZE);
+		PV[1] = rm(mem(process->pc + PV[1], 1, PA, process), REG_SIZE, PA);
 	if (param.type[2] == REG_CODE)
-		PV[2] = RBE(PR[PV[2] - 1], REG_SIZE);
+		PV[2] = rm(PR[PV[2] - 1], REG_SIZE, PA);
 	else if (param.type[2] == IND_CODE)
-		PV[2] = RBE(mem(process->pc + PV[2], 1, PA, process), REG_SIZE);
-	WBE(PV[0], mem(process->pc + PV[1] + PV[2], 1, PA, process), REG_SIZE);
+		PV[2] = rm(mem(process->pc + PV[2], 1, PA, process), REG_SIZE, PA);
+	wm(PV[0], mem(process->pc + PV[1] + PV[2], 1, PA, process), REG_SIZE, PA);
 	return (param.jump);
 }
 
