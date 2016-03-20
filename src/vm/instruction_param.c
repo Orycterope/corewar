@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 15:39:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/19 21:53:22 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/20 17:25:23 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void		decode_ocp(t_process *process, t_parameters *param, int i)
 	int temp;
 	int j;
 
-	ft_putchar('C');
 	select = 0xC0;
 	j = 0;
 	decal = 6;
@@ -37,7 +36,6 @@ void		decode_ocp(t_process *process, t_parameters *param, int i)
 		decal -= 2;
 		j++;
 	}
-	ft_putendl("D");
 }
 
 void		params_value(t_process *process, t_parameters *param, int j)
@@ -45,7 +43,6 @@ void		params_value(t_process *process, t_parameters *param, int j)
 	int	i;
 
 	i = 0;
-	ft_putchar('E');
 	while (i < g_op_tab[j].param_nbr && i < 4)
 	{
 		if (param->type[i] == REG_CODE)
@@ -68,7 +65,6 @@ void		params_value(t_process *process, t_parameters *param, int j)
 		}
 		i++;
 	}
-	ft_putendl("F");
 }
 
 int			check_registers(t_parameters *param, t_process *process, int j)
@@ -76,7 +72,6 @@ int			check_registers(t_parameters *param, t_process *process, int j)
 	int	i;
 
 	i = 0;
-	ft_putchar('G');
 	if (process->registers == NULL)
 		return (1);
 	while (i < g_op_tab[j].param_nbr && i < 4)
@@ -88,7 +83,6 @@ int			check_registers(t_parameters *param, t_process *process, int j)
 		}
 		i++;
 	}
-	ft_putendl("H");
 	return (0);
 }
 
@@ -108,12 +102,11 @@ int			execute_instruction(t_process *process)
 	return ((*instruction[i])(process, i));
 }
 
-int			check_param_error(t_process *process, t_parameters param, int i)
+int			check_param_error(t_parameters param, int i)
 {
 	int	j;
 
 	j = 0;
-	ft_putchar('I');
 	while (j < g_op_tab[i].param_nbr && param.type[j])
 	{
 		if (param.type[j] == REG_CODE)
@@ -131,6 +124,5 @@ int			check_param_error(t_process *process, t_parameters param, int i)
 		if ((g_op_tab[i].param_type[j] & param.type[j]) == 0)
 			return (1);
 	}
-	ft_putendl("J");
 	return (0);
 }

@@ -6,17 +6,15 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 20:35:06 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/16 15:34:05 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/20 17:21:39 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARAMETERS_H
 # define PARAMETERS_H
 # define PR process->registers
-# define RBE ft_read_big_endian
 # define PV param.value
 # define PA process->arena
-# define WBE ft_write_big_endian
 
 typedef struct	s_parameters
 {

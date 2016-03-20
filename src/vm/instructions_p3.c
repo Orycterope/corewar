@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:37:16 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/20 17:28:34 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/20 17:31:49 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "parameters.h"
 #include "arena.h"
 #include "operation.h"
+#include "read_write.h"
 
 extern	t_op g_op_tab[];
 
@@ -21,9 +22,10 @@ int		ft_fork(t_process *process, int i)
 {
 	t_parameters	param;
 
+	i += 1;
 	param.o = 12;
 	param.type[0] = DIR_CODE;
-	param.value[0] = RBE(mem(process->pc + 1, 1, PA, process), IND_SIZE);
+	param.value[0] = rm(mem(process->pc + 1, 1, PA, process), IND_SIZE, PA);
 	fork_process(process, mem(process->pc + (short)PV[0], 1, PA, process));
 	return (1 + IND_SIZE);
 }
@@ -45,7 +47,7 @@ int		long_load(t_process *process, int i)
 	if (param.type[0] == REG_CODE)
 		param.value[0] = ft_read_big_endian(PR[param.value[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)
-		PV[0] = RBE(mem(process->pc + PV[0], 0, PA, process), REG_SIZE);
+		PV[0] = rm(mem(process->pc + PV[0], 0, PA, process), REG_SIZE, PA);
 	ft_write_big_endian(param.value[0], PR[param.value[1] - 1], REG_SIZE);
 	change_carry(process, PV[0]);
 	return (param.jump);
@@ -64,24 +66,25 @@ int		long_load_index(t_process *process, int i)
 	|| check_param_error(param, i) == 1 || g_op_tab[i].param_nbr > 4)
 		return (param.jump);
 	if (param.type[0] == REG_CODE)
-		param.value[0] = RBE(process->registers[param.value[1] - 1], REG_SIZE);
+		param.value[0] = rm(process->registers[param.value[1] - 1], REG_SIZE, PA);
 	if (param.type[1] == REG_CODE)
-		param.value[1] = RBE(process->registers[param.value[1] - 1], REG_SIZE);
-	PV[0] = RBE(mem(process->pc + PV[0] + PV[1], 0, PA, process), REG_SIZE);
+		param.value[1] = rm(process->registers[param.value[1] - 1], REG_SIZE, PA);
+	PV[0] = rm(mem(process->pc + PV[0] + PV[1], 0, PA, process), REG_SIZE, PA);
 	if (param.type[2] == REG_CODE)
-		WBE(PV[0], PR[PV[2] -1], REG_SIZE);
+		wm(PV[0], PR[PV[2] -1], REG_SIZE, PA);
 	else if (param.type[2] == IND_CODE)
-		WBE(PV[0], mem(process->pc + PV[0], 0, PA, process), REG_SIZE);
+		wm(PV[0], mem(process->pc + PV[0], 0, PA, process), REG_SIZE, PA);
 	return (param.jump);
 }
 int		long_fork(t_process *process, int i)
 {
 	t_parameters	param;
 
+	i += 1;
 	param.o = 15;
 	param.type[0] = DIR_CODE;
-	param.value[0] = RBE(mem(process->pc + 1, 0, PA, process), IND_SIZE);
-	fork_process(process, mem(process->pc + (short)PV[0], 0, PA, process));	
+	param.value[0] = rm(mem(process->pc + 1, 0, PA, process), IND_SIZE, PA);
+	fork_process(process, mem(process->pc + (short)PV[0], 0, PA, process));
 	return (1 + IND_SIZE);
 }
 int		aff(t_process *process, int i)
@@ -98,9 +101,9 @@ int		aff(t_process *process, int i)
 	|| check_param_error(param, i) == 1 || g_op_tab[i].param_nbr < 1)
 		return (param.jump);
 	if (param.type[0] == REG_CODE)
-		param.value[0] = RBE(process->registers[param.value[0] - 1], REG_SIZE);
+		param.value[0] = rm(process->registers[param.value[0] - 1], REG_SIZE, PA);
 	else if (param.type[0] == IND_CODE)
-		PV[0] = RBE(mem(process->pc + PV[0], 1, PA, process), REG_SIZE);
-	ft_putchar(PV[0] % 256);	
+		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PA);
+	ft_putchar(PV[0] % 256);
 	return (param.jump);
 }
