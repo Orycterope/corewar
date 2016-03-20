@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:17:18 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/20 17:12:43 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/20 17:26:28 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		load(t_process *process, int i)
 		return (1);
 	params_value(process, &param, i);
 	if (check_registers(&param, process, i) == 1 || param.type[1] != REG_CODE
-	|| check_param_error(process, param, i) == 1 || g_op_tab[i].param_nbr < 2
+	|| check_param_error(param, i) == 1 || g_op_tab[i].param_nbr < 2
 	|| g_op_tab[i].param_nbr > 4)
 		return (param.jump);
 	if (param.type[0] == REG_CODE)
@@ -68,7 +68,7 @@ int		store(t_process *process, int i)
 		return (1);
 	params_value(process, &param, i);
 	if (check_registers(&param, process, i) == 1 || g_op_tab[i].param_nbr < 2
-	|| check_param_error(process, param, i) == 1 || g_op_tab[i].param_nbr > 4)
+	|| check_param_error(param, i) == 1 || g_op_tab[i].param_nbr > 4)
 		return (param.jump);
 	if (param.type[0] == REG_CODE)
 		param.value[0] = rm(PR[param.value[0] - 1], REG_SIZE, PA);
@@ -92,7 +92,7 @@ int		addition(t_process *process, int i)
 		return (1);
 	params_value(process, &param, i);
 	if (check_registers(&param, process, i) == 1 || g_op_tab[i].param_nbr < 3
-	|| check_param_error(process, param, i) == 1 || g_op_tab[i].param_nbr > 4
+	|| check_param_error(param, i) == 1 || g_op_tab[i].param_nbr > 4
 	|| param.type[2] != REG_CODE)
 		return (param.jump);
 	if (param.type[0] == REG_CODE)
@@ -119,7 +119,7 @@ int		soustraction(t_process *process, int i)
 		return (1);
 	params_value(process, &param, i);
 	if (check_registers(&param, process, i) == 1 || g_op_tab[i].param_nbr < 3
-	|| check_param_error(process, param, i) == 1 || g_op_tab[i].param_nbr > 4
+	|| check_param_error(param, i) == 1 || g_op_tab[i].param_nbr > 4
 	|| param.type[2] != REG_CODE)
 		return (param.jump);
 	if (param.type[0] == REG_CODE)

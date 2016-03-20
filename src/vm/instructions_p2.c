@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:34:56 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/19 19:26:05 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/20 17:27:03 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		ft_and(t_process *process, int i)
 		return (1);
 	params_value(process, &param, i);
 	if (check_registers(&param, process, i) == 1 || param.type[2] != REG_CODE
-	|| check_param_error(process, param, i) == 1 || g_op_tab[i].param_nbr < 3
+	|| check_param_error(param, i) == 1 || g_op_tab[i].param_nbr < 3
 	|| g_op_tab[i].param_nbr > 4)
 		return (param.jump);
 	if (param.type[0] == REG_CODE)
@@ -55,7 +55,7 @@ int		ft_or(t_process *process, int i)
 		return (1);
 	params_value(process, &param, i);
 	if (check_registers(&param, process, i) == 1 || param.type[2] != REG_CODE
-	|| check_param_error(process, param, i) == 1 || g_op_tab[i].param_nbr < 3
+	|| check_param_error(param, i) == 1 || g_op_tab[i].param_nbr < 3
 	|| g_op_tab[i].param_nbr > 4)
 		return (param.jump);
 	if (param.type[0] == REG_CODE)
@@ -81,7 +81,7 @@ int		ft_xor(t_process *process, int i)
 		return (1);
 	params_value(process, &param, i);
 	if (check_registers(&param, process, i) == 1 || param.type[2] != REG_CODE
-	|| check_param_error(process, param, i) == 1 || g_op_tab[i].param_nbr < 3
+	|| check_param_error(param, i) == 1 || g_op_tab[i].param_nbr < 3
 	|| g_op_tab[i].param_nbr > 4)
 		return (param.jump);
 	if (param.type[0] == REG_CODE)
@@ -119,7 +119,7 @@ int		load_index(t_process *process, int i)
 		return (1);
 	params_value(process, &param, i);
 	if (check_registers(&param, process, i) == 1 || g_op_tab[i].param_nbr < 3
-	|| check_param_error(process, param, i) == 1 || g_op_tab[i].param_nbr > 4)
+	|| check_param_error(param, i) == 1 || g_op_tab[i].param_nbr > 4)
 		return (param.jump);
 	if (param.type[0] == REG_CODE)
 		param.value[0] = RBE(process->registers[param.value[1] - 1], REG_SIZE);

@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 14:15:33 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/19 21:35:58 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/20 17:28:50 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int			store_index(t_process *process, int i)
 		return (1);
 	params_value(process, &param, i);
 	if (check_registers(&param, process, i) == 1 || g_op_tab[i].param_nbr < 3
-	|| check_param_error(process, param, i) == 1 || g_op_tab[i].param_nbr > 4)
+	|| check_param_error(param, i) == 1 || g_op_tab[i].param_nbr > 4)
 		return (param.jump);
 	if (param.type[0] == REG_CODE)
 		PV[0] = RBE(PR[PV[0] - 1], REG_SIZE);
