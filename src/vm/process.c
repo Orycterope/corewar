@@ -6,12 +6,13 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:55:35 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/19 21:10:51 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/20 16:34:55 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "process.h"
 #include "execution.h"
+#include "libft.h"
 
 static char **create_copy_registers(char **registers, int player_id)
 {
@@ -30,12 +31,10 @@ static char **create_copy_registers(char **registers, int player_id)
 		else if (registers == NULL)
 		{
 			if (i == 0)
-				ft_write_big_endian((long long)player_id, new[0], REG_SIZE);
+				ft_write_big_endian(player_id, new[0], REG_SIZE);
 			else
 				ft_bzero(new[i], REG_SIZE);
 		}
-		else if (registers[0] && i == 0)
-			ft_memcpy(new[0], registers[0], REG_SIZE);
 		else
 			ft_memcpy(new[i], registers[i], REG_SIZE);
 	}
@@ -56,7 +55,7 @@ void	create_process(int player, char *pc, t_arena *arena, char **registers)
 	new->registers = create_copy_registers(registers, player);
 	new->pc = pc;
 	new->carry = 0;
-	new->cycles_to_wait = get_wait_time(new);
+	new->cycles_to_wait = get_wait_time(new) - 1;
 	new->lives = 0;
 	new->arena = arena;
 	new->next = arena->processes;

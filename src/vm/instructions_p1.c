@@ -6,13 +6,14 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:17:18 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/19 21:52:57 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/20 17:12:43 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "process.h"
 #include "parameters.h"
 #include "operation.h"
+#include "read_write.h"
 
 extern	t_op	g_op_tab[];
 
@@ -21,24 +22,22 @@ int		alive(t_process *process, int i)
 	t_parameters	param;
 	t_player		*temp;
 
+	i += 1;
 	param.type[0] = DIR_CODE;
-	param.value[0] = RBE(mem(process->pc + 1, 1, PA, process), DIR_SIZE);
+	param.value[0] = rm(mem(process->pc + 1, 1, PA, process), DIR_SIZE, PA);
 	process->lives += 1;
 	temp = process->arena->players;
 	while (temp != NULL && temp->id != param.value[0])
-	{
 		temp = temp->next;
-	}
 	if (temp != NULL)
 		temp->last_live = process->arena->cycle;
-	return(1 + DIR_SIZE);
+	return (1 + DIR_SIZE);
 }
 
 int		load(t_process *process, int i)
 {
 	t_parameters	param;
 
-	ft_putchar('A');
 	param.o = 2;
 	decode_ocp(process, &param, i);
 	param.jump = 1 + g_op_tab[i].has_ocp;
@@ -48,22 +47,13 @@ int		load(t_process *process, int i)
 	if (check_registers(&param, process, i) == 1 || param.type[1] != REG_CODE
 	|| check_param_error(process, param, i) == 1 || g_op_tab[i].param_nbr < 2
 	|| g_op_tab[i].param_nbr > 4)
-	{
-		ft_putchar('B');
 		return (param.jump);
-	}
-	ft_putchar('K');
 	if (param.type[0] == REG_CODE)
-		param.value[0] = ft_read_big_endian(PR[param.value[0] - 1], REG_SIZE);
+		param.value[0] = rm(PR[param.value[0] - 1], REG_SIZE, PA);
 	else if (param.type[0] == IND_CODE)
-		PV[0] = RBE(mem(process->pc + PV[0], 1, PA, process), REG_SIZE);
-	ft_printf("%d\n", PV[1]);
-	ft_putchar('M');
-	ft_write_big_endian(param.value[0], PR[param.value[1] - 1], REG_SIZE);
-	ft_putchar('N');
+		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PA);
+	wm(param.value[0], PR[param.value[1] - 1], REG_SIZE, PA);
 	change_carry(process, PV[0]);
-	ft_putchar('O');
-	ft_putendl("a");
 	return (param.jump);
 }
 
@@ -81,13 +71,13 @@ int		store(t_process *process, int i)
 	|| check_param_error(process, param, i) == 1 || g_op_tab[i].param_nbr > 4)
 		return (param.jump);
 	if (param.type[0] == REG_CODE)
-		param.value[0] = ft_read_big_endian(PR[param.value[0] - 1], REG_SIZE);
+		param.value[0] = rm(PR[param.value[0] - 1], REG_SIZE, PA);
 	else if (param.type[0] == IND_CODE)
-		PV[0] = RBE(mem(process->pc + PV[0], 1, PA, process), REG_SIZE);
+		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PA);
 	if (param.type[1] == REG_CODE)
-		ft_write_big_endian(PV[0], PR[PV[1] - 1], REG_SIZE);
+		wm(PV[0], PR[PV[1] - 1], REG_SIZE, PA);
 	else if (param.type[1] == IND_CODE)
-		WBE(PV[0], mem(process->pc + PV[1], 1, PA, process), REG_SIZE);
+		wm(PV[0], mem(process->pc + PV[1], 1, PA, process), REG_SIZE, PA);
 	return (param.jump);
 }
 
@@ -106,14 +96,14 @@ int		addition(t_process *process, int i)
 	|| param.type[2] != REG_CODE)
 		return (param.jump);
 	if (param.type[0] == REG_CODE)
-		param.value[0] = ft_read_big_endian(PR[param.value[0] - 1], REG_SIZE);
+		param.value[0] = rm(PR[param.value[0] - 1], REG_SIZE, PA);
 	else if (param.type[0] == IND_CODE)
-		PV[0] = RBE(mem(process->pc + PV[0], 1, PA, process), REG_SIZE);
+		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PA);
 	if (param.type[1] == REG_CODE)
-		param.value[1] = ft_read_big_endian(PR[param.value[1] - 1], REG_SIZE);
+		param.value[1] = rm(PR[param.value[1] - 1], REG_SIZE, PA);
 	else if (param.type[1] == IND_CODE)
-		PV[1] = RBE(mem(process->pc + PV[1], 1, PA, process), REG_SIZE);
-	WBE(PV[0] + PV[1], PR[PV[2] - 1], REG_SIZE);
+		PV[1] = rm(mem(process->pc + PV[1], 1, PA, process), REG_SIZE, PA);
+	wm(PV[0] + PV[1], PR[PV[2] - 1], REG_SIZE, PA);
 	change_carry(process, (PV[0] + PV[1]));
 	return (param.jump);
 }
@@ -133,14 +123,14 @@ int		soustraction(t_process *process, int i)
 	|| param.type[2] != REG_CODE)
 		return (param.jump);
 	if (param.type[0] == REG_CODE)
-		param.value[0] = ft_read_big_endian(PR[param.value[0] - 1], REG_SIZE);
+		param.value[0] = rm(PR[param.value[0] - 1], REG_SIZE, PA);
 	else if (param.type[0] == IND_CODE)
-		PV[0] = RBE(mem(process->pc + PV[0], 1, PA, process), REG_SIZE);
+		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PA);
 	if (param.type[1] == REG_CODE)
-		param.value[1] = ft_read_big_endian(PR[param.value[1] - 1], REG_SIZE);
+		param.value[1] = rm(PR[param.value[1] - 1], REG_SIZE, PA);
 	else if (param.type[1] == IND_CODE)
-		PV[1] = RBE(mem(process->pc + PV[1], 1, PA, process), REG_SIZE);
-	WBE(PV[0] - PV[1], PR[PV[2] - 1], REG_SIZE);
+		PV[1] = rm(mem(process->pc + PV[1], 1, PA, process), REG_SIZE, PA);
+	wm(PV[0] - PV[1], PR[PV[2] - 1], REG_SIZE, PA);
 	change_carry(process, (PV[0] - PV[1]));
 	return (param.jump);
 }

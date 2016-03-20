@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/19 19:13:25 by adubedat         ###   ########.fr        #
+#    Updated: 2016/03/20 16:38:55 by tvermeil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ DST_PATH = $(ROOT)
 LFT_PATH = $(ROOT)
 
 CC = gcc -g
-#CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra #-Werror
 CPPFLAGS = $(addprefix -I ,$(INC_PATH))
 LDFLAGS = -L$(LFT_PATH)
 LDLIBS = -lft
@@ -41,6 +41,7 @@ SRC_NAME =	arena.c \
 			instructions_p3.c \
 			instructions_p4.c \
 			execution.c \
+			read_write.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
@@ -58,6 +59,7 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 $(DST): $(OBJ)
 	@$(CC) $(OBJ) $(LDFLAGS) $(LDLIBS) -o $(DST)
 	@echo " . \033[32m$(NAME)\033[0m done"
+	@echo [Warning] no compilation flag used
 
 $(ROOT)/libft.a:
 	@make -C $(ROOT) libft.a
