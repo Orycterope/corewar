@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 15:26:20 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/20 22:29:05 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/21 13:27:29 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	build(t_data *data)
 		}
 		tmp_lbl = tmp_lbl->next;
 	}
-//	print_prog(data);
+	print_prog(data);
 }
 
 void	set_indirect(t_data *data, char *param, char *lbl_name,
@@ -56,19 +56,19 @@ void	set_indirect(t_data *data, char *param, char *lbl_name,
 		val = label_exist(data, param + 2, lbl_name);
 //		ft_putendl("found !");
 		val = val * addr_diff(data, param + 2, inst_pos);
+		add_to_prog(data, ((unsigned char *)(&val))[3]);
+		add_to_prog(data, ((unsigned char *)(&val))[2]);
 		add_to_prog(data, ((unsigned char *)(&val))[1]);
 		add_to_prog(data, ((unsigned char *)(&val))[0]);
-//		add_to_prog(data, ((unsigned char *)(&val))[2]);
-//		add_to_prog(data, ((unsigned char *)(&val))[3]);
 	}
 	else
 	{
 		val = ft_atoi(param);
 
+		add_to_prog(data, ((unsigned char *)(&val))[3]);
+		add_to_prog(data, ((unsigned char *)(&val))[2]);
 		add_to_prog(data, ((unsigned char *)(&val))[1]);
 		add_to_prog(data, ((unsigned char *)(&val))[0]);
-//		add_to_prog(data, ((unsigned char *)(&val))[2]);
-//		add_to_prog(data, ((unsigned char *)(&val))[3]);
 /*		i = 3;
 		if (IND_SIZE > 2)
 			error("IND_SIZE is too high");
@@ -98,7 +98,9 @@ void	add_param_to_prog(t_data *data, t_instruc *inst, char *lbl_name,
 	if (inst->param_1 != NULL)
 	{
 		ft_putendl("p1:");
-		if (inst->ocp == -1)
+		if (inst->ocp == -4)
+			set_live(data, inst->param_1, lbl_name, inst_pos);
+		if (inst->ocp == -2)
 			set_direct(data, inst->param_1, lbl_name, inst_pos);
 		else if (get_ocp(inst->ocp, 0) == 1)
 			set_register(data, inst->param_1);
@@ -166,8 +168,16 @@ int		get_params_size_ocp(t_instruc *inst)
 	arr[1] = get_ocp(inst->ocp, 1);
 	arr[2] = get_ocp(inst->ocp, 2);
 	arr[3] = get_ocp(inst->ocp, 3);
-	if (inst->ocp == -1 || (arr[0] == 0 && arr[1] == 0 && arr[2] == 0 && arr[3] == 0))
-		return (DIR_SIZE);
+	if (inst->ocp == -4/* || (arr[0] == 0 && arr[1] == 0 && arr[2] == 0 && arr[3] == 0)*/)
+		return (4);
+	if (inst->ocp == -2/* || (arr[0] == 0 && arr[1] == 0 && arr[2] == 0 && arr[3] == 0)*/)
+		return (2);
+/*	if (ft_strcmp(inst->name, "live") != 0)
+		return (T_IND);
+	if (ft_strcmp(inst->name, "zjump") != 0 &&
+			ft_strcmp(inst->name, "fork") != 0 &&
+			ft_strcmp(inst->name, "lfork") != 0)
+		return (T_DIR);*/
 	i = 0;
 	ret = 0;
 	if (ft_strcmp(inst->name, "live") != 0 &&
@@ -178,19 +188,19 @@ int		get_params_size_ocp(t_instruc *inst)
 	while (i < 4)
 	{
 		ft_printf("arr[i]:%d\n", arr[i]);
-		if (arr[i] == 1)
+		if (arr[i] == REG_CODE)
 		{
-			ret += 1;
+			ret += T_REG;
 //			ft_putendl("add 4");
 		}
-		if (arr[i] == 2)
+		if (arr[i] == DIR_CODE)
 		{
-			ret += DIR_SIZE;
+			ret += T_DIR;
 //			ft_putendl("add 4");
 		}
-		if (arr[i] == 3)
+		if (arr[i] == IND_CODE)
 		{
-			ret += IND_SIZE;
+			ret += T_IND;
 //			ft_putendl("add 2");
 		}
 		i++;
@@ -296,6 +306,32 @@ void	set_address(t_data *data, char *param, char *lbl_name,
 		}*/
 	}
 }
+void	set_live(t_data *data, char *param, char *lbl_name,
+					int inst_pos)
+{
+	int		val;
+
+	ft_putendl("is LIVE !!!");
+	if (param[1] == LABEL_CHAR)
+	{
+		val = label_exist(data, param + 2, lbl_name);
+		val = val * addr_diff(data, param + 2, inst_pos);
+		add_to_prog(data, ((unsigned char *)(&val))[3]);
+		add_to_prog(data, ((unsigned char *)(&val))[2]);
+		add_to_prog(data, ((unsigned char *)(&val))[1]);
+		add_to_prog(data, ((unsigned char *)(&val))[0]);
+	}
+	else
+	{
+		val = ft_atoi(param + 1);
+		add_to_prog(data, ((unsigned char *)(&val))[3]);
+		add_to_prog(data, ((unsigned char *)(&val))[2]);
+		add_to_prog(data, ((unsigned char *)(&val))[1]);
+		add_to_prog(data, ((unsigned char *)(&val))[0]);
+	}
+}
+
+
 void	set_direct(t_data *data, char *param, char *lbl_name,
 					int inst_pos)
 {
@@ -309,16 +345,17 @@ void	set_direct(t_data *data, char *param, char *lbl_name,
 		val = label_exist(data, param + 2, lbl_name);
 //		ft_putendl("found !");
 		val = val * addr_diff(data, param + 2, inst_pos);
-		add_to_prog(data, ((unsigned char *)(&val))[3]);
-		add_to_prog(data, ((unsigned char *)(&val))[2]);
+
+//		add_to_prog(data, ((unsigned char *)(&val))[3]);
+//		add_to_prog(data, ((unsigned char *)(&val))[2]);
 		add_to_prog(data, ((unsigned char *)(&val))[1]);
 		add_to_prog(data, ((unsigned char *)(&val))[0]);
 	}
 	else
 	{
 		val = ft_atoi(param + 1);
-		add_to_prog(data, ((unsigned char *)(&val))[3]);
-		add_to_prog(data, ((unsigned char *)(&val))[2]);
+//		add_to_prog(data, ((unsigned char *)(&val))[3]);
+//		add_to_prog(data, ((unsigned char *)(&val))[2]);
 		add_to_prog(data, ((unsigned char *)(&val))[1]);
 		add_to_prog(data, ((unsigned char *)(&val))[0]);
 /*		i = DIR_SIZE - 1;
@@ -362,8 +399,8 @@ void	set_register(t_data *data, char *param_1)
 	ft_putendl("is a register");
 	reg_val = ft_atoi(param_1 + 1);
 //	i = REG_SIZE - 1;
-	if (REG_SIZE > 4)
-		error("REG_SIZE is too high");
+//	if (T_REG > 4)
+//		error("REG_SIZE is too high");
 	add_to_prog(data, ((unsigned char *)(&reg_val))[0]);
 //	while (i >= 0)
 //	{

@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/20 22:22:38 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/21 13:28:13 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ void					free_strsplit(char **arr);
 int						set_ocp(int ocp, int index, int val);
 int						get_ocp(int ocp, int index);
 void					set_register(t_data *data, char *param_1);
+void					set_live(t_data *data, char *param, char *lbl_name,
+						int inst_pos);
 void					set_direct(t_data *data, char *param, char *lbl_name,
 						int inst_pos);
 void					set_address(t_data *data, char *param, char *lbl_name,
