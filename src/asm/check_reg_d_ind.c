@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 12:44:03 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/20 20:39:20 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/21 16:24:51 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,14 @@ void	check_indirect(char *str, t_data *data)
 	if (str[0] == LABEL_CHAR)
 	{
 		if (ft_isdigit(str[i]) == 1)
-			ind_check = ft_atoi(str + i);
-		while (str[i] && str[i] != SEPARATOR_CHAR)
 		{
-			if (ft_isdigit(str[i]) != 1)
-				error_line(data, "indirect error");
-			i++;
+			ind_check = ft_atoi(str + i);
+			while (str[i] && str[i] != SEPARATOR_CHAR)
+			{
+				if (ft_isdigit(str[i]) != 1)
+					error_line(data, "indirect error");
+				i++;
+			}
 		}
 	}
 	if (str[0] != LABEL_CHAR && ft_isdigit(str[0]) != 1)
