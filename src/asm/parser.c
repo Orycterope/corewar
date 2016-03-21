@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 18:59:26 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/19 19:13:01 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/21 17:25:18 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,24 +232,27 @@ void	routes(t_data *data, char *buf, t_label **lbl_lst)
 	char		*next;
 
 	if (is_comment(buf))
-		ft_putendl("[IS COMMENT]");
+		;
+//		ft_putendl("[IS COMMENT]");
 	else if (read_name_comment(data, buf))
-		ft_putendl("[NAME || COMMENT]");
+		;
+//		ft_putendl("[NAME || COMMENT]");
 	else if (check_add_lbl(buf, lbl_lst, data))
 	{
-		ft_putendl("[LBL]");
+//		ft_putendl("[LBL]");
 		next = NULL;
 		if (chk_after_lbl(buf, &next))
 			check_add_instruc(next, data);
 		if (next != NULL)
 		{
-			ft_putendl("next :");
-			ft_putendl(next);
+//			ft_putendl("next :");
+//			ft_putendl(next);
 			free(next);
 		}
 	}
 	else if (check_add_instruc(buf, data))
-		ft_putendl("[INSTRUC]");
+		;
+//		ft_putendl("[INSTRUC]");
 	else
 		error_line(data, "lexical error");
 //	print_inst_lst(*inst_lst);
