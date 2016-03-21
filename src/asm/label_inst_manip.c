@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:52:23 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/20 20:13:02 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/21 17:37:52 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_instruc	*inst_one_param(char **inst_line, t_data *data)
 	new_elem = inst_new_elem(inst_line[0]);
 	check_opcode(inst_line[0], new_elem);
 	check_params(inst_line[1], new_elem, data, &order);
-	new_elem->param_1 = inst_line[1];
+	new_elem->param_1 = no_comma(inst_line[1]);
 	tmp_lbl = add_last_label(data);
 	addend_inst_lst(&tmp_lbl->insts, new_elem);
 	return (new_elem);
@@ -122,7 +122,7 @@ t_instruc	*inst_two_params(char **inst_line, char *trim,
 	new_elem = inst_new_elem(inst_line[0]);
 	check_opcode(inst_line[0], new_elem);
 	check_params(inst_line[1], new_elem, data, &order);
-	new_elem->param_1 = inst_line[1];
+	new_elem->param_1 = no_comma(inst_line[1]);
 	if ((inst_params = ft_strsplit(trim, SEPARATOR_CHAR)) == NULL)
 		error("Malloc error");
 	check_params(inst_params[1], new_elem, data, &order);
@@ -145,7 +145,7 @@ t_instruc	*inst_three_params(char **inst_line, char *trim, t_data *data)
 	new_elem = inst_new_elem(inst_line[0]);
 	check_opcode(inst_line[0], new_elem);
 	check_params(inst_line[1], new_elem, data, &order);
-	new_elem->param_1 = inst_line[1];
+	new_elem->param_1 = no_comma(inst_line[1]);
 	if ((inst_params = ft_strsplit(trim, SEPARATOR_CHAR)) == NULL)
 		error("Malloc error");
 	check_params(inst_params[1], new_elem, data, &order);

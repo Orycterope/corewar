@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/21 17:25:00 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/21 17:38:32 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ t_instruc				*inst_three_params(char **inst_line, char *trim,
 						t_data *data);
 t_label					*add_last_label(t_data *data);
 char					*real_trim(char *str);
+char					*no_comma(char *str);
 void					if_one_param(int i, t_data *data, t_instruc *inst,
 						int *order);
 void					if_two_params(int i, t_data *data, t_instruc *inst,
