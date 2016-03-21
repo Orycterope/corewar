@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 12:44:03 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/21 17:21:56 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/21 18:56:34 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	check_indirect(char *str, t_data *data)
 			}
 		}
 	}
+	if (str[0] == '-')
+		return ;
 	if (str[0] != LABEL_CHAR && ft_isdigit(str[0]) != 1)
 		error_line(data, "indirect error");
 }

@@ -3,10 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   build.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/21 19:09:47 by jriallan          #+#    #+#             */
+/*   Updated: 2016/03/21 20:13:36 by jriallan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   build.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 15:26:20 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/21 17:25:13 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/21 18:30:28 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,15 +116,15 @@ void	add_param_to_prog(t_data *data, t_instruc *inst, char *lbl_name,
 		if (inst->ocp == -4)
 			set_live(data, inst->param_1, lbl_name, inst_pos);
 		else if (inst->ocp == -2)
-			set_fork(data, inst->param_1, lbl_name, inst_pos);
+			set_special(data, inst->param_1, lbl_name, inst_pos);
 		else if (get_ocp(inst->ocp, 0) == 1)
 			set_register(data, inst->param_1);
-		else if (ind == 1)
-			set_address(data, inst->param_2, lbl_name, inst_pos);
-		else if (get_ocp(inst->ocp, 0) == 2)
+		else if (ind == 0 && get_ocp(inst->ocp, 0) == 2)
 			set_direct(data, inst->param_1, lbl_name, inst_pos);
 		else if (get_ocp(inst->ocp, 0) == 3)
 			set_indirect(data, inst->param_1, lbl_name, inst_pos);
+		else if (ind == 1)
+			set_address(data, inst->param_1, lbl_name, inst_pos);
 	}
 	if (inst->param_2 != NULL)
 	{
@@ -120,12 +132,12 @@ void	add_param_to_prog(t_data *data, t_instruc *inst, char *lbl_name,
 		ft_putendl(inst->param_2);
 		if (get_ocp(inst->ocp, 1) == 1)
 			set_register(data, inst->param_2);
-		else if (ind == 1)
-			set_address(data, inst->param_2, lbl_name, inst_pos);
-		else if (get_ocp(inst->ocp, 1) == 2)
+		else if (ind == 0 && get_ocp(inst->ocp, 1) == 2)
 			set_direct(data, inst->param_2, lbl_name, inst_pos);
 		else if (get_ocp(inst->ocp, 1) == 3)
 			set_indirect(data, inst->param_2, lbl_name, inst_pos);
+		else if (ind == 1)
+			set_address(data, inst->param_2, lbl_name, inst_pos);
 	}
 	if (inst->param_3 != NULL)
 	{
@@ -133,12 +145,12 @@ void	add_param_to_prog(t_data *data, t_instruc *inst, char *lbl_name,
 		ft_putendl(inst->param_3);
 		if (get_ocp(inst->ocp, 2) == 1)
 			set_register(data, inst->param_3);
-		else if (ind == 1)
-			set_address(data, inst->param_3, lbl_name, inst_pos);
-		else if (get_ocp(inst->ocp, 2) == 2)
+		else if (ind == 0 && get_ocp(inst->ocp, 2) == 2)
 			set_direct(data, inst->param_3, lbl_name, inst_pos);
 		else if (get_ocp(inst->ocp, 2) == 3)
 			set_indirect(data, inst->param_3, lbl_name, inst_pos);
+		else if (ind == 1)
+			set_address(data, inst->param_3, lbl_name, inst_pos);
 	}
 }
 
@@ -167,10 +179,7 @@ int		get_params_size_ocp(t_instruc *inst)
 
 //	if (inst->ocp == -1)
 //		return (1);
-	if (ft_strcmp(inst->name, "sti") == 0 ||
-			ft_strcmp(inst->name, "lldi") == 0 ||
-			ft_strcmp(inst->name, "ldi") == 0)
-		return (6);
+//		return (6);
 	arr[0] = get_ocp(inst->ocp, 0);
 	arr[1] = get_ocp(inst->ocp, 1);
 	arr[2] = get_ocp(inst->ocp, 2);
@@ -202,6 +211,11 @@ int		get_params_size_ocp(t_instruc *inst)
 		}
 		if (arr[i] == DIR_CODE)
 		{
+			if (ft_strcmp(inst->name, "sti") == 0 ||
+				ft_strcmp(inst->name, "lldi") == 0 ||
+				ft_strcmp(inst->name, "ldi") == 0)
+			ret += 2;
+			else
 			ret += 4;
 //			ft_putendl("add 4");
 		}
@@ -266,7 +280,11 @@ int		addr_diff(t_data *data, char *lbl_name, int inst_pos)
 			else if (i == cmp && count == 1)
 				count = 0;
 			if (count != 0)
-				diff += 1 + get_params_size_ocp(tmp_inst);
+			{
+				int add = 1 + get_params_size_ocp(tmp_inst);
+				ft_printf("+ %d\n", add);
+				diff += add;
+			}
 			i++;
 			tmp_inst = tmp_inst->next;
 		}
@@ -284,20 +302,27 @@ void	set_address(t_data *data, char *param, char *lbl_name,
 	int		val;
 //	int		i;
 
-	ft_putendl("is a indirect (address)");
+	ft_putendl("is a direct (address)");
+	ft_putendl(param);
 	if (param[1] == LABEL_CHAR)
 	{
-//		ft_printf("go to {%s}\n", param);
 		val = label_exist(data, param + 2, lbl_name);
-//		ft_putendl("found !");
 		val = val * addr_diff(data, param + 2, inst_pos);
-//		add_to_prog(data, ((unsigned char *)(&val))[3]);
-//		add_to_prog(data, ((unsigned char *)(&val))[2]);
+		ft_printf("val: :%d  or : %x", val, val);
 		add_to_prog(data, ((unsigned char *)(&val))[1]);
 		add_to_prog(data, ((unsigned char *)(&val))[0]);
 	}
+/*		if (param[0] == LABEL_CHAR)
+	
+	{
+		val = label_exist(data, param + 2, lbl_name);
+		val = val * addr_diff(data, param + 2, inst_pos);
+		add_to_prog(data, ((unsigned char *)(&val))[1]);
+		add_to_prog(data, ((unsigned char *)(&val))[0]);
+	}*/
 	else
 	{
+		ft_putendl("atoi !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		val = ft_atoi(param + 1);
 //		add_to_prog(data, ((unsigned char *)(&val))[3]);
 //		add_to_prog(data, ((unsigned char *)(&val))[2]);
@@ -337,12 +362,12 @@ void	set_live(t_data *data, char *param, char *lbl_name,
 		add_to_prog(data, ((unsigned char *)(&val))[0]);
 	}
 }
-void	set_fork(t_data *data, char *param, char *lbl_name,
+void	set_special(t_data *data, char *param, char *lbl_name,
 					int inst_pos)
 {
 	int		val;
 
-	ft_putendl("is FORK !!!");
+	ft_putendl("is special !!!");
 	if (param[1] == LABEL_CHAR)
 	{
 		val = label_exist(data, param + 2, lbl_name);
@@ -402,25 +427,25 @@ void	set_direct(t_data *data, char *param, char *lbl_name,
 int		label_exist(t_data *data, char *param_name, char *lbl_name)
 {
 	t_label		*tmp_lbl;
-	int			error;
 	int			position;
 
 	tmp_lbl = data->label;
-	error = 1;
 	position = -1;
+	ft_printf("param_name : %s\n", param_name);
+	ft_printf("lbl_name : %s\n", lbl_name);
 	while (tmp_lbl)
 	{
-		ft_putnbr(ft_strcmp(param_name, tmp_lbl->name));
-		ft_putendl("");
+		ft_printf("name : %s\n", tmp_lbl->name);
 		if (ft_strcmp(param_name, tmp_lbl->name) == 0)
-			error = 0;
-		if (ft_strcmp(lbl_name, tmp_lbl->name) == 0 && error == 1)
+		ft_printf("position : %d\n", position);
+		if (ft_strcmp(param_name, tmp_lbl->name) == 0)
+			return (position);
+		if (ft_strcmp(lbl_name, tmp_lbl->name) == 0)
 			position = 1;
 		tmp_lbl = tmp_lbl->next;
 	}
-	if (error == 1)
-		error_str(NULL, "Label name doesn't exist : ", param_name);
-	return (position);
+	error_str(NULL, "Label name doesn't exist : ", param_name);
+	return (-999999999);
 }
 
 void	set_register(t_data *data, char *param_1)
