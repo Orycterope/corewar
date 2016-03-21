@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 11:59:12 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/20 20:48:15 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/21 13:36:02 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,20 @@ int		without_ocp(char *trim, t_data *data, t_instruc *inst)
 		check_direct(trim, data);
 		if (trim[0] == DIRECT_CHAR && trim[1] == LABEL_CHAR)
 			inst->lbl_addr = trim + 2;
-		inst->ocp = -1;
+		inst->ocp = -2;
+		return (1);
+	}
+	return (0);
+}
+
+int		without_ocp_live(char *trim, t_data *data, t_instruc *inst)
+{
+	if (trim[0] == DIRECT_CHAR)
+	{
+		check_direct(trim, data);
+		if (trim[0] == DIRECT_CHAR && trim[1] == LABEL_CHAR)
+			inst->lbl_addr = trim + 2;
+		inst->ocp = -4;
 		return (1);
 	}
 	return (0);

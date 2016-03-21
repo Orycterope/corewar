@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/21 11:43:07 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/21 13:35:31 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,8 @@ int						is_indirect(char *trim, t_data *data, t_instruc *inst,
 int						is_register(char *trim, t_data *data, t_instruc *inst,
 						int *order);
 int						without_ocp(char *trim, t_data *data, t_instruc *inst);
+int						without_ocp_live(char *trim, t_data *data,
+						t_instruc *inst);
 void					check_reg(char *str, t_data *data);
 void					check_indirect(char *str, t_data *data);
 void					check_direct(char *str, t_data *data);
