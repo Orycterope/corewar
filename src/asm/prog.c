@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:45:48 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/20 21:09:32 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/21 12:18:45 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,5 @@ void	print_prog(t_data *data)
 			ft_printf("%02x ", data->prog[i]);
 		i++;
 	}
+	ft_putendl("");
 }
