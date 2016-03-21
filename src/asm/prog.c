@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:45:48 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/19 16:00:14 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/20 21:09:32 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	add_to_prog(t_data *data, unsigned char c)
 	unsigned char	*tmp;
 	int				i;
 
+	ft_printf("%02x\n", c);
 	data->prog_size++;
 	if ((tmp = (unsigned char *)malloc(sizeof(unsigned char) *
 				data->prog_size)) == NULL)
@@ -39,9 +40,12 @@ void	print_prog(t_data *data)
 	i = 0;
 	while (i < data->prog_size)
 	{
-		ft_printf("%x ", data->prog[i]);
-		if (i % 10 == 0 && i != 0)
+		if (i % 16 == 0)
 			ft_putendl("");
+		if (i % 2 == 0)
+			ft_printf("%02x", data->prog[i]);
+		if (i % 2 == 1)
+			ft_printf("%02x ", data->prog[i]);
 		i++;
 	}
 }

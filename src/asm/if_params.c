@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 16:12:47 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/20 20:34:08 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/20 20:45:58 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	if_one_param(int i, t_data *data, t_instruc *inst, int *order)
 {
 	if (g_op[i].param_type[0] == T_DIR)
 	{
-		if (g_op[i].c1 == 0 && without_ocp(inst->trim, data, inst, order) == 1)
+		if (g_op[i].c1 == 0 && without_ocp(inst->trim, data, inst) == 1)
 			return ;
 		else if (is_direct(inst->trim, data, inst, order) == 1)
 			return ;
