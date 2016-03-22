@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 18:59:26 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/22 13:51:49 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/22 15:41:54 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,8 @@ void	routes(t_data *data, char *buf)
 {
 	char		*next;
 
+	ft_putchar('*');
+	ft_putendl(buf);
 	if (is_comment(buf))
 		ft_putendl("[IS COMMENT]");
 	else if (read_name_comment(data, buf))
