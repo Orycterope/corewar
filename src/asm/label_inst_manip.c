@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:52:23 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/22 13:51:57 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/22 15:38:49 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,28 +71,44 @@ int			check_add_instruc(char *buf, t_data *data)
 	char		**inst_line;
 	t_instruc	*new_elem;
 
+	ft_putendl("{Check_add}");
+	ft_putendl(buf);
 	buf = check_comm(buf, data);
 	check_first_lbl(data);
 	init_check_add_instruc_var(&inst_line, &trim, &new_elem);
 	trim = real_trim(buf);
 	if (is_in_str(' ', trim) > 0)
 	{
+		ft_putendl("0");
 		if ((inst_line = ft_strsplit(trim, ' ')) == NULL)
 			error("Malloc error");
 		if (is_in_str(SEPARATOR_CHAR, trim) == 0 && check_opcode_name(
 			inst_line[0]) == 1)
+		{
+			ft_putendl("1");
 			new_elem = inst_one_param(inst_line, data);
+		}
 		else if (is_in_str(SEPARATOR_CHAR, trim) == 1 && check_opcode_name(
 				inst_line[0]) == 1)
+		{
+			ft_putendl("2");
 			new_elem = inst_two_params(inst_line, trim, data);
+		}
 		else if (is_in_str(SEPARATOR_CHAR, trim) == 2 && check_opcode_name(
 				inst_line[0]) == 1)
+		{
+			ft_putendl("3");
 			new_elem = inst_three_params(inst_line, trim, data);
+			ft_putendl("3");
+		}
 		else if (is_in_str(SEPARATOR_CHAR, trim) > 3 && ft_strchr(trim,
 				COMMENT_CHAR) == NULL)
 			error_line(data, "Incorrect number of params");
 		else
+		{
+			ft_putendl("4");
 			return (0);
+		}
 		return (1);
 	}
 	return (0);

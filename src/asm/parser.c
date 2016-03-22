@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 18:59:26 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/22 16:32:48 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/22 16:43:11 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,6 +298,8 @@ void	parser(t_data *data)
 	data->label = NULL;
 	while ((buf = NULL) == NULL && get_next_line(data->fd, &buf) > 0)
 	{
+	ft_putchar('*');
+	ft_putendl(buf);
 		routes(data, buf);
 		free(buf);
 		data->line++;
