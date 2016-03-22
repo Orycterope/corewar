@@ -29,9 +29,6 @@ void	write_header(t_data *data)
 	add_to_cor(data, 0);
 	add_to_cor(data, 0);
 	add_to_cor(data, 0);
-	ft_putstr("Writing prog :");
-	ft_putnbr(data->prog_size);
-	ft_putendl("");
 	add_str_to_cor(data, (char *)data->prog, data->prog_size);
 	ft_putstr("Writing output program to ");
 	ft_putendl(data->filename);

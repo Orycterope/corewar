@@ -34,7 +34,6 @@ void	build(t_data *data)
 		}
 		tmp_lbl = tmp_lbl->next;
 	}
-	//print_prog(data);
 }
 
 void	set_indirect(t_data *data, char *param, char *lbl_name,
@@ -81,7 +80,7 @@ void	add_param_to_prog_3(t_data *data, t_instruc *inst, char *lbl_name,
 }
 
 void	add_param_to_prog_2(t_data *data, t_instruc *inst, char *lbl_name,
-		int inst_pos)
+															int inst_pos)
 {
 	int		ind;
 
@@ -103,7 +102,6 @@ void	add_param_to_prog_2(t_data *data, t_instruc *inst, char *lbl_name,
 	}
 	add_param_to_prog_3(data, inst, lbl_name, inst_pos);
 }
-
 
 void	add_param_to_prog(t_data *data, t_instruc *inst, char *lbl_name,
 		int inst_pos)
@@ -150,22 +148,8 @@ int		get_ocp(int ocp, int index)
 	return (-1);
 }
 
-int		get_params_size_ocp(t_instruc *inst)
+int		get_params_size_ocp_2(int ret, int i, int *arr, t_instruc *inst)
 {
-	int		arr[4];
-	int		i;
-	int		ret;
-
-	arr[0] = get_ocp(inst->ocp, 0);
-	arr[1] = get_ocp(inst->ocp, 1);
-	arr[2] = get_ocp(inst->ocp, 2);
-	arr[3] = get_ocp(inst->ocp, 3);
-	if (inst->ocp == -4)
-		return (4);
-	if (inst->ocp == -2)
-		return (2);
-	i = 0;
-	ret = 0;
 	if (ft_strcmp(inst->name, "live") != 0 &&
 			ft_strcmp(inst->name, "zjump") != 0 &&
 			ft_strcmp(inst->name, "fork") != 0 &&
@@ -173,7 +157,6 @@ int		get_params_size_ocp(t_instruc *inst)
 		ret++;
 	while (i < 4)
 	{
-		ft_printf("arr[i]:%d\n", arr[i]);
 		if (arr[i] == REG_CODE)
 		{
 			ret += 1;
@@ -191,35 +174,52 @@ int		get_params_size_ocp(t_instruc *inst)
 			ret += 2;
 		i++;
 	}
-	ft_printf("ocp return :%d\n", ret);
 	return (ret);
 }
 
-int		addr_diff_2(t_data *data, int cmp, int inst_pos)
+int		get_params_size_ocp(t_instruc *inst)
 {
-	int			i;
+	int		arr[4];
+
+	arr[0] = get_ocp(inst->ocp, 0);
+	arr[1] = get_ocp(inst->ocp, 1);
+	arr[2] = get_ocp(inst->ocp, 2);
+	arr[3] = get_ocp(inst->ocp, 3);
+	if (inst->ocp == -4)
+		return (4);
+	if (inst->ocp == -2)
+		return (2);
+	return (get_params_size_ocp_2(0, 0, arr, inst));
+}
+
+void	addr_diff_2_calcul(int i, int cmp, int inst_pos, int *count)
+{
+	if (i == cmp && *count == 0)
+		*count = -1;
+	else if (i == inst_pos && *count == 0)
+		*count = 1;
+	if (i == inst_pos && *count == -1)
+		*count = 0;
+	else if (i == cmp && *count == 1)
+		*count = 0;
+}
+
+int		addr_diff_2(t_data *data, int cmp, int inst_pos, int i)
+{
 	int			count;
 	int			diff;
 	t_label		*tmp_lbl;
 	t_instruc	*tmp_inst;
 
-	i = 0;
-	tmp_lbl = data->label;
-	diff = 0;
 	count = 0;
+	diff = 0;
+	tmp_lbl = data->label;
 	while (tmp_lbl)
 	{
 		tmp_inst = tmp_lbl->insts;
 		while (tmp_inst)
 		{
-			if (i == cmp && count == 0)
-				count = -1;
-			else if (i == inst_pos && count == 0)
-				count = 1;
-			if (i == inst_pos && count == -1)
-				count = 0;
-			else if (i == cmp && count == 1)
-				count = 0;
+			addr_diff_2_calcul(i, cmp, inst_pos, &count);
 			if (count != 0)
 				diff += 1 + get_params_size_ocp(tmp_inst);
 			i++;
@@ -250,7 +250,7 @@ int		addr_diff(t_data *data, char *lbl_name, int inst_pos)
 		}
 		tmp_lbl = tmp_lbl->next;
 	}
-	return (addr_diff_2(data, i, inst_pos));
+	return (addr_diff_2(data, i, inst_pos, 0));
 }
 
 void	set_address(t_data *data, char *param, char *lbl_name,
@@ -262,7 +262,6 @@ void	set_address(t_data *data, char *param, char *lbl_name,
 	{
 		val = label_exist(data, param + 2, lbl_name);
 		val = val * addr_diff(data, param + 2, inst_pos);
-		ft_printf("val: :%d  or : %x", val, val);
 		add_to_prog(data, ((unsigned char *)(&val))[1]);
 		add_to_prog(data, ((unsigned char *)(&val))[0]);
 	}

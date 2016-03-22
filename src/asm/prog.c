@@ -17,7 +17,6 @@ void	add_to_prog(t_data *data, unsigned char c)
 	unsigned char	*tmp;
 	int				i;
 
-//	ft_printf("%02x\n", c);
 	data->prog_size++;
 	if ((tmp = (unsigned char *)malloc(sizeof(unsigned char) *
 				data->prog_size)) == NULL)
@@ -31,7 +30,7 @@ void	add_to_prog(t_data *data, unsigned char c)
 	tmp[i] = c;
 	free(data->prog);
 	data->prog = tmp;
-}	
+}
 
 void	print_prog(t_data *data)
 {

@@ -16,7 +16,7 @@ char	*no_comma(char *str)
 {
 	char	**comma_split;
 	char	*ret;
-	
+
 	comma_split = ft_strsplit(str, ',');
 	ret = ft_strdup(comma_split[0]);
 	free_strsplit(comma_split);
