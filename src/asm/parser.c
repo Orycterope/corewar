@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 18:59:26 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/22 15:41:54 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/22 16:04:10 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,8 +186,12 @@ int		read_name_comment(t_data *data, char *str)
 	int		ret;
 
 	ret = 0;
-	if ((ret = parse_nm_cmt(data, &data->name, str, 1)) == 0)
-		ret = parse_nm_cmt(data, &data->comment, str, 2);
+	if (data->name == NULL || data->comment == NULL)
+	{
+		ft_putendl("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+		if ((ret = parse_nm_cmt(data, &data->name, str, 1)) == 0)
+			ret = parse_nm_cmt(data, &data->comment, str, 2);
+	}
 	return (ret);
 }
 
@@ -231,8 +235,6 @@ void	routes(t_data *data, char *buf)
 {
 	char		*next;
 
-	ft_putchar('*');
-	ft_putendl(buf);
 	if (is_comment(buf))
 		ft_putendl("[IS COMMENT]");
 	else if (read_name_comment(data, buf))
@@ -265,6 +267,8 @@ void	parser(t_data *data)
 	data->label = NULL;
 	while ((buf = NULL) == NULL && get_next_line(data->fd, &buf) > 0)
 	{
+	ft_putchar('*');
+	ft_putendl(buf);
 		routes(data, buf);
 		free(buf);
 		data->line++;

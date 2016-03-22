@@ -1,32 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_putnbr_endl.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jriallan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/12 18:09:28 by jriallan          #+#    #+#             */
-/*   Updated: 2016/01/14 12:11:31 by jriallan         ###   ########.fr       */
+/*   Created: 2015/12/05 12:57:26 by jriallan          #+#    #+#             */
+/*   Updated: 2015/12/05 12:58:27 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include "libft.h"
-
-# define BUFF_SIZE 2048
-
-typedef struct		s_file
+void	ft_putnbr_endl(int n)
 {
-	int				fd;
-	char			*text;
-	int				size_text;
-	struct s_file	*next;
-}					t_file;
-
-int					get_next_line(int const fd, char **line);
-
-#endif
+	ft_putnbr_fd(n, 1);
+	ft_putchar('\n');
+}

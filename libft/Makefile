@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/11 16:50:07 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/11 18:01:05 by tvermeil         ###   ########.fr        #
+#    Updated: 2016/03/22 16:09:20 by jriallan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,6 +98,7 @@ SRC_NAME =    ft_memset.c \
 				printf/get_string.c \
 				printf/itoa.c \
 				printf/itoa_base.c \
+   		    	ft_putnbr_endl.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
