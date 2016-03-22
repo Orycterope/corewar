@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 16:12:47 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/22 16:59:53 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/22 18:21:45 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,14 +135,8 @@ void	three_params_second(int i, t_data *data, t_instruc *inst, int *order)
 	}
 	else if (g_op[i].param_type[*order] == (T_REG | T_DIR | T_IND))
 	{
-		if (is_register(inst->trim, data, inst, order) == 1)
+		if (three_params_second_cut(data, inst, order) == 1)
 			return ;
-		else if (is_direct(inst->trim, data, inst, order) == 1)
-			return ;
-		else if (is_indirect(inst->trim, data, inst, order) == 1)
-			return ;
-		else
-			error_line(data, "incorrect param WTF u doing");
 	}
 	else if (g_op[i].param_type[*order] == (T_DIR | T_REG))
 	{
@@ -155,6 +149,19 @@ void	three_params_second(int i, t_data *data, t_instruc *inst, int *order)
 	}
 	else
 		error_line(data, "what happen OMG");
+}
+
+int		three_params_second_cut(t_data *data, t_instruc *inst, int *order)
+{
+	if (is_register(inst->trim, data, inst, order) == 1)
+		return (1);
+	else if (is_direct(inst->trim, data, inst, order) == 1)
+		return (1);
+	else if (is_indirect(inst->trim, data, inst, order) == 1)
+		return (1);
+	else
+		error_line(data, "incorrect param WTF u doing");
+	return (0);
 }
 
 void	three_params_third(int i, t_data *data, t_instruc *inst, int *order)

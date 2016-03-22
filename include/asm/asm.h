@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/22 18:11:17 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/22 18:46:11 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,8 @@ void					three_params_first(int i, t_data *data, t_instruc *inst,
 						int *order);
 void					three_params_second(int i, t_data *data, t_instruc *inst
 						, int *order);
+int						three_params_second_cut(t_data *data, t_instruc *inst,
+						int *order);
 void					three_params_third(int i, t_data *data, t_instruc *inst,
 						int *order);
 int						is_direct(char *trim, t_data *data, t_instruc *inst,
@@ -168,8 +170,10 @@ void					check_reg(char *str, t_data *data);
 void					check_indirect(char *str, t_data *data);
 void					check_direct(char *str, t_data *data);
 char					*check_comm(char *str, t_data *data);
-void					init_check_add_instruc_var(char ***inst_line,
-						char **trim, t_instruc **new_elem);
+void					init_check_add_instruc(char ***inst_line, char **trim,
+						t_instruc **new_elem);
+void					init_check_add_lbl(t_label **new_elem,
+						char ***sp_lbl_name, char **colon_chr);
 void					free_inst_lbl(t_label *lbl);
 
 #endif
