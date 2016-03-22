@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:52:23 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/22 18:11:15 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/22 18:45:59 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ int			check_add_lbl(char *buf, t_data *data)
 	char		**sp_lbl_name;
 	char		*colon_chr;
 
-	new_elem = NULL;
-	sp_lbl_name = NULL;
-	colon_chr = NULL;
+	init_check_add_lbl(&new_elem, &sp_lbl_name, &colon_chr);
 	if (is_in_str(LABEL_CHAR, buf) >= 1)
 	{
 		if ((sp_lbl_name = ft_strsplit(buf, LABEL_CHAR)) == NULL)
@@ -65,7 +63,7 @@ void		check_first_lbl(t_data *data)
 	new_elem = NULL;
 	if (data->label == NULL)
 	{
-		new_elem = lbl_new_elem("COMMENT_CHARfirst");
+		new_elem = lbl_new_elem(ft_strdup("COMMENT_CHARfirst"));
 		addend_lbl_lst(&data->label, new_elem);
 	}
 }
@@ -79,7 +77,7 @@ int			check_add_instruc(char *buf, t_data *data)
 
 	buf = check_comm(buf, data);
 	check_first_lbl(data);
-	init_check_add_instruc_var(&inst_line, &trim, &new_elem);
+	init_check_add_instruc(&inst_line, &trim, &new_elem);
 	trim = real_trim(buf);
 	ret = 0;
 	if (is_in_str(' ', trim) > 0)
@@ -120,7 +118,7 @@ t_instruc	*inst_one_param(char **inst_line, t_data *data)
 		i++;
 	if (i > 2)
 		error_line(data, "Incorrect number of params");
-	new_elem = inst_new_elem(inst_line[0]);
+	new_elem = inst_new_elem(ft_strdup(inst_line[0]));
 	check_opcode(inst_line[0], new_elem);
 	check_params(inst_line[1], new_elem, data, &order);
 	new_elem->param_1 = no_comma(inst_line[1]);
@@ -140,7 +138,7 @@ t_instruc	*inst_two_params(char **inst_line, char *trim,
 	new_elem = NULL;
 	inst_params = NULL;
 	order = 0;
-	new_elem = inst_new_elem(inst_line[0]);
+	new_elem = inst_new_elem(ft_strdup(inst_line[0]));
 	check_opcode(inst_line[0], new_elem);
 	check_params(inst_line[1], new_elem, data, &order);
 	new_elem->param_1 = no_comma(inst_line[1]);
@@ -164,7 +162,7 @@ t_instruc	*inst_three_params(char **inst_line, char *trim, t_data *data)
 	new_elem = NULL;
 	inst_params = NULL;
 	order = 0;
-	new_elem = inst_new_elem(inst_line[0]);
+	new_elem = inst_new_elem(ft_strdup(inst_line[0]));
 	check_opcode(inst_line[0], new_elem);
 	check_params(inst_line[1], new_elem, data, &order);
 	new_elem->param_1 = no_comma(inst_line[1]);
