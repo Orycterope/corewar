@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 18:59:26 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/22 16:48:14 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/22 16:48:59 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,23 @@ int		check_nm_cmt(t_data *data, char **s, int ind_len[], char *str)
 	int		tmp;
 	int		ret;
 
+	ret = 0;
 	tmp = is_in_str('"', str);
 	if (tmp == 1)
 	{
 		arr = ft_strsplit(str, '"');
-		if (arr[1] == 0 ||
-				(arr[1] + ft_strlen(arr[1])) == ft_pass_space_tab(arr[1]))
+		if (arr[0] != 0 && (arr[1] == 0 ||
+					(arr[1] + ft_strlen(arr[1])) == ft_pass_space_tab(arr[1])))
 		{
 			ret = add_newline_nm_cmt(s, arr[0], ind_len[1]);
-			free_strsplit(arr);
-			if (ret == -1)
-				return (-1);
 		}
+		else if (arr[0] == 0)
+		{
+			ret = add_newline_nm_cmt(s, "", ind_len[1]);
+		}
+		free_strsplit(arr);
+		if (ret == -1)
+			return (-1);
 	}
 	if (tmp == 0)
 	{
@@ -99,6 +104,7 @@ void	add_nm_cmt(t_data *data, char **s, int len, int index)
 	tmp[1] = len;
 	if (get_next_line(data->fd, &str) >= 0)
 	{
+		ft_putendl("5");
 		data->line++;
 		ret = check_nm_cmt(data, s, tmp, str);
 		if (ret == -1 && index == 1)
@@ -128,11 +134,20 @@ int		check_quote_nm_cmt(t_data *data, char *str, char *cmd)
 int		nm_cmt(t_data *data, char **s, char **arr, int index)
 {
 	unsigned int	len;
+	int				i;
 
-	len = name_comment_len(index);
-	if (arr[2] == 0 ||
-			(arr[2] + ft_strlen(arr[2])) == ft_pass_space_tab(arr[2]))
+	i = 0;
+	while (arr[i])
 	{
+		ft_putendl(arr[i]);
+		i++;
+	}
+	len = name_comment_len(index);
+//	if (i < 2)
+	if (arr[1] != 0 && (arr[2] == 0 ||
+			(arr[2] + ft_strlen(arr[2])) == ft_pass_space_tab(arr[2])))
+	{
+		ft_putendl("2");
 		if (*s != NULL && index == 1)
 			error_line(data, ERR_ALRD_SET_NAME);
 		else if (*s != NULL)
@@ -146,10 +161,18 @@ int		nm_cmt(t_data *data, char **s, char **arr, int index)
 		ft_bzero(*s, len + 1);
 		ft_strcpy(*s, arr[1]);
 	}
+	else if (arr[1] == 0)
+	{
+		ft_putendl("malloc");
+		if ((*s = (char *)malloc(sizeof(char) * (len + 1))) == NULL)
+			error("Malloc error");
+		ft_bzero(*s, len + 1);
+	}
 	else if (index == 1)
 		error_line(data, ERR_LFT_QUOTE_NAME);
 	else
 		error_line(data, ERR_LFT_QUOTE_COMMENT);
+	ft_putendl("3");
 	return (1);
 }
 
@@ -166,17 +189,29 @@ int		parse_nm_cmt(t_data *data, char **s, char *str, int index)
 	cmd = name_comment(index);
 	str = ft_pass_space_tab(str);
 	if (ft_strncmp(str, cmd, ft_strlen(cmd)) == 0 &&
-			*ft_pass_space_tab(str + ft_strlen(cmd)) == '\"')
+			*ft_pass_space_tab(str + ft_strlen(cmd)) == '"')
 	{
 		cont = check_quote_nm_cmt(data, str, cmd);
+		ft_putendl("split incomming...");
 		arr = ft_strsplit(str, '"');
+		ft_putendl("split ok !");
 		ret = nm_cmt(data, s, arr, index);
+		ft_putnbr(cont);
+		ft_putendl(";");
 		if (cont == 1)
-			add_nm_cmt(data, s, len - ft_strlen(arr[1]), index);
+		{
+		ft_putendl("XXXXXXXX");
+			if (arr[1] != 0)
+				add_nm_cmt(data, s, len - ft_strlen(arr[1]), index);
+			else
+				add_nm_cmt(data, s, len, index);
+		}
+		ft_putendl("end");
+		if (cont == 1)
 		free_strsplit(arr);
 	}
 	else if (ft_strncmp(str, cmd, ft_strlen(cmd)) == 0 &&
-			*ft_pass_space_tab(str + ft_strlen(cmd)) != '\"')
+			*ft_pass_space_tab(str + ft_strlen(cmd)) != '"')
 		error_str(data, "character between '\"' and ", cmd);
 	return (ret);
 }
@@ -186,11 +221,8 @@ int		read_name_comment(t_data *data, char *str)
 	int		ret;
 
 	ret = 0;
-	if (data->name == NULL || data->comment == NULL)
-	{
-		if ((ret = parse_nm_cmt(data, &data->name, str, 1)) == 0)
-			ret = parse_nm_cmt(data, &data->comment, str, 2);
-	}
+	if ((ret = parse_nm_cmt(data, &data->name, str, 1)) == 0)
+		ret = parse_nm_cmt(data, &data->comment, str, 2);
 	return (ret);
 }
 
