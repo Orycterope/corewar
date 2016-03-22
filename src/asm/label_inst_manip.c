@@ -6,13 +6,13 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:52:23 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/21 17:37:52 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/22 13:51:57 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int			check_add_lbl(char *buf, t_label **lbl_lst, t_data *data)
+int			check_add_lbl(char *buf, t_data *data)
 {
 	t_label		*new_elem;
 	char		**sp_lbl_name;
@@ -21,7 +21,7 @@ int			check_add_lbl(char *buf, t_label **lbl_lst, t_data *data)
 	new_elem = NULL;
 	sp_lbl_name = NULL;
 	colon_chr = NULL;
-	if (is_in_str(LABEL_CHAR, buf) == 1)
+	if (is_in_str(LABEL_CHAR, buf) >= 1)
 	{
 		if ((sp_lbl_name = ft_strsplit(buf, LABEL_CHAR)) == NULL)
 			error_line(data, "Malloc error");
@@ -33,14 +33,14 @@ int			check_add_lbl(char *buf, t_label **lbl_lst, t_data *data)
 			if (str_is_in_str(LABEL_CHARS, sp_lbl_name[0]) == 1)
 				error_line(data, "Incorrect label name");
 			new_elem = lbl_new_elem(sp_lbl_name[0]);
-			addend_lbl_lst(lbl_lst, new_elem);
+			addend_lbl_lst(&data->label, new_elem);
 			return (1);
 		}
 	}
 	return (0);
 }
 
-t_label		*add_last_label(t_data *data)
+t_label		*last_label(t_data *data)
 {
 	t_label		*tmp_lbl;
 
@@ -53,6 +53,18 @@ t_label		*add_last_label(t_data *data)
 	return (tmp_lbl);
 }
 
+void		check_first_lbl(t_data *data)
+{
+	t_label		*new_elem;
+
+	new_elem = NULL;
+	if (data->label == NULL)
+	{
+		new_elem = lbl_new_elem("COMMENT_CHARfirst");
+		addend_lbl_lst(&data->label, new_elem);
+	}
+}
+
 int			check_add_instruc(char *buf, t_data *data)
 {
 	char		*trim;
@@ -60,6 +72,7 @@ int			check_add_instruc(char *buf, t_data *data)
 	t_instruc	*new_elem;
 
 	buf = check_comm(buf, data);
+	check_first_lbl(data);
 	init_check_add_instruc_var(&inst_line, &trim, &new_elem);
 	trim = real_trim(buf);
 	if (is_in_str(' ', trim) > 0)
@@ -103,7 +116,7 @@ t_instruc	*inst_one_param(char **inst_line, t_data *data)
 	check_opcode(inst_line[0], new_elem);
 	check_params(inst_line[1], new_elem, data, &order);
 	new_elem->param_1 = no_comma(inst_line[1]);
-	tmp_lbl = add_last_label(data);
+	tmp_lbl = last_label(data);
 	addend_inst_lst(&tmp_lbl->insts, new_elem);
 	return (new_elem);
 }
@@ -127,7 +140,7 @@ t_instruc	*inst_two_params(char **inst_line, char *trim,
 		error("Malloc error");
 	check_params(inst_params[1], new_elem, data, &order);
 	new_elem->param_2 = ft_pass_space_tab(inst_params[1]);
-	tmp_lbl = add_last_label(data);
+	tmp_lbl = last_label(data);
 	addend_inst_lst(&tmp_lbl->insts, new_elem);
 	return (new_elem);
 }
@@ -152,7 +165,7 @@ t_instruc	*inst_three_params(char **inst_line, char *trim, t_data *data)
 	new_elem->param_2 = ft_pass_space_tab(inst_params[1]);
 	check_params(inst_params[2], new_elem, data, &order);
 	new_elem->param_3 = ft_pass_space_tab(inst_params[2]);
-	tmp_lbl = add_last_label(data);
+	tmp_lbl = last_label(data);
 	addend_inst_lst(&tmp_lbl->insts, new_elem);
 	return (new_elem);
 }

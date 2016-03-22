@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 18:59:26 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/21 17:27:25 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/22 13:51:49 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,34 +227,31 @@ int		chk_after_lbl(char *buf, char **next)
 }
 
 
-void	routes(t_data *data, char *buf, t_label **lbl_lst)
+void	routes(t_data *data, char *buf)
 {
 	char		*next;
 
 	if (is_comment(buf))
-		;
-//		ft_putendl("[IS COMMENT]");
+		ft_putendl("[IS COMMENT]");
 	else if (read_name_comment(data, buf))
-		;
-//		ft_putendl("[NAME || COMMENT]");
-	else if (check_add_lbl(buf, lbl_lst, data))
+		ft_putendl("[NAME || COMMENT]");
+	else if (check_add_lbl(buf, data))
 	{
-//		ft_putendl("[LBL]");
+		ft_putendl("[LBL]");
 		next = NULL;
 		if (chk_after_lbl(buf, &next))
 			check_add_instruc(next, data);
 		if (next != NULL)
 		{
-//			ft_putendl("next :");
-//			ft_putendl(next);
+			ft_putendl("next :");
+			ft_putendl(next);
 			free(next);
 		}
 	}
 	else if (check_add_instruc(buf, data))
-		;
-//		ft_putendl("[INSTRUC]");
+		ft_putendl("[INSTRUC]");
 	else
-		error_line(data, "lexical error");
+		error_line(data, "Lexical error");
 //	print_inst_lst(*inst_lst);
 //	print_lbl_lst(*lbl_lst);
 }
@@ -266,7 +263,7 @@ void	parser(t_data *data)
 	data->label = NULL;
 	while ((buf = NULL) == NULL && get_next_line(data->fd, &buf) > 0)
 	{
-		routes(data, buf, &data->label);
+		routes(data, buf);
 		free(buf);
 		data->line++;
 	}

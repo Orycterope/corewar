@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/21 20:04:26 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/22 13:51:54 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void					free_strsplit(char **arr);
 int						set_ocp(int ocp, int index, int val);
 int						get_ocp(int ocp, int index);
 void					set_register(t_data *data, char *param_1);
-void					set_special(t_data *data, char *param, char *lbl_name,
+void					set_fork(t_data *data, char *param, char *lbl_name,
 						int inst_pos);
 void					set_live(t_data *data, char *param, char *lbl_name,
 						int inst_pos);
@@ -102,7 +102,7 @@ int						label_exist(t_data *data, char *param_name,
 						char *lbl_name);
 int						addr_diff(t_data *data, char *lbl_name, int inst_pos);
 int						read_name_comment(t_data *data, char *str);
-void					routes(t_data *data, char *buf, t_label **lbl_lst);
+void					routes(t_data *data, char *buf);
 void					parser(t_data *data);
 void					build(t_data *data);
 
@@ -125,8 +125,7 @@ void					print_lbl_lst(t_label *lst);
 t_instruc				*inst_new_elem(char *name);
 void					addend_inst_lst(t_instruc **lst, t_instruc *new_elem);
 void					print_inst_lst(t_instruc *lst);
-int						check_add_lbl(char *buf, t_label **lbl_lst,
-						t_data *data);
+int						check_add_lbl(char *buf, t_data *data);
 int						check_add_instruc(char *buf, t_data *data);
 int						check_opcode_name(char *str);
 int						check_opcode(char *str, t_instruc *inst);
@@ -137,9 +136,10 @@ t_instruc				*inst_two_params(char **inst_line, char *trim,
 						t_data *data);
 t_instruc				*inst_three_params(char **inst_line, char *trim,
 						t_data *data);
-t_label					*add_last_label(t_data *data);
+t_label					*last_label(t_data *data);
 char					*real_trim(char *str);
 char					*no_comma(char *str);
+void					check_first_lbl(t_data *data);
 void					if_one_param(int i, t_data *data, t_instruc *inst,
 						int *order);
 void					if_two_params(int i, t_data *data, t_instruc *inst,
