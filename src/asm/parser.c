@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 18:59:26 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/22 16:48:59 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/22 17:42:01 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ void	add_nm_cmt(t_data *data, char **s, int len, int index)
 	tmp[1] = len;
 	if (get_next_line(data->fd, &str) >= 0)
 	{
-		ft_putendl("5");
 		data->line++;
 		ret = check_nm_cmt(data, s, tmp, str);
 		if (ret == -1 && index == 1)
@@ -137,17 +136,10 @@ int		nm_cmt(t_data *data, char **s, char **arr, int index)
 	int				i;
 
 	i = 0;
-	while (arr[i])
-	{
-		ft_putendl(arr[i]);
-		i++;
-	}
 	len = name_comment_len(index);
-//	if (i < 2)
 	if (arr[1] != 0 && (arr[2] == 0 ||
 			(arr[2] + ft_strlen(arr[2])) == ft_pass_space_tab(arr[2])))
 	{
-		ft_putendl("2");
 		if (*s != NULL && index == 1)
 			error_line(data, ERR_ALRD_SET_NAME);
 		else if (*s != NULL)
@@ -163,7 +155,6 @@ int		nm_cmt(t_data *data, char **s, char **arr, int index)
 	}
 	else if (arr[1] == 0)
 	{
-		ft_putendl("malloc");
 		if ((*s = (char *)malloc(sizeof(char) * (len + 1))) == NULL)
 			error("Malloc error");
 		ft_bzero(*s, len + 1);
@@ -172,7 +163,6 @@ int		nm_cmt(t_data *data, char **s, char **arr, int index)
 		error_line(data, ERR_LFT_QUOTE_NAME);
 	else
 		error_line(data, ERR_LFT_QUOTE_COMMENT);
-	ft_putendl("3");
 	return (1);
 }
 
@@ -192,21 +182,15 @@ int		parse_nm_cmt(t_data *data, char **s, char *str, int index)
 			*ft_pass_space_tab(str + ft_strlen(cmd)) == '"')
 	{
 		cont = check_quote_nm_cmt(data, str, cmd);
-		ft_putendl("split incomming...");
 		arr = ft_strsplit(str, '"');
-		ft_putendl("split ok !");
 		ret = nm_cmt(data, s, arr, index);
-		ft_putnbr(cont);
-		ft_putendl(";");
 		if (cont == 1)
 		{
-		ft_putendl("XXXXXXXX");
 			if (arr[1] != 0)
 				add_nm_cmt(data, s, len - ft_strlen(arr[1]), index);
 			else
 				add_nm_cmt(data, s, len, index);
 		}
-		ft_putendl("end");
 		if (cont == 1)
 		free_strsplit(arr);
 	}
@@ -267,35 +251,27 @@ void	routes(t_data *data, char *buf)
 	char		*next;
 
 	if (is_comment(buf))
-		ft_putendl("[IS COMMENT]");
+		;
 	else if (read_name_comment(data, buf))
-		ft_putendl("[NAME || COMMENT]");
+		;
 	else if (check_add_lbl(buf, data))
 	{
-		ft_putendl("[LBL]");
 		next = NULL;
 		if (chk_after_lbl(buf, &next))
 			check_add_instruc(next, data);
 		if (next != NULL)
-		{
-			ft_putendl("next :");
-			ft_putendl(next);
 			free(next);
-		}
 	}
 	else if (check_add_instruc(buf, data))
-		ft_putendl("[INSTRUC]");
+		;
 	else
 		error_line(data, "Lexical error");
-//	print_inst_lst(*inst_lst);
-//	print_lbl_lst(*lbl_lst);
 }
 
 void	parser(t_data *data)
 {
 	char		*buf;
 
-	data->label = NULL;
 	while ((buf = NULL) == NULL && get_next_line(data->fd, &buf) > 0)
 	{
 		routes(data, buf);
