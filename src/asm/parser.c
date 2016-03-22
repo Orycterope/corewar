@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 18:59:26 by jriallan          #+#    #+#             */
 /*   Updated: 2016/03/22 17:42:01 by jriallan         ###   ########.fr       */

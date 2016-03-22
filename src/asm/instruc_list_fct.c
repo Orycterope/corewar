@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 11:15:36 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/22 13:07:14 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/22 18:08:13 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ t_instruc	*inst_new_elem(char *name)
 		new_element->param_1 = NULL;
 		new_element->param_2 = NULL;
 		new_element->param_3 = NULL;
-		new_element->lbl_addr = NULL;
 		new_element->ocp = 0;
 	}
 	return (new_element);
