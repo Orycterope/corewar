@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:52:23 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/22 16:50:44 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/22 18:11:15 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,21 @@ int			check_add_lbl(char *buf, t_data *data)
 		if ((sp_lbl_name = ft_strsplit(buf, LABEL_CHAR)) == NULL)
 			error_line(data, "Malloc error");
 		if (!(colon_chr = ft_strchr(buf, LABEL_CHAR)) || buf == colon_chr)
+		{
+			free_strsplit(sp_lbl_name);
 			return (0);
+		}
 		colon_chr = colon_chr - 1;
 		if (is_in_str(*colon_chr, " \t") == 0 && (*colon_chr) != DIRECT_CHAR)
 		{
 			if (str_is_in_str(LABEL_CHARS, sp_lbl_name[0]) == 1)
 				error_line(data, "Incorrect label name");
-			new_elem = lbl_new_elem(sp_lbl_name[0]);
+			new_elem = lbl_new_elem(ft_strdup(sp_lbl_name[0]));
 			addend_lbl_lst(&data->label, new_elem);
+			free_strsplit(sp_lbl_name);
 			return (1);
 		}
+		free_strsplit(sp_lbl_name);
 	}
 	return (0);
 }
@@ -70,48 +75,35 @@ int			check_add_instruc(char *buf, t_data *data)
 	char		*trim;
 	char		**inst_line;
 	t_instruc	*new_elem;
+	int			ret;
 
-	ft_putendl("{Check_add}");
-	ft_putendl(buf);
 	buf = check_comm(buf, data);
 	check_first_lbl(data);
 	init_check_add_instruc_var(&inst_line, &trim, &new_elem);
 	trim = real_trim(buf);
+	ret = 0;
 	if (is_in_str(' ', trim) > 0)
 	{
-		ft_putendl("0");
+		ret = 1;
 		if ((inst_line = ft_strsplit(trim, ' ')) == NULL)
 			error("Malloc error");
 		if (is_in_str(SEPARATOR_CHAR, trim) == 0 && check_opcode_name(
 			inst_line[0]) == 1)
-		{
-			ft_putendl("1");
 			new_elem = inst_one_param(inst_line, data);
-		}
 		else if (is_in_str(SEPARATOR_CHAR, trim) == 1 && check_opcode_name(
 				inst_line[0]) == 1)
-		{
-			ft_putendl("2");
 			new_elem = inst_two_params(inst_line, trim, data);
-		}
 		else if (is_in_str(SEPARATOR_CHAR, trim) == 2 && check_opcode_name(
 				inst_line[0]) == 1)
-		{
-			ft_putendl("3");
 			new_elem = inst_three_params(inst_line, trim, data);
-			ft_putendl("3");
-		}
 		else if (is_in_str(SEPARATOR_CHAR, trim) > 3 && ft_strchr(trim,
 				COMMENT_CHAR) == NULL)
 			error_line(data, "Incorrect number of params");
 		else
-		{
-			ft_putendl("4");
-			return (0);
-		}
-		return (1);
+			ret = 0;
+		free_strsplit(inst_line);
 	}
-	return (0);
+	return (ret);
 }
 
 t_instruc	*inst_one_param(char **inst_line, t_data *data)
@@ -155,9 +147,10 @@ t_instruc	*inst_two_params(char **inst_line, char *trim,
 	if ((inst_params = ft_strsplit(trim, SEPARATOR_CHAR)) == NULL)
 		error("Malloc error");
 	check_params(inst_params[1], new_elem, data, &order);
-	new_elem->param_2 = ft_pass_space_tab(inst_params[1]);
+	new_elem->param_2 = ft_strdup(ft_pass_space_tab(inst_params[1]));
 	tmp_lbl = last_label(data);
 	addend_inst_lst(&tmp_lbl->insts, new_elem);
+	free_strsplit(inst_params);
 	return (new_elem);
 }
 
@@ -178,10 +171,11 @@ t_instruc	*inst_three_params(char **inst_line, char *trim, t_data *data)
 	if ((inst_params = ft_strsplit(trim, SEPARATOR_CHAR)) == NULL)
 		error("Malloc error");
 	check_params(inst_params[1], new_elem, data, &order);
-	new_elem->param_2 = ft_pass_space_tab(inst_params[1]);
+	new_elem->param_2 = ft_strdup(ft_pass_space_tab(inst_params[1]));
 	check_params(inst_params[2], new_elem, data, &order);
-	new_elem->param_3 = ft_pass_space_tab(inst_params[2]);
+	new_elem->param_3 = ft_strdup(ft_pass_space_tab(inst_params[2]));
 	tmp_lbl = last_label(data);
 	addend_inst_lst(&tmp_lbl->insts, new_elem);
+	free_strsplit(inst_params);
 	return (new_elem);
 }

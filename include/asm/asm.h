@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/22 15:44:55 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/22 18:11:17 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct			s_instruc
 	char				*param_2;
 	char				*param_3;
 	char				*trim;
-	char				*lbl_addr;
 	int					ocp;
 }						t_instruc;
 
@@ -171,5 +170,6 @@ void					check_direct(char *str, t_data *data);
 char					*check_comm(char *str, t_data *data);
 void					init_check_add_instruc_var(char ***inst_line,
 						char **trim, t_instruc **new_elem);
+void					free_inst_lbl(t_label *lbl);
 
 #endif

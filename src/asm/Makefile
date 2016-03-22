@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/21 17:37:02 by rporcon          ###   ########.fr        #
+#    Updated: 2016/03/22 17:54:29 by rporcon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRC_NAME =	asm.c \
 			prog.c \
 			real_trim.c \
 			tools.c \
+			mem.c \
 			write_file.c \
 			op.c \
 			utils.c
