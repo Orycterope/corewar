@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 18:59:26 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/22 16:04:10 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/22 16:37:11 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,6 @@ int		read_name_comment(t_data *data, char *str)
 	ret = 0;
 	if (data->name == NULL || data->comment == NULL)
 	{
-		ft_putendl("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 		if ((ret = parse_nm_cmt(data, &data->name, str, 1)) == 0)
 			ret = parse_nm_cmt(data, &data->comment, str, 2);
 	}
