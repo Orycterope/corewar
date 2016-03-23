@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:17:18 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/20 17:26:28 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/23 19:54:53 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "parameters.h"
 #include "operation.h"
 #include "read_write.h"
+#include "instructions.h"
 
 extern	t_op	g_op_tab[];
 
@@ -49,10 +50,10 @@ int		load(t_process *process, int i)
 	|| g_op_tab[i].param_nbr > 4)
 		return (param.jump);
 	if (param.type[0] == REG_CODE)
-		param.value[0] = rm(PR[param.value[0] - 1], REG_SIZE, PA);
+		param.value[0] = RBE(PR[param.value[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)
 		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PA);
-	wm(param.value[0], PR[param.value[1] - 1], REG_SIZE, PA);
+	WBE(param.value[0], PR[param.value[1] - 1], REG_SIZE);
 	change_carry(process, PV[0]);
 	return (param.jump);
 }
@@ -71,11 +72,11 @@ int		store(t_process *process, int i)
 	|| check_param_error(param, i) == 1 || g_op_tab[i].param_nbr > 4)
 		return (param.jump);
 	if (param.type[0] == REG_CODE)
-		param.value[0] = rm(PR[param.value[0] - 1], REG_SIZE, PA);
+		param.value[0] = RBE(PR[param.value[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)
 		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PA);
 	if (param.type[1] == REG_CODE)
-		wm(PV[0], PR[PV[1] - 1], REG_SIZE, PA);
+		WBE(PV[0], PR[PV[1] - 1], REG_SIZE);
 	else if (param.type[1] == IND_CODE)
 		wm(PV[0], mem(process->pc + PV[1], 1, PA, process), REG_SIZE, PA);
 	return (param.jump);
@@ -96,14 +97,14 @@ int		addition(t_process *process, int i)
 	|| param.type[2] != REG_CODE)
 		return (param.jump);
 	if (param.type[0] == REG_CODE)
-		param.value[0] = rm(PR[param.value[0] - 1], REG_SIZE, PA);
+		param.value[0] = RBE(PR[param.value[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)
 		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PA);
 	if (param.type[1] == REG_CODE)
-		param.value[1] = rm(PR[param.value[1] - 1], REG_SIZE, PA);
+		param.value[1] = RBE(PR[param.value[1] - 1], REG_SIZE);
 	else if (param.type[1] == IND_CODE)
 		PV[1] = rm(mem(process->pc + PV[1], 1, PA, process), REG_SIZE, PA);
-	wm(PV[0] + PV[1], PR[PV[2] - 1], REG_SIZE, PA);
+	WBE(PV[0] + PV[1], PR[PV[2] - 1], REG_SIZE);
 	change_carry(process, (PV[0] + PV[1]));
 	return (param.jump);
 }
@@ -123,14 +124,14 @@ int		soustraction(t_process *process, int i)
 	|| param.type[2] != REG_CODE)
 		return (param.jump);
 	if (param.type[0] == REG_CODE)
-		param.value[0] = rm(PR[param.value[0] - 1], REG_SIZE, PA);
+		param.value[0] = RBE(PR[param.value[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)
 		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PA);
 	if (param.type[1] == REG_CODE)
-		param.value[1] = rm(PR[param.value[1] - 1], REG_SIZE, PA);
+		param.value[1] = RBE(PR[param.value[1] - 1], REG_SIZE);
 	else if (param.type[1] == IND_CODE)
 		PV[1] = rm(mem(process->pc + PV[1], 1, PA, process), REG_SIZE, PA);
-	wm(PV[0] - PV[1], PR[PV[2] - 1], REG_SIZE, PA);
+	WBE(PV[0] - PV[1], PR[PV[2] - 1], REG_SIZE);
 	change_carry(process, (PV[0] - PV[1]));
 	return (param.jump);
 }

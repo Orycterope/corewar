@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 14:15:33 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/20 17:35:20 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/23 19:52:06 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ int			store_index(t_process *process, int i)
 	|| check_param_error(param, i) == 1 || g_op_tab[i].param_nbr > 4)
 		return (param.jump);
 	if (param.type[0] == REG_CODE)
-		PV[0] = rm(PR[PV[0] - 1], REG_SIZE, PA);
+		PV[0] = ft_read_big_endian(PR[PV[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)
 		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PA);
 	if (param.type[1] == REG_CODE)
-		PV[1] = rm(PR[PV[1] - 1], REG_SIZE, PA);
+		PV[1] = ft_read_big_endian(PR[PV[1] - 1], REG_SIZE);
 	else if (param.type[1] == IND_CODE)
 		PV[1] = rm(mem(process->pc + PV[1], 1, PA, process), REG_SIZE, PA);
 	if (param.type[2] == REG_CODE)

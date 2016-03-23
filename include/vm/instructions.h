@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:19:58 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/15 18:36:10 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/23 19:50:41 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define INSTRUCTIONS_H
 # define PR	process->registers
 # define RBE	ft_read_big_endian
+# define WBE	ft_write_big_endian
 
 int				alive(t_process *process, int i);
 int				load(t_process *process, int i);
