@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/22 18:46:11 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/23 16:09:24 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct			s_label
 
 typedef struct			s_data
 {
+	int					verbose;
+	int					binary;
 	int					fd;
 	char				*filename;
 	char				*name;
@@ -101,7 +103,7 @@ int						label_exist(t_data *data, char *param_name,
 						char *lbl_name);
 int						addr_diff(t_data *data, char *lbl_name, int inst_pos);
 int						read_name_comment(t_data *data, char *str);
-void					routes(t_data *data, char *buf);
+int						routes(t_data *data, char *buf);
 void					parser(t_data *data);
 void					build(t_data *data);
 

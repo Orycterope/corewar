@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 18:59:26 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/22 17:42:01 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/23 15:11:55 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,7 @@ int		chk_after_lbl(char *buf, char **next)
 	return (0);
 }
 
-void	routes(t_data *data, char *buf)
+int		routes(t_data *data, char *buf)
 {
 	char		*next;
 
@@ -258,17 +258,22 @@ void	routes(t_data *data, char *buf)
 	}
 	else if (check_add_instruc(buf, data))
 		;
+	else if (data->fd == 0 && ft_strcmp(buf, "save") == 0)
+		return (0);
 	else
 		error_line(data, "Lexical error");
+	return (1);
 }
 
 void	parser(t_data *data)
 {
 	char		*buf;
+	int			next;
 
-	while ((buf = NULL) == NULL && get_next_line(data->fd, &buf) > 0)
+	next = 1;
+	while (next && (buf = NULL) == NULL && get_next_line(data->fd, &buf) > 0)
 	{
-		routes(data, buf);
+		next = routes(data, buf);
 		free(buf);
 		data->line++;
 	}
