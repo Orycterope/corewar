@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:52:23 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/22 18:45:59 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/23 10:50:02 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,8 @@ int			check_add_lbl(char *buf, t_data *data)
 	{
 		if ((sp_lbl_name = ft_strsplit(buf, LABEL_CHAR)) == NULL)
 			error_line(data, "Malloc error");
-		if (!(colon_chr = ft_strchr(buf, LABEL_CHAR)) || buf == colon_chr)
-		{
-			free_strsplit(sp_lbl_name);
+		if (check_add_lbl_cut(buf, &colon_chr, sp_lbl_name) == 1)
 			return (0);
-		}
-		colon_chr = colon_chr - 1;
 		if (is_in_str(*colon_chr, " \t") == 0 && (*colon_chr) != DIRECT_CHAR)
 		{
 			if (str_is_in_str(LABEL_CHARS, sp_lbl_name[0]) == 1)
@@ -40,6 +36,17 @@ int			check_add_lbl(char *buf, t_data *data)
 		}
 		free_strsplit(sp_lbl_name);
 	}
+	return (0);
+}
+
+int			check_add_lbl_cut(char *buf, char **colon_chr, char **sp_lbl_name)
+{
+	if (!(*colon_chr = ft_strchr(buf, LABEL_CHAR)) || buf == *colon_chr)
+	{
+		free_strsplit(sp_lbl_name);
+		return (1);
+	}
+	*colon_chr = *colon_chr - 1;
 	return (0);
 }
 
@@ -72,39 +79,43 @@ int			check_add_instruc(char *buf, t_data *data)
 {
 	char		*trim;
 	char		**inst_line;
-	t_instruc	*new_elem;
 	int			ret;
 
 	buf = check_comm(buf, data);
 	check_first_lbl(data);
-	init_check_add_instruc(&inst_line, &trim, &new_elem);
+	init_check_add_instruc(&inst_line, &trim, &ret);
 	trim = real_trim(buf);
-	ret = 0;
 	if (is_in_str(' ', trim) > 0)
 	{
 		ret = 1;
 		if ((inst_line = ft_strsplit(trim, ' ')) == NULL)
 			error("Malloc error");
-		if (is_in_str(SEPARATOR_CHAR, trim) == 0 && check_opcode_name(
-			inst_line[0]) == 1)
-			new_elem = inst_one_param(inst_line, data);
-		else if (is_in_str(SEPARATOR_CHAR, trim) == 1 && check_opcode_name(
-				inst_line[0]) == 1)
-			new_elem = inst_two_params(inst_line, trim, data);
-		else if (is_in_str(SEPARATOR_CHAR, trim) == 2 && check_opcode_name(
-				inst_line[0]) == 1)
-			new_elem = inst_three_params(inst_line, trim, data);
-		else if (is_in_str(SEPARATOR_CHAR, trim) > 3 && ft_strchr(trim,
-				COMMENT_CHAR) == NULL)
-			error_line(data, "Incorrect number of params");
-		else
-			ret = 0;
+		check_all_params(trim, inst_line, data, &ret);
 		free_strsplit(inst_line);
 	}
 	return (ret);
 }
 
-t_instruc	*inst_one_param(char **inst_line, t_data *data)
+void		check_all_params(char *trim, char **inst_line, t_data *data,
+		int *ret)
+{
+	if (is_in_str(SEPARATOR_CHAR, trim) == 0 && check_opcode_name(
+				inst_line[0]) == 1)
+		inst_one_param(inst_line, data);
+	else if (is_in_str(SEPARATOR_CHAR, trim) == 1 && check_opcode_name(
+				inst_line[0]) == 1)
+		inst_two_params(inst_line, trim, data);
+	else if (is_in_str(SEPARATOR_CHAR, trim) == 2 && check_opcode_name(
+				inst_line[0]) == 1)
+		inst_three_params(inst_line, trim, data);
+	else if (is_in_str(SEPARATOR_CHAR, trim) > 3 && ft_strchr(trim,
+				COMMENT_CHAR) == NULL)
+		error_line(data, "Incorrect number of params");
+	else
+		*ret = 0;
+}
+
+void		inst_one_param(char **inst_line, t_data *data)
 {
 	t_instruc	*new_elem;
 	t_label		*tmp_lbl;
@@ -124,10 +135,9 @@ t_instruc	*inst_one_param(char **inst_line, t_data *data)
 	new_elem->param_1 = no_comma(inst_line[1]);
 	tmp_lbl = last_label(data);
 	addend_inst_lst(&tmp_lbl->insts, new_elem);
-	return (new_elem);
 }
 
-t_instruc	*inst_two_params(char **inst_line, char *trim,
+void		inst_two_params(char **inst_line, char *trim,
 								t_data *data)
 {
 	t_instruc	*new_elem;
@@ -149,10 +159,9 @@ t_instruc	*inst_two_params(char **inst_line, char *trim,
 	tmp_lbl = last_label(data);
 	addend_inst_lst(&tmp_lbl->insts, new_elem);
 	free_strsplit(inst_params);
-	return (new_elem);
 }
 
-t_instruc	*inst_three_params(char **inst_line, char *trim, t_data *data)
+void		inst_three_params(char **inst_line, char *trim, t_data *data)
 {
 	t_instruc	*new_elem;
 	t_label		*tmp_lbl;
@@ -175,5 +184,4 @@ t_instruc	*inst_three_params(char **inst_line, char *trim, t_data *data)
 	tmp_lbl = last_label(data);
 	addend_inst_lst(&tmp_lbl->insts, new_elem);
 	free_strsplit(inst_params);
-	return (new_elem);
 }

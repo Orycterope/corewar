@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/23 16:09:24 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/23 16:25:16 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,15 +127,19 @@ t_instruc				*inst_new_elem(char *name);
 void					addend_inst_lst(t_instruc **lst, t_instruc *new_elem);
 void					print_inst_lst(t_instruc *lst);
 int						check_add_lbl(char *buf, t_data *data);
+int						check_add_lbl_cut(char *buf, char **colon_chr,
+						char **sp_lbl_name);
 int						check_add_instruc(char *buf, t_data *data);
+void					check_all_params(char *trim, char **inst_line, t_data
+						*data, int *ret);
 int						check_opcode_name(char *str);
 int						check_opcode(char *str, t_instruc *inst);
 void					check_params(char *str, t_instruc *inst, t_data *data,
 						int *order);
-t_instruc				*inst_one_param(char **inst_line, t_data *data);
-t_instruc				*inst_two_params(char **inst_line, char *trim,
+void					inst_one_param(char **inst_line, t_data *data);
+void					inst_two_params(char **inst_line, char *trim,
 						t_data *data);
-t_instruc				*inst_three_params(char **inst_line, char *trim,
+void					inst_three_params(char **inst_line, char *trim,
 						t_data *data);
 t_label					*last_label(t_data *data);
 char					*real_trim(char *str);
@@ -173,9 +177,10 @@ void					check_indirect(char *str, t_data *data);
 void					check_direct(char *str, t_data *data);
 char					*check_comm(char *str, t_data *data);
 void					init_check_add_instruc(char ***inst_line, char **trim,
-						t_instruc **new_elem);
+						int *ret);
 void					init_check_add_lbl(t_label **new_elem,
 						char ***sp_lbl_name, char **colon_chr);
 void					free_inst_lbl(t_label *lbl);
+void					free_inst_lbl_cut(t_label *tmp_lbl);
 
 #endif
