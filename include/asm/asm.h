@@ -68,7 +68,24 @@ typedef	struct			s_op
 }						t_op;
 
 extern t_op	g_op[];
+int						get_params_size_ocp(t_instruc *inst);
+void					set_address(t_data *data, char *param,
+											char *lbl_name, int inst_pos);
+void					set_live(t_data *data, char *param,
+											char *lbl_name, int inst_pos);
+void					set_special(t_data *data, char *param,
+											char *lbl_name, int inst_pos);
+void					set_direct(t_data *data, char *param,
+											char *lbl_name, int inst_pos);
+void					set_indirect(t_data *data, char *param,
+											char *lbl_name, int inst_pos);
+void					set_register(t_data *data, char *param_1);
 
+int						name_comment_len(int index);
+int						parse_nm_cmt(t_data *data, char **s, char *str,
+																int index);
+char					*name_comment(int index);
+void					live_coding_mode(t_data *data, char *filename);
 void					write_header(t_data *data);
 void					add_to_cor(t_data *data, char c);
 void					add_to_prog(t_data *data, unsigned char c);

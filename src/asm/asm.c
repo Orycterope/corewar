@@ -35,17 +35,20 @@ void	free_data(t_data *data)
 
 void	usage(int argc, char *argv[])
 {
-	if (argc == 1)
-	{
-		ft_putstr("Usage: ");
-		ft_putstr(argv[0]);
-		ft_putendl(" <sourcefile.s>");
-	}
+	if (argc != 1)
+		return ;
+	ft_putstr("Usage : ");
+	ft_putstr(argv[0]);
+	ft_putendl(" [-v|-l|-b] <sourcefile.s>");
+	ft_putendl("\t-v : verbose mode, write data and program in hexadecimal.");
+	ft_printf("\t-l : live coding mode, you can write %s",
+											"directly your s file manualy.\n");
+	ft_printf("\t-b : binary mode, return your binary file %s",
+													"in standard output.\n");
 }
 
 void	run(t_data *data, char *filename)
 {
-	char	*tmp;
 	init_data(data);
 	if (filename != NULL)
 	{
@@ -53,20 +56,7 @@ void	run(t_data *data, char *filename)
 		data->fd = open(filename, O_RDONLY);
 	}
 	else
-	{
-		ft_printf("\t\t\033[32;1;4mLive Coding Mode\033[0m\n");
-		while (filename == NULL || ft_strcmp(filename, "") == 0)
-		{
-			ft_printf("\033[36;1mEnter filename :\033[0m\n");
-			get_next_line(0, &filename);
-		}
-		tmp = ft_strjoin(filename,".s");
-		free(filename);
-		set_filename(data, tmp);
-		free(tmp);
-		ft_printf("\033[36;1mWrite your file here :\033[0m\n");
-		data->fd = 0;
-	}
+		live_coding_mode(data, filename);
 	if (data->fd < 0)
 		error("Open fail");
 	parser(data);

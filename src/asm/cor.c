@@ -67,8 +67,7 @@ void	set_filename(t_data *data, char *name)
 	i = 0;
 	while (name[i] != '\0')
 	{
-		ext++;
-		if (name[i++] == '.')
+		if (++ext >= 0 && name[i++] == '.')
 			ext = 0;
 	}
 	ext = i - ext;
