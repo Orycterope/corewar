@@ -6,18 +6,17 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 11:00:37 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/22 18:33:53 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/23 10:43:36 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	init_check_add_instruc(char ***inst_line, char **trim,
-		t_instruc **new_elem)
+void	init_check_add_instruc(char ***inst_line, char **trim, int *ret)
 {
 	*inst_line = NULL;
 	trim = NULL;
-	*new_elem = NULL;
+	*ret = 0;
 }
 
 void	init_check_add_lbl(t_label **new_elem, char ***sp_lbl_name,
