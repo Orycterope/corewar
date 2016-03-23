@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:08:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/16 16:26:49 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/23 20:41:09 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	print_winner(t_arena *arena)
 		p = p->next;
 	}
 	ft_printf("The fight has ended with the last survivor dying at cycle %d.\n\
-The winner is %s ! Its last words : \"%s\".",
+The winner is %s ! Its last words : \"%s\".\n",
 best->last_live, best->name, best->comment);
 }
 
@@ -78,7 +78,6 @@ int				main(int argc, char **argv)
 
 	arena = create_arena();
 	check_param(&argc, &argv, arena);
-	arena = create_arena();
 	save_players(argc, argv, arena);
 	load_players(arena);
 	display_champions(arena);

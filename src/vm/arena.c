@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:05:42 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/19 21:11:06 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/23 20:44:48 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	dump_memory(t_arena *arena)
 {
 	int		i;
 
+	ft_printf("\nDumping memory at cycle %d :", arena->cycle);
 	i = 0;
 	while (i < MEM_SIZE)
 	{
@@ -77,6 +78,7 @@ void	dump_memory(t_arena *arena)
 		i++;
 	}
 	ft_putchar('\n');
+	//exit(0);
 }
 
 void	destroy_arena(t_arena *arena)
