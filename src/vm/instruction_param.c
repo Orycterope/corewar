@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 15:39:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/20 17:25:23 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/24 18:07:12 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "parameters.h"
 #include "instructions.h"
 #include "operation.h"
+#include "read_write.h"
 
 extern t_op	g_op_tab[];
 
@@ -47,20 +48,20 @@ void		params_value(t_process *process, t_parameters *param, int j)
 	{
 		if (param->type[i] == REG_CODE)
 		{
-			param->value[i] = RBE(process->pc + param->jump, 1);
+			param->value[i] = rm(mem(PC + param->jump, 1, PA, process), 1, PA);
 			param->jump += 1;
 		}
 		else if (param->type[i] == DIR_CODE && param->o != 11 && param->o != 10
 				&& param->o != 14)
 		{
-			param->value[i] = RBE(process->pc + param->jump, DIR_SIZE);
+			param->value[i] = rm(mem(PC + PJ, 1, PA, process), DIR_SIZE, PA);
 			param->jump += DIR_SIZE;
 		}
 		else if (param->type[i] == 0)
 			;
 		else
 		{
-			param->value[i] = RBE(process->pc + param->jump, IND_SIZE);
+			param->value[i] = rm(mem(PC + PJ, 1, PA, process), IND_SIZE, PA);
 			param->jump += IND_SIZE;
 		}
 		i++;
