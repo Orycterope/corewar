@@ -33,7 +33,11 @@ long long	ft_read_big_endian(void *src, size_t length)
 		power <<= 8;
 		length--;
 	}
+	if ((n & (power >> 1)) != 0)
+		while (power != 0x0)
+		{
+			n |= power;
+			power <<= 1;
+		}
 	return (n);
 }
-
-

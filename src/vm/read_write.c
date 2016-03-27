@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 16:11:26 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/20 16:38:13 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/27 16:25:02 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,11 @@ long long	rm(void *src, size_t length, t_arena *arena)
 		power <<= 8;
 		length--;
 	}
+	if ((n & (power >> 1)) != 0)
+		while (power != 0x0)
+		{
+			n |= power;
+			power <<= 1;
+		}
 	return (n);
 }
