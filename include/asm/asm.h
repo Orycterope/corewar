@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/23 14:24:11 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/28 09:35:13 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct			s_label
 
 typedef struct			s_data
 {
+	int					verbose;
+	int					binary;
 	int					fd;
 	char				*filename;
 	char				*name;
@@ -66,7 +68,24 @@ typedef	struct			s_op
 }						t_op;
 
 extern t_op	g_op[];
+int						get_params_size_ocp(t_instruc *inst);
+void					set_address(t_data *data, char *param,
+											char *lbl_name, int inst_pos);
+void					set_live(t_data *data, char *param,
+											char *lbl_name, int inst_pos);
+void					set_special(t_data *data, char *param,
+											char *lbl_name, int inst_pos);
+void					set_direct(t_data *data, char *param,
+											char *lbl_name, int inst_pos);
+void					set_indirect(t_data *data, char *param,
+											char *lbl_name, int inst_pos);
+void					set_register(t_data *data, char *param_1);
 
+int						name_comment_len(int index);
+int						parse_nm_cmt(t_data *data, char **s, char *str,
+																int index);
+char					*name_comment(int index);
+void					live_coding_mode(t_data *data, char *filename);
 void					write_header(t_data *data);
 void					add_to_cor(t_data *data, char c);
 void					add_to_prog(t_data *data, unsigned char c);
@@ -101,7 +120,7 @@ int						label_exist(t_data *data, char *param_name,
 						char *lbl_name);
 int						addr_diff(t_data *data, char *lbl_name, int inst_pos);
 int						read_name_comment(t_data *data, char *str);
-void					routes(t_data *data, char *buf);
+int						routes(t_data *data, char *buf);
 void					parser(t_data *data);
 void					build(t_data *data);
 

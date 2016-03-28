@@ -22,3 +22,13 @@ char	*no_comma(char *str)
 	free_strsplit(comma_split);
 	return (ret);
 }
+
+char	*ft_pass_space_tab(char *str)
+{
+	int	index;
+
+	index = 0;
+	while (str[index] != '\0' && (str[index] == ' ' || str[index] == '\t'))
+		index++;
+	return (str + index);
+}

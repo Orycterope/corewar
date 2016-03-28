@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 19:38:06 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/22 18:38:38 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/23 16:10:45 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,35 @@ void	free_data(t_data *data)
 
 void	usage(int argc, char *argv[])
 {
-	if (argc == 1)
+	if (argc != 1)
+		return ;
+	ft_putstr("Usage : ");
+	ft_putstr(argv[0]);
+	ft_putendl(" [-v|-l|-b] <sourcefile.s>");
+	ft_putendl("\t-v : verbose mode, write data and program in hexadecimal.");
+	ft_printf("\t-l : live coding mode, you can write %s",
+											"directly your s file manualy.\n");
+	ft_printf("\t-b : binary mode, return your binary file %s",
+													"in standard output.\n");
+}
+
+void	run(t_data *data, char *filename)
+{
+	init_data(data);
+	if (filename != NULL)
 	{
-		ft_putstr("Usage: ");
-		ft_putstr(argv[0]);
-		ft_putendl(" <sourcefile.s>");
+		set_filename(data, filename);
+		data->fd = open(filename, O_RDONLY);
 	}
+	else
+		live_coding_mode(data, filename);
+	if (data->fd < 0)
+		error("Open fail");
+	parser(data);
+	build(data);
+	write_header(data);
+	write_file(data);
+	free_data(data);
 }
 
 int		main(int argc, char *argv[])
@@ -49,18 +72,20 @@ int		main(int argc, char *argv[])
 	int		i;
 
 	i = 1;
+	data.verbose = 0;
+	data.binary = 0;
 	while (i < argc)
 	{
-		init_data(&data);
-		set_filename(&data, argv[i]);
-		data.fd = open(argv[i], O_RDONLY);
-		if (data.fd < 0)
-			error("Open fail");
-		parser(&data);
-		build(&data);
-		write_header(&data);
-		write_file(&data);
-		free_data(&data);
+		if (ft_strcmp(argv[i], "-v") == 0 && ++i > 0)
+			data.verbose = 1;
+		if (ft_strcmp(argv[i], "-b") == 0 && ++i > 0)
+			data.binary = 1;
+		if (ft_strcmp(argv[i], "-b") == 0 || ft_strcmp(argv[i], "-v") == 0)
+			continue ;
+		if (ft_strcmp(argv[i], "-l") == 0)
+			run(&data, NULL);
+		else
+			run(&data, argv[i]);
 		i++;
 	}
 	usage(argc, argv);

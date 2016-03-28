@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/22 17:54:29 by rporcon          ###   ########.fr        #
+#    Updated: 2016/03/23 17:20:27 by jriallan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,27 +28,34 @@ CPPFLAGS = $(addprefix -I ,$(INC_PATH))
 LDFLAGS = -L$(LFT_PATH)
 LDLIBS = -lft
 
-SRC_NAME =	asm.c \
+SRC_NAME =	addr_diff.c \
+			asm.c \
 			build.c \
 			check_inst_param.c \
-			if_params.c \
-			is_reg_d_ind.c \
 			check_reg_d_ind.c \
 			cor.c \
 			error.c \
+			get_ocp.c \
+			if_params.c \
 			init_var.c \
 			instruc_list_fct.c \
+			is_reg_d_ind.c \
 			label_inst_manip.c \
 			label_list_fct.c \
+			live_coding.c \
+			mem.c \
+			nm_cmt.c \
+			nm_cmt_2.c \
+			op.c \
 			opcode_check.c \
 			parser.c \
 			prog.c \
 			real_trim.c \
+			set_normal.c \
+			set_special.c \
 			tools.c \
-			mem.c \
+			utils.c \
 			write_file.c \
-			op.c \
-			utils.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

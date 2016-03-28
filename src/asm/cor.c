@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 20:31:56 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/19 18:18:49 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/23 16:13:42 by jriallan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ void	set_filename(t_data *data, char *name)
 	int		ext;
 	char	*tmp;
 
+	ext = 0;
 	i = 0;
 	while (name[i] != '\0')
 	{
-		ext++;
-		if (name[i++] == '.')
+		if (++ext >= 0 && name[i++] == '.')
 			ext = 0;
 	}
 	ext = i - ext;
@@ -101,8 +101,16 @@ void	write_file(t_data *data)
 {
 	int		fd;
 
-	fd = open(data->filename, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-	if (fd < 0)
-		error("Open fail");
-	write(fd, data->cor, data->cor_len);
+	if (data->binary)
+	{
+		write(1, data->cor, data->cor_len);
+	}
+	else
+	{
+		fd = open(data->filename, O_WRONLY | O_CREAT | O_TRUNC,
+															S_IRUSR | S_IWUSR);
+		if (fd < 0)
+			error("Open fail");
+		write(fd, data->cor, data->cor_len);
+	}
 }
