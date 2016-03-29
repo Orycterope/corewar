@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:53:04 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/28 09:35:13 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/29 14:13:47 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void					build(t_data *data);
 /*
 ** Error management:
 */
+void					essential_char_in_label_chars(void);
 void					error_line(t_data *data, char *err);
 void					error_limit(t_data *data, char *err, char *str,
 						int limit);

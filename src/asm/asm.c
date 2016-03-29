@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 19:38:06 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/23 16:10:45 by jriallan         ###   ########.fr       */
+/*   Updated: 2016/03/29 10:29:01 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int		main(int argc, char *argv[])
 	t_data	data;
 	int		i;
 
+	essential_char_in_label_chars();
 	i = 1;
 	data.verbose = 0;
 	data.binary = 0;

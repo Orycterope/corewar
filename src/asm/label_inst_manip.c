@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:52:23 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/23 10:50:02 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/29 14:13:51 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,8 @@ void		inst_two_params(char **inst_line, char *trim,
 	new_elem->param_1 = no_comma(inst_line[1]);
 	if ((inst_params = ft_strsplit(trim, SEPARATOR_CHAR)) == NULL)
 		error("Malloc error");
+	if (inst_params[1] == NULL)
+		error_line(data, "Incorrect input parameters");
 	check_params(inst_params[1], new_elem, data, &order);
 	new_elem->param_2 = ft_strdup(ft_pass_space_tab(inst_params[1]));
 	tmp_lbl = last_label(data);
@@ -177,6 +179,8 @@ void		inst_three_params(char **inst_line, char *trim, t_data *data)
 	new_elem->param_1 = no_comma(inst_line[1]);
 	if ((inst_params = ft_strsplit(trim, SEPARATOR_CHAR)) == NULL)
 		error("Malloc error");
+	if (inst_params[1] == NULL || inst_params[2] == NULL)
+		error_line(data, "Incorrect input parameters");
 	check_params(inst_params[1], new_elem, data, &order);
 	new_elem->param_2 = ft_strdup(ft_pass_space_tab(inst_params[1]));
 	check_params(inst_params[2], new_elem, data, &order);

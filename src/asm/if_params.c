@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 16:12:47 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/23 10:20:36 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/29 14:13:45 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ void	if_one_param(int i, t_data *data, t_instruc *inst, int *order)
 		else if (is_direct(inst->trim, data, inst, order) == 1)
 			return ;
 		else
-			error_line(data, "incorrect param WTF u doing");
+			error_line(data, "Incorrect input parameters");
 	}
 	else if (g_op[i].param_type[0] == T_REG)
 	{
 		if (is_register(inst->trim, data, inst, order) == 1)
 			return ;
 		else
-			error_line(data, "incorrect param WTF u doing");
+			error_line(data, "Incorect input parameters");
 	}
 	else
-		error_line(data, "what happen OMG");
+		error_line(data, "Incorrect input parameters");
 }
 
 void	if_two_params(int i, t_data *data, t_instruc *inst, int *order)
@@ -48,6 +48,7 @@ void	if_two_params(int i, t_data *data, t_instruc *inst, int *order)
 
 void	two_params_first(int i, t_data *data, t_instruc *inst, int *order)
 {
+
 	if (g_op[i].param_type[*order] == (T_DIR | T_IND))
 	{
 		if (is_direct(inst->trim, data, inst, order) == 1)
@@ -55,17 +56,17 @@ void	two_params_first(int i, t_data *data, t_instruc *inst, int *order)
 		else if (is_indirect(inst->trim, data, inst, order) == 1)
 			return ;
 		else
-			error_line(data, "incorrect param WTF u doing");
+			error_line(data, "Incorrect input parameters");
 	}
 	else if (g_op[i].param_type[*order] == T_REG)
 	{
 		if (is_register(inst->trim, data, inst, order) == 1)
 			return ;
 		else
-			error_line(data, "incorrect param WTF u doing");
+			error_line(data, "Incorrect input parameters");
 	}
 	else
-		error_line(data, "what happen OMG");
+		error_line(data, "Incorrect input parameters");
 }
 
 void	two_params_second(int i, t_data *data, t_instruc *inst, int *order)
@@ -75,7 +76,7 @@ void	two_params_second(int i, t_data *data, t_instruc *inst, int *order)
 		if (is_register(inst->trim, data, inst, order) == 1)
 			return ;
 		else
-			error_line(data, "incorrect param WTF u doing");
+			error_line(data, "Incorrect input parameters");
 	}
 	else if (g_op[i].param_type[*order] == (T_IND | T_REG))
 	{
@@ -84,10 +85,10 @@ void	two_params_second(int i, t_data *data, t_instruc *inst, int *order)
 		else if (is_register(inst->trim, data, inst, order) == 1)
 			return ;
 		else
-			error_line(data, "incorrect param WTF u doing");
+			error_line(data, "Incorrect input parameters");
 	}
 	else
-		error_line(data, "what happen OMG");
+		error_line(data, "Incorrect input parameters");
 }
 
 void	if_three_params(int i, t_data *data, t_instruc *inst, int *order)
@@ -107,7 +108,7 @@ void	three_params_first(int i, t_data *data, t_instruc *inst, int *order)
 		if (is_register(inst->trim, data, inst, order) == 1)
 			return ;
 		else
-			error_line(data, "incorrect param WTF u doing");
+			error_line(data, "Incorrect input parameters");
 	}
 	else if (g_op[i].param_type[*order] == (T_REG | T_DIR | T_IND))
 	{
@@ -118,10 +119,10 @@ void	three_params_first(int i, t_data *data, t_instruc *inst, int *order)
 		else if (is_indirect(inst->trim, data, inst, order) == 1)
 			return ;
 		else
-			error_line(data, "incorrect param WTF u doing");
+			error_line(data, "Incorrect input parameters");
 	}
 	else
-		error_line(data, "what happen OMG");
+		error_line(data, "Incorrect input parameters");
 }
 
 void	three_params_second(int i, t_data *data, t_instruc *inst, int *order)
@@ -131,7 +132,7 @@ void	three_params_second(int i, t_data *data, t_instruc *inst, int *order)
 		if (is_register(inst->trim, data, inst, order) == 1)
 			return ;
 		else
-			error_line(data, "incorrect param WTF u doing");
+			error_line(data, "Incorrect input parameters");
 	}
 	else if (g_op[i].param_type[*order] == (T_REG | T_DIR | T_IND))
 	{
@@ -145,10 +146,10 @@ void	three_params_second(int i, t_data *data, t_instruc *inst, int *order)
 		else if (is_register(inst->trim, data, inst, order) == 1)
 			return ;
 		else
-			error_line(data, "incorrect param WTF u doing");
+			error_line(data, "Incorrect input parameters");
 	}
 	else
-		error_line(data, "what happen OMG");
+		error_line(data, "Incorrect input parameters");
 }
 
 int		three_params_second_cut(t_data *data, t_instruc *inst, int *order)
@@ -160,7 +161,7 @@ int		three_params_second_cut(t_data *data, t_instruc *inst, int *order)
 	else if (is_indirect(inst->trim, data, inst, order) == 1)
 		return (1);
 	else
-		error_line(data, "incorrect param WTF u doing");
+		error_line(data, "Incorrect input parameters");
 	return (0);
 }
 
@@ -171,7 +172,7 @@ void	three_params_third(int i, t_data *data, t_instruc *inst, int *order)
 		if (is_register(inst->trim, data, inst, order) == 1)
 			return ;
 		else
-			error_line(data, "incorrect param WTF u doing");
+			error_line(data, "Incorrect input parameters");
 	}
 	else if (g_op[i].param_type[*order] == (T_DIR | T_REG))
 	{
@@ -180,6 +181,6 @@ void	three_params_third(int i, t_data *data, t_instruc *inst, int *order)
 		else if (is_register(inst->trim, data, inst, order) == 1)
 			return ;
 		else
-			error_line(data, "incorrect param WTF u doing");
+			error_line(data, "Incorrect input parameters");
 	}
 }
