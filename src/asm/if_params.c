@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 16:12:47 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/29 14:13:45 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/03/29 14:14:43 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	if_two_params(int i, t_data *data, t_instruc *inst, int *order)
 
 void	two_params_first(int i, t_data *data, t_instruc *inst, int *order)
 {
-
 	if (g_op[i].param_type[*order] == (T_DIR | T_IND))
 	{
 		if (is_direct(inst->trim, data, inst, order) == 1)
