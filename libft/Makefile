@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/11 16:50:07 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/24 18:29:13 by adubedat         ###   ########.fr        #
+#    Updated: 2016/03/30 23:32:22 by tvermeil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC_PATH = .
 INC_PATH = ../include/libft
 OBJ_PATH = ../obj/libft
 
-CC = gcc
+CC = gcc -g
 CFLAGS = -Wall -Wextra -Werror
 CPPFLAGS = -I $(INC_PATH) -I $(INC_PATH)/printf
 

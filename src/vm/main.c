@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:08:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/30 20:07:37 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/30 23:16:40 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "arena.h"
 #include "parameters.h"
 #include "execution.h"
-#include <ncurses.h>
 
 static void	check_dump(char **argv, t_arena *arena)
 {
@@ -46,7 +45,13 @@ static void	check_param(int *argc, char ***argv, t_arena *arena)
 -n N : The following champion will be the number N.\n");
 		exit(1);
 	}
-	if (ft_strcmp("-dump", (*argv)[1]) == 0)
+	if (ft_strcmp("-v", (*argv)[1]) == 0)
+	{
+		arena->display = (t_display *)1;
+		*argv += 1;
+		*argc -= 1;
+	}
+	else if (ft_strcmp("-dump", (*argv)[1]) == 0)
 	{
 		check_dump(*argv, arena);
 		*argv += 2;
@@ -84,12 +89,11 @@ int				main(int argc, char **argv)
 	save_players(argc, argv, arena);
 	load_players(arena);
 	display_champions(arena);
-	if (true)
+	if (arena->display != NULL)
 		init_display(arena);
 	start_fight(arena);
-	dump_memory(arena); //
-	endwin();
-	if (arena->cycle != arena->dump_cycle)
+	//dump_memory(arena); //
+	if (arena->cycle != arena->dump_cycle && arena->display == NULL)
 		print_winner(arena);
 	destroy_arena(arena);
 	return (0);

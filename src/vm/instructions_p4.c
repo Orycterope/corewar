@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 14:15:33 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/23 19:52:06 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/30 23:15:39 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ int			store_index(t_process *process, int i)
 	if (param.type[0] == REG_CODE)
 		PV[0] = ft_read_big_endian(PR[PV[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)
-		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PA);
+		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PP);
 	if (param.type[1] == REG_CODE)
 		PV[1] = ft_read_big_endian(PR[PV[1] - 1], REG_SIZE);
 	else if (param.type[1] == IND_CODE)
-		PV[1] = rm(mem(process->pc + PV[1], 1, PA, process), REG_SIZE, PA);
+		PV[1] = rm(mem(process->pc + PV[1], 1, PA, process), REG_SIZE, PP);
 	if (param.type[2] == REG_CODE)
-		PV[2] = rm(PR[PV[2] - 1], REG_SIZE, PA);
+		PV[2] = rm(PR[PV[2] - 1], REG_SIZE, PP);
 	else if (param.type[2] == IND_CODE)
-		PV[2] = rm(mem(process->pc + PV[2], 1, PA, process), REG_SIZE, PA);
-	wm(PV[0], mem(process->pc + PV[1] + PV[2], 1, PA, process), REG_SIZE, PA);
+		PV[2] = rm(mem(process->pc + PV[2], 1, PA, process), REG_SIZE, PP);
+	wm(PV[0], mem(process->pc + PV[1] + PV[2], 1, PA, process), REG_SIZE, PP);
 	return (param.jump);
 }
 

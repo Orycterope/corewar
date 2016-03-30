@@ -6,12 +6,13 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:05:42 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/29 22:24:37 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/30 22:06:51 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "arena.h"
 #include "process.h"
+#include "display.h"
 
 char	*mem(char *ptr, int idx, t_arena *arena, t_process *process)
 {
@@ -44,6 +45,7 @@ t_arena	*create_arena(void)
 	new->checks_without_decrement = 0;
 	new->processes = NULL;
 	new->dump_cycle = -1;
+	new->display = NULL;
 	return (new);
 }
 
@@ -99,6 +101,8 @@ void	dump_memory(t_arena *arena)
 
 void	destroy_arena(t_arena *arena)
 {
+	if (arena->display != NULL)
+		destroy_display(arena);
 	while (arena->processes != NULL)
 		kill_process(arena->processes);
 	free_players(arena);

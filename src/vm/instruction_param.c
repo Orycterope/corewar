@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 15:39:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/24 18:07:12 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/30 23:22:07 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ extern t_op	g_op_tab[];
 
 void		decode_ocp(t_process *process, t_parameters *param, int i)
 {
-	int select;
+	int		select;
 	int	decal;
-	int temp;
-	int j;
+	int		temp;
+	int		j;
 
 	select = 0xC0;
 	j = 0;
@@ -48,20 +48,20 @@ void		params_value(t_process *process, t_parameters *param, int j)
 	{
 		if (param->type[i] == REG_CODE)
 		{
-			param->value[i] = rm(mem(PC + param->jump, 1, PA, process), 1, PA);
+			param->value[i] = rm(mem(PC + param->jump, 1, PA, process), 1, PP);
 			param->jump += 1;
 		}
 		else if (param->type[i] == DIR_CODE && param->o != 11 && param->o != 10
 				&& param->o != 14)
 		{
-			param->value[i] = rm(mem(PC + PJ, 1, PA, process), DIR_SIZE, PA);
+			param->value[i] = rm(mem(PC + PJ, 1, PA, process), DIR_SIZE, PP);
 			param->jump += DIR_SIZE;
 		}
 		else if (param->type[i] == 0)
 			;
 		else
 		{
-			param->value[i] = rm(mem(PC + PJ, 1, PA, process), IND_SIZE, PA);
+			param->value[i] = rm(mem(PC + PJ, 1, PA, process), IND_SIZE, PP);
 			param->jump += IND_SIZE;
 		}
 		i++;
@@ -73,8 +73,8 @@ int			check_registers(t_parameters *param, t_process *process, int j)
 	int	i;
 
 	i = 0;
-	if (process->registers == NULL)
-		return (1);
+	//if (process->registers == NULL)
+	//	return (1);
 	while (i < g_op_tab[j].param_nbr && i < 4)
 	{
 		if (param->type[i] == REG_CODE)
@@ -89,16 +89,16 @@ int			check_registers(t_parameters *param, t_process *process, int j)
 
 int			execute_instruction(t_process *process)
 {
-	int (*instruction[16])(t_process *process, int i) =
+	int		(*instruction[16])(t_process *process, int i) =
 	{alive, load, store, addition, soustraction, ft_and, ft_or, ft_xor, zjump,
 		load_index, store_index, ft_fork, long_load, long_load_index, long_fork,
 		aff};
 	int	i;
- 
+
 	i = 0;
 	while (g_op_tab[i].op_code != process->pc[0] && g_op_tab[i].name != NULL)
 		i++;
-	if (i >= 16) // // 
+	if (i >= 16) // //
 		return (1);
 	return ((*instruction[i])(process, i));
 }
