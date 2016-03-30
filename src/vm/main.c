@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:08:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/23 20:50:51 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/03/30 20:07:37 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "arena.h"
 #include "parameters.h"
 #include "execution.h"
+#include <ncurses.h>
 
 static void	check_dump(char **argv, t_arena *arena)
 {
@@ -72,6 +73,8 @@ The winner is %s ! Its last words : \"%s\".\n",
 best->last_live, best->name, best->comment);
 }
 
+void	init_display(t_arena *arena); //
+
 int				main(int argc, char **argv)
 {
 	t_arena	*arena;
@@ -81,8 +84,11 @@ int				main(int argc, char **argv)
 	save_players(argc, argv, arena);
 	load_players(arena);
 	display_champions(arena);
+	if (true)
+		init_display(arena);
 	start_fight(arena);
 	dump_memory(arena); //
+	endwin();
 	if (arena->cycle != arena->dump_cycle)
 		print_winner(arena);
 	destroy_arena(arena);

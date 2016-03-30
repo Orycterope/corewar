@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/20 16:38:55 by tvermeil         ###   ########.fr        #
+#    Updated: 2016/03/30 17:40:15 by tvermeil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ CC = gcc -g
 CFLAGS = -Wall -Wextra #-Werror
 CPPFLAGS = $(addprefix -I ,$(INC_PATH))
 LDFLAGS = -L$(LFT_PATH)
-LDLIBS = -lft
+LDLIBS = -lft -lncurses
 
 SRC_NAME =	arena.c \
 			player.c \
@@ -42,6 +42,7 @@ SRC_NAME =	arena.c \
 			instructions_p4.c \
 			execution.c \
 			read_write.c \
+			display.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 20:30:34 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/19 20:16:21 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/30 17:40:02 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include "op.h"
 #include "operation.h"
 #include "parameters.h"
+
+void	print_mem(t_arena *arena);
 
 extern t_op		g_op_tab[17];
 
@@ -90,6 +92,7 @@ void			start_fight(t_arena *arena)
 
 	while (arena->processes != NULL)
 	{
+		print_mem(arena); //
 		execute_processes(arena);
 		if (arena->cycle >= arena->last_check_cycle + arena->cycle_to_die)
 		{
