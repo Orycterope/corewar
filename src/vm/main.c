@@ -34,9 +34,6 @@ static void	check_dump(char **argv, t_arena *arena)
 
 static void	check_param(int *argc, char ***argv, t_arena *arena)
 {
-	int	i;
-
-	i = 0;
 	if (*argc == 1)
 	{
 		ft_printf("Error: No parameters. Expected entry :\n\n\

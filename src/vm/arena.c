@@ -52,10 +52,8 @@ t_arena	*create_arena(void)
 void	display_champions(t_arena *arena)
 {
 	t_player	*i;
-	int			total;
 
 	ft_putendl("Introducing contestants...");
-	total = 0;
 	i = arena->players;
 	while (i != NULL)
 	{

@@ -12,10 +12,22 @@
 
 #ifndef DISPLAY_H
 # define DISPLAY_H
+# define D_READ 1
+# define D_WRITE 2
+# define D_READ_TURNS 4
+# define D_WRITE_TURNS 6
+
+typedef struct	s_mem_type
+{
+	char		owner;
+	char		reader;
+	char		r_turns;
+	char		w_turns;
+}				t_mem_type;
 
 typedef struct	s_display
 {
-	char		*memory;
+	t_mem_type	*memory;
 	int			running;
 	int			cps;
 }				t_display;

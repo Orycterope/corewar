@@ -15,13 +15,21 @@
 #include "display.h"
 #define PA p->arena
 
-static void	save_wr_for_display(t_process *p, char *display_c, int w_r)
+static void	save_for_display(t_process *p, int index, int r_w)
 {
-	if ((*display_c >> 5) != p->player)
-		*display_c = 0x00;
-	*display_c = (*display_c & 0x1F) | (p->player << 5);
-	*display_c |= (w_r << 3);
-	*display_c = (*display_c & 0xF8) | 0x06;
+	t_mem_type	*c;
+
+	c = p->arena->display->memory + index;
+	if (r_w == D_READ)
+	{
+		c->reader = p->player;
+		c->r_turns = D_READ_TURNS;
+	}
+	else
+	{
+		c->owner = p->player;
+		c->w_turns = D_WRITE_TURNS;
+	}
 }
 
 int			wm(long long n, void *dst, size_t l, t_process *p)
@@ -42,7 +50,7 @@ int			wm(long long n, void *dst, size_t l, t_process *p)
 		else if (dest < a->memory)
 			dest += MEM_SIZE;
 		if (a->display != NULL)
-			save_wr_for_display(p, dest - a->memory + a->display->memory, 1);
+			save_for_display(p, (int)(dest - a->memory), D_WRITE);
 		*dest-- = (n & 0xFF);
 		n >>= 8;
 		i++;
@@ -50,25 +58,20 @@ int			wm(long long n, void *dst, size_t l, t_process *p)
 	return (i);
 }
 
-long long	rm(void *src, size_t length, t_process *p)
+long long	rm(char *src, size_t length, t_process *p)
 {
 	long long		n;
 	long long		power;
-	//unsigned char	*ptr;
-	char			*ptr;
 
 	n = 0;
 	power = 1;
-	//ptr = (unsigned char *)src;
-	ptr = src;
 	while (length > 0)
 	{
-		if (ptr >= p->arena->memory + MEM_SIZE)
-			ptr -= MEM_SIZE;
+		if (src >= p->arena->memory + MEM_SIZE)
+			src -= MEM_SIZE;
 		if (PA->display != NULL)
-			save_wr_for_display(p,
-					&(ptr[length - 1]) - PA->memory + PA->display->memory, 2);
-		n += ((long long)((unsigned char *)ptr)[length - 1]) * power; // if (ptr is signed char * no need to loop after for neg values) ?
+			save_for_display(p, (int)(src - PA->memory) + length - 1, D_READ);
+		n += ((long long)((unsigned char *)src)[length - 1]) * power;
 		power <<= 8;
 		length--;
 	}
