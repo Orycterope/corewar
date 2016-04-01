@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:32:37 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/30 23:48:33 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/04/01 22:33:26 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 
 void	init_display(t_arena *arena)
 {
-	//t_player	*p;
-	//int			color;
+	int		i;
 
 	initscr();
 	start_color();
@@ -25,21 +24,23 @@ void	init_display(t_arena *arena)
 	noecho();
 	init_color(COLOR_WHITE, 400, 400, 400);
 	init_pair(0, COLOR_WHITE, COLOR_BLACK);
-	/*p = arena->players;
-	color = 0;
-	while (p != NULL)
-	{
-		init_pair(p->id * 10 + 0, color % 6 + 1, 0);
-		init_pair(p->id * 10 + 1, color % 6 + 1, 0);
-		init_pair(p->id * 10 + 2, color % 6 + 1, 0);
-		color++;
-		p = p->next;
-	}*/
 	arena->display = (t_display *)ft_memalloc(sizeof(t_display));
 	arena->display->memory = (t_mem_type *)ft_memalloc(
 		sizeof(t_mem_type) * MEM_SIZE);
 	arena->display->running = 0;
+	arena->display->quitting = 0;
 	arena->display->cps = 50;
+	arena->display->w_mem = newwin(MEM_SIZE / 64 + 1, 64 * 3 + 9 + 1, 5, 5); // no +1
+	arena->display->w_info = newwin(20, 50, 10, 64 * 3 + 20);
+	wtimeout(arena->display->w_info, 0);
+	i = -1;
+	while (++i < MEM_SIZE)
+	{
+		if (i % 64 == 0 && i != MEM_SIZE - 1)
+			wprintw(arena->display->w_mem, "\n%0#6x : ", i);
+		wprintw(arena->display->w_mem, "%02x ", (unsigned char)arena->memory[i]);
+	}
+	wrefresh(arena->display->w_mem);
 }
 
 static int	highlight_pcs(t_arena *arena)
@@ -49,7 +50,6 @@ static int	highlight_pcs(t_arena *arena)
 
 	p_nbr = 0;
 	p = arena->processes;
-	//start_color();
 	attron(A_BOLD);
 	while (p != NULL)
 	{
@@ -78,15 +78,16 @@ static void	print_color(t_mem_type t, unsigned char c, int y, int x)
 	//reader_color = t.reader % 6 + 1;
 	color_content(owner_color, &r, &g, &b);
 	init_color(owner_color,
-		r / 100 * (t.w_turns + 2),
-		g / 100 * (t.w_turns + 2),
-		b / 100 * (t.w_turns + 2));
+		((double)r / 100 + ((double)t.w_turns / D_WRITE_TURNS * 2)) * 100,
+		((double)r / 100 + ((double)t.w_turns / D_WRITE_TURNS * 2)) * 100,
+		((double)r / 100 + ((double)t.w_turns / D_WRITE_TURNS * 2)) * 100);
 	init_pair(owner_color, owner_color, 0);
 	attron(COLOR_PAIR(owner_color));
-	mvprintw(y, x, "%02x", c);
+	//mvwprintw(y, x, "%02x", c);
 	attroff(COLOR_PAIR(owner_color));
 	init_color(owner_color, r, g, b);
 }
+
 static void	highlight_rw(t_arena *arena)
 {
 	int			i;
@@ -112,32 +113,86 @@ static void	highlight_rw(t_arena *arena)
 	}
 }
 
+void		check_keystroke(t_display *display)
+{
+	char	c;
+	char	cont;
+
+	cont = 1;
+	while ((display->running == 0 && !display->quitting) || cont == 1)
+	{
+		cont = 0;
+		c = wgetch(display->w_info);
+		if (c == 's')
+			break;
+		else if (c == ' ')
+			display->running = !display->running;
+		else if (c == 'j')
+			display->cps += (display->cps < 1000 ) ? 10 : 1000 - display->cps;
+		else if (c == 'k')
+			display->cps -= (display->cps >= 10 ) ? 10 : display->cps;
+		else if (c == 'l')
+			display->cps += (display->cps < 1000 ) ? 1 : 0;
+		else if (c == ';')
+			display->cps -= (display->cps > 0 ) ? 1 : 0;
+		else if (c == 'q')
+			display->quitting = 1;
+	}
+}
+
+void		print_infos(t_arena *arena)
+{
+	t_display	*d;
+	t_player	*player;
+	t_process	*p;
+	int			line;
+	int			i;
+
+	d = arena->display;
+	p = arena->processes;
+	i = 0;
+	while (p != NULL)
+	{
+		i++;
+		p = p->next;
+	}
+	mvwprintw(d->w_info, 0, 0,
+			"Dumping memory at cycle %d (%d processus)", arena->cycle, i);
+	mvwprintw(d->w_info, 3, 0, "Cycles per second : %4d", d->cps);
+	line = 5;
+	player = arena->players;
+	while (player != NULL)
+	{
+		i = 0;
+		p = arena->processes;
+		while (p != NULL)
+		{
+			if (p->player == player->id)
+				i++;
+			p = p->next;
+		}
+		mvwprintw(d->w_info, line, 0, "Player %s :\n\tProcessus : %d\n\tLast live:  %d", player->name, i, player->last_live);
+		line += 4;
+		player = player->next;
+	}
+}
+
 void		print_mem(t_arena *arena)
 {
-	int		i;
+	int		p;
 
-	move(0,0);
-	i = 0;
-	while (i < MEM_SIZE)
-	{
-		if (i % 64 == 0 && i != MEM_SIZE - 1)
-		{
-			if (i != 0)
-				addch('\n');
-			printw("%0#6x : ", i);
-		}
-		printw("%02x", (unsigned char)arena->memory[i]);
-		printw(" ");
-		i++;
-	}
 	highlight_rw(arena);
-	printw("Dumping memory at cycle %d (%d processus):", arena->cycle, highlight_pcs(arena));
-	refresh();
-	getch();
+	p = highlight_pcs(arena);
+	print_infos(arena);
+	wrefresh(arena->display->w_info);
+	wrefresh(arena->display->w_mem);
+	check_keystroke(arena->display);
 }
 
 void	destroy_display(t_arena *arena)
 {
+	delwin(arena->display->w_mem);
+	delwin(arena->display->w_info);
 	free(arena->display->memory);
 	free(arena->display);
 	init_color(COLOR_WHITE, 1000, 1000, 1000);
