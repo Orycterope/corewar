@@ -43,6 +43,8 @@ SRC_NAME =	arena.c \
 			execution.c \
 			read_write.c \
 			display.c \
+			display_infos.c \
+			display_mem.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

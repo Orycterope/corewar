@@ -44,7 +44,7 @@ void	create_process(int player, char *pc, t_arena *arena, t_process *parent)
 
 	new = (t_process*)malloc(sizeof(t_process));
 	if (new == NULL)
-		return ;
+		return;
 	new->player = player;
 	new->pc = pc;
 	new->carry = (parent == NULL) ? 0 : parent->carry;
@@ -75,4 +75,19 @@ void	kill_process(t_process *process)
 		i->next = process->next;
 	}
 	free(process);
+}
+
+int		count_processes(t_arena *arena)
+{
+	t_process	*p;
+	int			i;
+
+	i = 0;
+	p = arena->processes;
+	while (p != NULL)
+	{
+		i++;
+		p = p->next;
+	}
+	return (i);
 }

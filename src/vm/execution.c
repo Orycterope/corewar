@@ -18,8 +18,6 @@
 #include "parameters.h"
 #include "display.h"
 
-void	print_mem(t_arena *arena);
-
 extern t_op		g_op_tab[17];
 
 int				get_wait_time(t_process *p)
@@ -95,9 +93,9 @@ void			start_fight(t_arena *arena)
 	{
 		if (arena->display != NULL)
 		{
-			print_mem(arena);
+			update_display(arena);
 			if (arena->display->quitting)
-				break;
+				break ;
 		}
 		execute_processes(arena);
 		if (arena->cycle >= arena->last_check_cycle + arena->cycle_to_die)

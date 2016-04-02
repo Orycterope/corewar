@@ -18,26 +18,39 @@
 # define D_WRITE_TURNS 6
 # include <ncurses.h>
 
-typedef struct	s_mem_type
-{
-	char		owner;
-	char		reader;
-	char		r_turns;
-	char		w_turns;
-}				t_mem_type;
+typedef struct			s_arena t_arena;
 
-typedef struct	s_display
+typedef struct			s_d_update
 {
-	t_mem_type	*memory;
-	int			running;
-	int			cps;
-	int			quitting;
-	WINDOW		*w_mem;
-	WINDOW		*w_info;
-}				t_display;
+	char				owner;
+	char				reader;
+	char				r_turns;
+	char				w_turns;
+	int					index;
+	struct s_d_update	*next;
+}						t_d_update;
 
-void		init_display();
-void		destroy_display(t_arena *arena);
-void		print_mem(t_arena *arena);
+typedef struct			s_display
+{
+	t_d_update			*updates;
+	int					running;
+	int					cps;
+	int					quitting;
+	WINDOW				*w_mem;
+	WINDOW				*w_info;
+}						t_display;
+
+void					init_display();
+void					destroy_display(t_arena *arena);
+void					init_mem_display(t_arena *arena);
+void					init_info_display(t_arena *arena);
+void					update_display(t_arena *arena);
+void					highlight_rw(t_arena *arena);
+int						highlight_pcs(t_arena *arena);
+void					remove_update_struct(t_d_update *u, t_arena *arena);
+t_d_update				*get_update_struct_of(int i, t_arena *arena);
+
+void					check_keystroke(t_arena *arena);
+void					update_infos(t_arena *arena);
 
 #endif

@@ -17,18 +17,20 @@
 
 static void	save_for_display(t_process *p, int index, int r_w)
 {
-	t_mem_type	*c;
+	t_d_update	*u;
 
-	c = p->arena->display->memory + index;
+	u = get_update_struct_of(index, p->arena);
+	if (u == NULL)
+		return;
 	if (r_w == D_READ)
 	{
-		c->reader = p->player;
-		c->r_turns = D_READ_TURNS;
+		u->reader = p->player;
+		u->r_turns = D_READ_TURNS;
 	}
 	else
 	{
-		c->owner = p->player;
-		c->w_turns = D_WRITE_TURNS;
+		u->owner = p->player;
+		u->w_turns = D_WRITE_TURNS;
 	}
 }
 
