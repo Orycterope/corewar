@@ -6,13 +6,14 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:32:37 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/02 17:45:31 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/02 23:19:11 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ncurses.h>
 #include "arena.h"
 #include "display.h"
+void		init_colors(t_player *p); //
 
 void		init_display(t_arena *arena)
 {
@@ -22,6 +23,7 @@ void		init_display(t_arena *arena)
 	noecho();
 	init_color(COLOR_WHITE, 400, 400, 400);
 	init_pair(0, COLOR_WHITE, COLOR_BLACK);
+	init_colors(arena->players);
 	arena->display = (t_display *)ft_memalloc(sizeof(t_display));
 	arena->display->updates = NULL;
 	arena->display->running = 0;
@@ -31,20 +33,23 @@ void		init_display(t_arena *arena)
 	init_info_display(arena);
 }
 
-/*void		init_colors(t_arena *arena)
+void		init_colors(t_player *p) // p = first player
 {
-	t_player	*p;
-	int			r;
-	int			g;
-	int			b;
+	float		i;
+	short		r;
+	short		g;
+	short		b;
 
-	p = arena->players;
 	while (p != NULL)
 	{
-
+		color_content(p->id, &r, &g, &b);
+		i = 8;
+		while (--i >= 0)
+			init_color(p->id * 10 + i, r * i / 7, g * i / 7, b * i / 7);
+		init_pair(p->id, p->id, COLOR_BLACK);
 		p = p->next;
 	}
-}*/
+}
 
 /*static void	print_color(t_mem_type t, unsigned char c, int y, int x)
 {
@@ -86,6 +91,6 @@ void		destroy_display(t_arena *arena)
 	while (arena->display->updates != NULL)
 		remove_update_struct(arena->display->updates, arena);
 	free(arena->display);
-	init_color(COLOR_WHITE, 1000, 1000, 1000);
+	init_color(COLOR_WHITE, 800, 800, 800);
 	endwin();
 }

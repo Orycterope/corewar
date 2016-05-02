@@ -70,18 +70,20 @@ int			highlight_pcs(t_arena *arena)
 
 	p_nbr = 0;
 	p = arena->processes;
-	attron(A_BOLD);
+	wattron(arena->display->w_mem, A_BOLD);
 	while (p != NULL)
 	{
-		//attron(COLOR_PAIR(p->player * 10));
-		mvprintw((int)(p->pc - arena->memory) / 64,
+		wattron(arena->display->w_mem, COLOR_PAIR(p->player));
+		mvwprintw(arena->display->w_mem,
+			   	(int)(p->pc - arena->memory) / 64,
 				((int)(p->pc - arena->memory) % 64) * 3 + 9,
 				"%02x", (unsigned char)*(p->pc));
+		wattroff(arena->display->w_mem, COLOR_PAIR(p->player));
 		//attroff(COLOR_PAIR(p->player * 10));
 		p_nbr++;
 		p = p->next;
 	}
-	attroff(A_BOLD);
+	wattroff(arena->display->w_mem, A_BOLD);
 	move(MEM_SIZE / 64, 0);
 	return (p_nbr);
 }
@@ -91,15 +93,17 @@ void		highlight_rw(t_arena *arena)
 	t_d_update	*u;
 	t_d_update	*next;
 
-	move(0, 0);
+	wmove(arena->display->w_mem, 0, 0);
 	u = arena->display->updates;
 	while (u != NULL)
 	{
 		next = u->next;
 		wmove(arena->display->w_mem, u->index / 64, (u->index % 64) * 3 + 9);
-		//attron(COLOR_PAIR(u->owner * 10 + u->reader));
+		//wattron(COLOR_PAIR(u->owner * 10 + u->reader));
+		wattron(arena->display->w_mem, COLOR_PAIR(u->writer));
 		wprintw(arena->display->w_mem,
 				"%02x",(unsigned char)arena->memory[u->index]);
+		wattroff(arena->display->w_mem, COLOR_PAIR(u->writer));
 		if (u->w_turns)
 			u->w_turns--;
 		if (u->r_turns)

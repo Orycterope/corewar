@@ -16,7 +16,11 @@ void		init_info_display(t_arena *arena)
 	while (player != NULL)
 	{
 		mvwprintw(arena->display->w_info, line, 0,
-				"Player %s :\n\tProcessus : %6d\n\tLast live: %6d", player->name, 1, 0);
+			//	"Player %s :\n\tProcessus : %6d\n\tLast live: %6d", player->name, 1, 0);
+				"Player \n\tProcessus : %6d\n\tLast live: %6d", 1, 0);
+		wattron(arena->display->w_info, COLOR_PAIR(player->id));
+		mvwprintw(arena->display->w_info, line, 8, player->name);
+		wattroff(arena->display->w_info, COLOR_PAIR(player->id));
 		line += 4;
 		player = player->next;
 	}
