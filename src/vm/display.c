@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:32:37 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/04/01 22:33:26 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/02 17:45:31 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void		update_display(t_arena *arena)
 	wrefresh(arena->display->w_info);
 	wrefresh(arena->display->w_mem);
 	check_keystroke(arena);
+	regulate_speed(arena);
 }
 
 void		destroy_display(t_arena *arena)

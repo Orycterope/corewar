@@ -1,5 +1,6 @@
 #include "display.h"
 #include "arena.h"
+#include <time.h>
 
 void		init_info_display(t_arena *arena)
 {
@@ -64,19 +65,34 @@ void		check_keystroke(t_arena *a)
 		cps = &(a->display->cps);
 		c = wgetch(a->display->w_info);
 		if (c == 's')
-			break;
+			break; // return ?
 		else if (c == ' ')
 			a->display->running = !a->display->running;
 		else if (c == 'j')
 			*cps += (*cps < 1000 ) ? 10 : 1000 - *cps;
 		else if (c == 'k')
-			*cps -= (*cps >= 10 ) ? 10 : *cps;
+			*cps -= (*cps >= 11 ) ? 10 : *cps - 1;
 		else if (c == 'l')
 			*cps += (*cps < 1000 ) ? 1 : 0;
 		else if (c == ';')
-			*cps -= (*cps > 0 ) ? 1 : 0;
+			*cps -= (*cps > 1 ) ? 1 : 0;
 		else if (c == 'q')
 			a->display->quitting = 1;
 		update_infos(a);
 	}
+}
+
+void	regulate_speed(t_arena *a)
+{
+	static clock_t last_release = 0;
+	clock_t now;
+
+	while (1)
+	{
+		now = clock();
+		if (now >= last_release + CLOCKS_PER_SEC / a->display->cps)
+			break;
+		check_keystroke(a);
+	}
+	last_release = now;
 }

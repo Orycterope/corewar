@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:08:20 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/04/01 21:58:17 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/02 16:39:13 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ t_d_update				*get_update_struct_of(int i, t_arena *arena);
 
 void					check_keystroke(t_arena *arena);
 void					update_infos(t_arena *arena);
+void					regulate_speed(t_arena *arena);
 
 #endif
