@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 18:42:10 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/03 13:15:55 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/03 15:06:10 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct			s_process
 	int					lives;
 	int					number;
 	int					count_lives;
+	int					op_code;
 	t_arena				*arena;
 	struct s_process	*next;
 }						t_process;
