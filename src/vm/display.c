@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:32:37 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/02 23:19:11 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/03 22:29:46 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,54 @@ void		init_display(t_arena *arena)
 	init_info_display(arena);
 }
 
+void		init_pairs(int players)
+{
+	int		o;
+	int		r;
+	int		oi;
+	int		ri;
+
+	o = -1;
+	while (++o < players)
+	{
+		oi = -1;
+		while (++oi < D_WRITE_TURNS)
+		{
+			r = -1;
+			while (++r < players)
+			{
+				ri = -1;
+				while (++ri < D_READ_TURNS)
+				{
+					init_pair(o * 1000 + oi * 100 + r * 10 + ri + 10,
+							100 + o * 10 + oi,
+						   	100 + r * 10 + ri);
+				}
+			}
+		}
+	}
+}
+
 void		init_colors(t_player *p) // p = first player
 {
 	float		i;
 	short		r;
 	short		g;
 	short		b;
+	int			c;
 
+	c = 0;
 	while (p != NULL)
 	{
 		color_content(p->id, &r, &g, &b);
 		i = 8;
 		while (--i >= 0)
-			init_color(p->id * 10 + i, r * i / 7, g * i / 7, b * i / 7);
+			init_color(100 + p->id * 10 + i, r * i / 7, g * i / 7, b * i / 7);
 		init_pair(p->id, p->id, COLOR_BLACK);
+		c++;
 		p = p->next;
 	}
+	init_pairs(c);
 }
 
 /*static void	print_color(t_mem_type t, unsigned char c, int y, int x)
