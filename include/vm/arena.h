@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:03:23 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/21 20:34:50 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/04/24 15:01:40 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 # include "process.h"
 # include "player.h"
 
-typedef struct	s_process t_process;
-typedef struct	s_player t_player;
+typedef struct s_process	t_process;
+typedef struct s_player		t_player;
 
 typedef struct	s_arena
 {

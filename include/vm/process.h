@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 18:42:10 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/23 14:51:08 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/03 13:15:55 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct			s_process
 	char				carry;
 	int					cycles_to_wait;
 	int					lives;
+	int					number;
+	int					count_lives;
 	t_arena				*arena;
 	struct s_process	*next;
 }						t_process;
