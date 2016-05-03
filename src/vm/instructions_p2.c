@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:34:56 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/23 20:06:28 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/03 13:42:02 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,14 @@ int		zjump(t_process *process, int i)
 	param.o = 9;
 	param.type[0] = IND_CODE;
 	param.value[0] = rm(mem(process->pc + 1, 1, PA, process), IND_SIZE, PA);
+	ft_printf("P%5d | zjmp %d", process->number, PV[0]);
 	if (process->carry == 1)
+	{
+		ft_printf(" OK\n");
 		return ((short)PV[0]);
+	}
+	else
+		ft_putchar('\n');
 	return (1 + IND_SIZE);
 }
 

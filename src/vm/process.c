@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:55:35 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/24 20:30:31 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/03 13:08:16 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ static void create_copy_registers(t_process *p, t_process *parent, int player)
 void	create_process(int player, char *pc, t_arena *arena, t_process *parent)
 {
 	t_process	*new;
+	static int	i = 0;
 
+	i++;
 	new = (t_process*)malloc(sizeof(t_process));
 	if (new == NULL)
 		return ;
@@ -49,9 +51,11 @@ void	create_process(int player, char *pc, t_arena *arena, t_process *parent)
 	new->pc = pc;
 	new->carry = (parent == NULL) ? 0 : parent->carry;
 	new->lives = (parent == NULL) ? 0 : parent->lives;
+	new->count_lives = 0;
 	new->cycles_to_wait = get_wait_time(new) - 1;
 	new->arena = arena;
 	new->next = arena->processes;
+	new->number = i;
 	create_copy_registers(new, parent, player);
 	arena->processes = new;
 }

@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:37:16 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/23 20:17:48 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/03 13:36:27 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		ft_fork(t_process *process, int i)
 	param.type[0] = DIR_CODE;
 	param.value[0] = rm(mem(process->pc + 1, 1, PA, process), IND_SIZE, PA);
 	fork_process(process, mem(process->pc + (short)PV[0], 1, PA, process));
+	ft_printf("P%5d | fork %d (%d)\n", process->number, (short)PV[0], process->arena->processes->pc - process->arena->memory);
 	return (1 + IND_SIZE);
 }
 
@@ -53,6 +54,7 @@ int		long_load(t_process *process, int i)
 	change_carry(process, PV[0]);
 	return (param.jump);
 }
+
 int		long_load_index(t_process *process, int i)
 {
 	t_parameters	param;
@@ -77,6 +79,7 @@ int		long_load_index(t_process *process, int i)
 		wm(PV[0], mem(process->pc + PV[0], 0, PA, process), REG_SIZE, PA);
 	return (param.jump);
 }
+
 int		long_fork(t_process *process, int i)
 {
 	t_parameters	param;
@@ -86,8 +89,10 @@ int		long_fork(t_process *process, int i)
 	param.type[0] = DIR_CODE;
 	param.value[0] = rm(mem(process->pc + 1, 0, PA, process), IND_SIZE, PA);
 	fork_process(process, mem(process->pc + (short)PV[0], 0, PA, process));
+	ft_printf("P%5d | lfork %d (%d)\n", process->number, (short)PV[0], process->arena->processes->pc - process->arena->memory);
 	return (1 + IND_SIZE);
 }
+
 int		aff(t_process *process, int i)
 {
 	t_parameters	param;

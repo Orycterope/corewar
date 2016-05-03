@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:17:18 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/24 16:54:42 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/03 13:33:44 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@ int		alive(t_process *process, int i)
 	i += 1;
 	param.type[0] = DIR_CODE;
 	param.value[0] = rm(mem(process->pc + 1, 1, PA, process), DIR_SIZE, PA);
-	process->lives += 1;
+	process->lives = 1;
+	process->count_lives += 1;
 	temp = process->arena->players;
 	while (temp != NULL && temp->id != param.value[0])
 		temp = temp->next;
 	if (temp != NULL)
 		temp->last_live = process->arena->cycle;
+	ft_printf("P%5d | live %d\n", process->number, param.value[0]);
 	return (1 + DIR_SIZE);
 }
 
@@ -55,6 +57,7 @@ int		load(t_process *process, int i)
 		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PA);
 	WBE(param.value[0], PR[param.value[1] - 1], REG_SIZE);
 	change_carry(process, PV[0]);
+	ft_printf("P%5d | ld %d r%d\n", process->number, PV[0], PV[1]);
 	return (param.jump);
 }
 
@@ -71,6 +74,7 @@ int		store(t_process *process, int i)
 	if (check_registers(&param, process, i) == 1 || g_op_tab[i].param_nbr < 2
 	|| check_param_error(param, i) == 1 || g_op_tab[i].param_nbr > 4)
 		return (param.jump);
+	ft_printf("P%5d | st r%d ", process->number, PV[0]);
 	if (param.type[0] == REG_CODE)
 		param.value[0] = RBE(PR[param.value[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)
@@ -79,6 +83,7 @@ int		store(t_process *process, int i)
 		WBE(PV[0], PR[PV[1] - 1], REG_SIZE);
 	else if (param.type[1] == IND_CODE)
 		wm(PV[0], mem(process->pc + PV[1], 1, PA, process), REG_SIZE, PA);
+	ft_printf("%d\n", PV[1]);
 	return (param.jump);
 }
 
@@ -96,6 +101,7 @@ int		addition(t_process *process, int i)
 	|| check_param_error(param, i) == 1 || g_op_tab[i].param_nbr > 4
 	|| param.type[2] != REG_CODE)
 		return (param.jump);
+	ft_printf("P%5d | add r%d r%d r%d\n", process->number, PV[0], PV[1], PV[2]);
 	if (param.type[0] == REG_CODE)
 		param.value[0] = RBE(PR[param.value[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)
@@ -123,6 +129,7 @@ int		soustraction(t_process *process, int i)
 	|| check_param_error(param, i) == 1 || g_op_tab[i].param_nbr > 4
 	|| param.type[2] != REG_CODE)
 		return (param.jump);
+	ft_printf("P%5d | sub r%d r%d r%d\n", process->number, PV[0], PV[1], PV[2]);
 	if (param.type[0] == REG_CODE)
 		param.value[0] = RBE(PR[param.value[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)

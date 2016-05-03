@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:27:55 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/20 20:19:40 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/02 22:34:02 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 static int		is_free_player_id(int id, t_player *p, int ac, char **av)
 {
-	if (id < 1)
-		return (0);
+//	if (id < 1)
+//		return (0);
 	ac--;
 	av++;
 	while (p != NULL)

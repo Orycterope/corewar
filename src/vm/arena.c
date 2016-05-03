@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:05:42 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/29 22:24:37 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/02 23:44:26 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_arena	*create_arena(void)
 	memory = (char *)ft_memalloc(MEM_SIZE);
 	new->memory = memory;
 	new->players = NULL;
-	new->cycle = 0;
+	new->cycle = 1;
 	new->cycle_to_die = CYCLE_TO_DIE;
 	new->last_check_cycle = 0;
 	new->checks_without_decrement = 0;
