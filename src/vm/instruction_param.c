@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 15:39:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/03 13:33:58 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/03 15:10:17 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int			execute_instruction(t_process *process)
 	int	i;
  
 	i = 0;
-	while (g_op_tab[i].op_code != process->pc[0] && g_op_tab[i].name != NULL)
+	while (g_op_tab[i].op_code != process->op_code && g_op_tab[i].name != NULL)
 		i++;
 	if (g_op_tab[i].name == NULL) 
 		return (1);
