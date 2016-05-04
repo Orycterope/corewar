@@ -6,14 +6,13 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:32:37 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/03 22:29:46 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/04 18:25:37 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ncurses.h>
 #include "arena.h"
 #include "display.h"
-void		init_colors(t_player *p); //
 
 void		init_display(t_arena *arena)
 {
@@ -83,35 +82,17 @@ void		init_colors(t_player *p) // p = first player
 	init_pairs(c);
 }
 
-/*static void	print_color(t_mem_type t, unsigned char c, int y, int x)
-{
-	int	owner_color;
-	//int	reader_color;
-	short r;
-	short g;
-	short b;
-
-	owner_color = t.owner % 6 + 1;
-	//reader_color = t.reader % 6 + 1;
-	color_content(owner_color, &r, &g, &b);
-	init_color(owner_color,
-		((double)r / 100 + ((double)t.w_turns / D_WRITE_TURNS * 2)) * 100,
-		((double)r / 100 + ((double)t.w_turns / D_WRITE_TURNS * 2)) * 100,
-		((double)r / 100 + ((double)t.w_turns / D_WRITE_TURNS * 2)) * 100);
-	init_pair(owner_color, owner_color, 0);
-	attron(COLOR_PAIR(owner_color));
-	//mvwprintw(y, x, "%02x", c);
-	attroff(COLOR_PAIR(owner_color));
-	init_color(owner_color, r, g, b);
-}*/
-
 void		update_display(t_arena *arena)
 {
 	highlight_rw(arena);
-	highlight_pcs(arena);
+	//highlight_pcs(arena);
 	update_infos(arena);
-	wrefresh(arena->display->w_info);
+	//overwrite(arena->display->w_mem, arena->display->w_combined);
+	//overlay(arena->display->w_pcs, arena->display->w_combined);
+	//overlay(arena->display->w_pcs, arena->display->w_mem);
+	//wrefresh(arena->display->w_combined);
 	wrefresh(arena->display->w_mem);
+	//wrefresh(arena->display->w_pcs);
 	check_keystroke(arena);
 	regulate_speed(arena);
 }
@@ -120,6 +101,7 @@ void		destroy_display(t_arena *arena)
 {
 	delwin(arena->display->w_mem);
 	delwin(arena->display->w_info);
+	delwin(arena->display->w_combined);
 	while (arena->display->updates != NULL)
 		remove_update_struct(arena->display->updates, arena);
 	free(arena->display);

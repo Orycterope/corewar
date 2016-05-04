@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:08:20 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/02 16:39:13 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/04 16:50:54 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define D_READ_TURNS 4
 # define D_WRITE_TURNS 6
 # include <ncurses.h>
+# include "player.h"
 
 typedef struct			s_arena t_arena;
 
@@ -37,13 +38,15 @@ typedef struct			s_display
 	int					cps;
 	int					quitting;
 	WINDOW				*w_mem;
+	WINDOW				*w_pcs;
+	WINDOW				*w_combined;
 	WINDOW				*w_info;
 }						t_display;
 
 void					init_display();
 void					destroy_display(t_arena *arena);
-void					init_mem_display(t_arena *arena);
 void					init_info_display(t_arena *arena);
+void					init_mem_display(t_arena *arena);
 void					update_display(t_arena *arena);
 void					highlight_rw(t_arena *arena);
 int						highlight_pcs(t_arena *arena);
@@ -53,5 +56,6 @@ t_d_update				*get_update_struct_of(int i, t_arena *arena);
 void					check_keystroke(t_arena *arena);
 void					update_infos(t_arena *arena);
 void					regulate_speed(t_arena *arena);
+void					init_colors(t_player *p);
 
 #endif

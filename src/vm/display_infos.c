@@ -86,7 +86,7 @@ void		check_keystroke(t_arena *a)
 	}
 }
 
-void	regulate_speed(t_arena *a)
+void		regulate_speed(t_arena *a)
 {
 	static clock_t last_release = 0;
 	clock_t now;

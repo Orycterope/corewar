@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 16:11:26 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/03 17:44:34 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/04 22:05:34 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ static void	save_for_display(t_process *p, int index, int r_w)
 {
 	t_d_update	*u;
 
+	if (index < 0 || index > MEM_SIZE)
+		return ;
 	u = get_update_struct_of(index, p->arena);
 	if (u == NULL)
-		return;
+		return ;
 	if (r_w == D_READ)
 	{
 		u->reader = p->player;
