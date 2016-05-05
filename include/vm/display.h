@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:08:20 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/05 15:00:15 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/05 17:49:33 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct			s_display
 	WINDOW				*w_pcs;
 	WINDOW				*w_bkp;
 	WINDOW				*w_info;
+	char				owner_tab[MEM_SIZE];
 }						t_display;
 
 void					init_display();

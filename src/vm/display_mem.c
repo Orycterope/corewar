@@ -65,7 +65,9 @@ void		init_mem_display(t_arena *arena)
 				wprintw(arena->display->w_bkp, "\n");
 			wprintw(arena->display->w_bkp, "%0#6x : ", i);
 		}
+		wattron(arena->display->w_bkp, COLOR_PAIR(arena->display->owner_tab[i]));
 		wprintw(arena->display->w_bkp, "%02x ", (unsigned char)arena->memory[i]);
+		wattroff(arena->display->w_bkp, COLOR_PAIR(arena->display->owner_tab[i]));
 	}
 }
 

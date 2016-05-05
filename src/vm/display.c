@@ -6,13 +6,15 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:32:37 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/05 15:39:53 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/05 18:32:15 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ncurses.h>
 #include "arena.h"
 #include "display.h"
+
+static void	attribute_src_code(t_arena *arena);
 
 void		init_display(t_arena *arena)
 {
@@ -28,8 +30,26 @@ void		init_display(t_arena *arena)
 	arena->display->running = 0;
 	arena->display->quitting = 0;
 	arena->display->cps = 50;
+	attribute_src_code(arena);
 	init_mem_display(arena);
 	init_info_display(arena);
+}
+
+static void	attribute_src_code(t_arena *arena)
+{
+	t_player		*p;
+	unsigned int	size;
+	unsigned int	begin;
+
+	p = arena->players;
+	while (p != NULL)
+	{
+		size = 0;
+		begin = p->begin - arena->memory;
+		while (size < p->champ_size)
+			arena->display->owner_tab[begin + size++] = (char)p->id;
+		p = p->next;
+	}
 }
 
 void		init_pairs(int players)
@@ -87,10 +107,6 @@ void		update_display(t_arena *arena)
 	highlight_rw(arena);
 	highlight_pcs(arena);
 	//update_infos(arena);
-	//overwrite(arena->display->w_mem, arena->display->w_combined);
-	//overlay(arena->display->w_pcs, arena->display->w_combined);
-	//overlay(arena->display->w_pcs, arena->display->w_mem);
-	//wrefresh(arena->display->w_combined);
 	overwrite(arena->display->w_bkp, arena->display->w_mem);
 	overlay(arena->display->w_pcs, arena->display->w_mem);
 	wrefresh(arena->display->w_mem);

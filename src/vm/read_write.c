@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 16:11:26 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/04 22:05:34 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/05 18:03:14 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@ static void	save_for_display(t_process *p, int index, int r_w)
 {
 	t_d_update	*u;
 
-	if (index < 0 || index > MEM_SIZE)
+	if (index < 0 || index >= MEM_SIZE)
 		return ;
 	u = get_update_struct_of(index, p->arena);
 	if (u == NULL)
 		return ;
 	if (r_w == D_READ)
 	{
+		if (u->owner == 0)
+			u->owner = p->arena->display->owner_tab[index];
 		u->reader = p->player;
 		u->r_turns = D_READ_TURNS;
 	}
@@ -33,6 +35,7 @@ static void	save_for_display(t_process *p, int index, int r_w)
 	{
 		u->owner = p->player;
 		u->w_turns = D_WRITE_TURNS;
+		p->arena->display->owner_tab[index] = (char)p->player;
 	}
 }
 
