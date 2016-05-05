@@ -53,21 +53,20 @@ void		init_mem_display(t_arena *arena)
 {
 	int	i;
 
-	//arena->display->w_combined = newwin(MEM_SIZE / 64, 64 * 3 + 10, 5, 5); //remove 5
+	arena->display->w_bkp = newwin(MEM_SIZE / 64, 64 * 3 + 10, 5, 5); //remove 5
 	arena->display->w_mem = newwin(MEM_SIZE / 64, 64 * 3 + 10, 5, 5); //remove 5 // coord useless ?
-	arena->display->w_pcs = newwin(MEM_SIZE / 64, 64 * 3, 5 + 10, 5); //remove 5 // coord useless ?
+	arena->display->w_pcs = newwin(MEM_SIZE / 64, 64 * 3 + 10, 5, 5); //remove 5 // coord useless ?
 	i = -1;
 	while (++i < MEM_SIZE)
 	{
 		if (i % 64 == 0 && i != MEM_SIZE - 1)
 		{
 			if (i != 0)
-				wprintw(arena->display->w_mem, "\n");
-			wprintw(arena->display->w_mem, "%0#6x : ", i);
+				wprintw(arena->display->w_bkp, "\n");
+			wprintw(arena->display->w_bkp, "%0#6x : ", i);
 		}
-		wprintw(arena->display->w_mem, "%02x ", (unsigned char)arena->memory[i]);
+		wprintw(arena->display->w_bkp, "%02x ", (unsigned char)arena->memory[i]);
 	}
-	//wrefresh(arena->display->w_mem);
 }
 
 int			highlight_pcs(t_arena *arena)
@@ -78,7 +77,6 @@ int			highlight_pcs(t_arena *arena)
 	p_nbr = 0;
 	p = arena->processes;
 	werase(arena->display->w_pcs);
-	//wattron(arena->display->w_mem, A_BOLD | A_REVERSE);
 	while (p != NULL)
 	{
 		wattron(arena->display->w_pcs, COLOR_PAIR(p->player) | A_BOLD);
@@ -90,10 +88,7 @@ int			highlight_pcs(t_arena *arena)
 		p_nbr++;
 		p = p->next;
 	}
-	//wattroff(arena->display->w_mem, A_BOLD | A_REVERSE);
 	//move(MEM_SIZE / 64, 0); //
-//	wrefresh(arena->display->w_pcs);
-	//overlay(arena->display->w_pcs, arena->display->w_mem);
 	return (p_nbr);
 }
 
@@ -124,13 +119,14 @@ void		highlight_rw(t_arena *arena)
 	u = arena->display->updates;
 	while (u != NULL)
 	{
-		pair = u->owner * 1000 + u->w_turns * 100 + u->reader * 10 + u->r_turns + 10;
+		pair = u->owner;
+		//pair = u->owner * 1000 + u->w_turns * 100 + u->reader * 10 + u->r_turns + 10;
 		next = u->next;
-		wmove(arena->display->w_mem, u->index / 64, (u->index % 64) * 3 + 9);
-		//wattron(arena->display->w_mem, COLOR_PAIR(pair));
-		wprintw(arena->display->w_mem,
+		wmove(arena->display->w_bkp, u->index / 64, (u->index % 64) * 3 + 9);
+		wattron(arena->display->w_bkp, COLOR_PAIR(pair));
+		wprintw(arena->display->w_bkp,
 				"%02x",(unsigned char)arena->memory[u->index]);
-		//wattroff(arena->display->w_mem, COLOR_PAIR(pair));
+		wattroff(arena->display->w_bkp, COLOR_PAIR(pair));
 		if (u->w_turns)
 			u->w_turns--;
 		if (u->r_turns)

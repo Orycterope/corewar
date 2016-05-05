@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:32:37 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/04 18:25:37 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/05 15:39:53 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,15 @@ void		init_colors(t_player *p) // p = first player
 void		update_display(t_arena *arena)
 {
 	highlight_rw(arena);
-	//highlight_pcs(arena);
-	update_infos(arena);
+	highlight_pcs(arena);
+	//update_infos(arena);
 	//overwrite(arena->display->w_mem, arena->display->w_combined);
 	//overlay(arena->display->w_pcs, arena->display->w_combined);
 	//overlay(arena->display->w_pcs, arena->display->w_mem);
 	//wrefresh(arena->display->w_combined);
+	overwrite(arena->display->w_bkp, arena->display->w_mem);
+	overlay(arena->display->w_pcs, arena->display->w_mem);
 	wrefresh(arena->display->w_mem);
-	//wrefresh(arena->display->w_pcs);
 	check_keystroke(arena);
 	regulate_speed(arena);
 }
@@ -101,7 +102,7 @@ void		destroy_display(t_arena *arena)
 {
 	delwin(arena->display->w_mem);
 	delwin(arena->display->w_info);
-	delwin(arena->display->w_combined);
+	delwin(arena->display->w_bkp);
 	while (arena->display->updates != NULL)
 		remove_update_struct(arena->display->updates, arena);
 	free(arena->display);
