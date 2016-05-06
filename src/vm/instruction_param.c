@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 15:39:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/03 15:10:17 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/03 20:02:15 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ int			check_registers(t_parameters *param, t_process *process, int j)
 	int	i;
 
 	i = 0;
-//	if (process->registers == NULL)
-//		return (1);
 	while (i < g_op_tab[j].param_nbr && i < 4)
 	{
 		if (param->type[i] == REG_CODE)

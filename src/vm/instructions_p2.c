@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:34:56 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/03 13:42:02 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/06 17:14:07 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,14 +106,14 @@ int		zjump(t_process *process, int i)
 	param.o = 9;
 	param.type[0] = IND_CODE;
 	param.value[0] = rm(mem(process->pc + 1, 1, PA, process), IND_SIZE, PA);
-	ft_printf("P%5d | zjmp %d", process->number, PV[0]);
+	printf("P%5d | zjmp %hd", process->number, (short)PV[0]);
 	if (process->carry == 1)
 	{
-		ft_printf(" OK\n");
+		printf(" OK\n");
 		return ((short)PV[0]);
 	}
 	else
-		ft_putchar('\n');
+		printf(" FAILED\n");
 	return (1 + IND_SIZE);
 }
 
@@ -131,9 +131,10 @@ int		load_index(t_process *process, int i)
 	|| check_param_error(param, i) == 1 || g_op_tab[i].param_nbr > 4)
 		return (param.jump);
 	if (param.type[0] == REG_CODE)
-		param.value[0] = RBE(process->registers[param.value[1] - 1], REG_SIZE);
+		param.value[0] = RBE(process->registers[param.value[0] - 1], REG_SIZE);
 	if (param.type[1] == REG_CODE)
 		param.value[1] = RBE(process->registers[param.value[1] - 1], REG_SIZE);
+	printf("P%5d | ldi %d %d r%d\n       | -> load from %d + %d = %d (with pc and mod %ld)\n", process->number, (int)PV[0], (int)PV[1], (int)PV[2], (int)PV[0], (int)PV[1], (int)PV[0] + (int)PV[1], mem(process->pc + (int)PV[0] + (int)PV[1], 1, PA, process) - process->arena->memory);
 	PV[0] = rm(mem(process->pc + PV[0] + PV[1], 1, PA, process), REG_SIZE, PA);
 	if (param.type[2] == REG_CODE)
 		WBE(PV[0], PR[PV[2] -1], REG_SIZE);
