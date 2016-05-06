@@ -65,9 +65,7 @@ void		init_mem_display(t_arena *arena)
 				wprintw(arena->display->w_bkp, "\n");
 			wprintw(arena->display->w_bkp, "%0#6x : ", i);
 		}
-		wattron(arena->display->w_bkp, COLOR_PAIR(arena->display->owner_tab[i]));
 		wprintw(arena->display->w_bkp, "%02x ", (unsigned char)arena->memory[i]);
-		wattroff(arena->display->w_bkp, COLOR_PAIR(arena->display->owner_tab[i]));
 	}
 }
 
@@ -90,25 +88,22 @@ int			highlight_pcs(t_arena *arena)
 		p_nbr++;
 		p = p->next;
 	}
-	//move(MEM_SIZE / 64, 0); //
 	return (p_nbr);
 }
 
-void		construct_color_pair(t_d_update *u)
+void	debug_colors(t_display *d) //
 {
-	int		fg;
-	int		bg;
-	int		pair;
-
-	pair = (u->owner * 10 + u->w_turns) * 100 + (u->reader * 10 + u->r_turns);
-	fg = COLOR_WHITE;
-	bg = COLOR_BLACK;
-	if (u->owner != 0)
-		fg = 100 + u->owner * 10 + ((float)u->w_turns / D_WRITE_TURNS * 7);
-	if (u->reader != 0)
-		bg = 100 + u->reader * 10 + ((float)u->r_turns / D_READ_TURNS * 7);
-	//init_pair(u->index + 10, fg, bg);
-	init_pair(pair, fg, bg);
+	int		i = 0;
+	wmove(d->w_bkp, 0, 0); //
+	while (i < 9999)
+	{
+		wattron(d->w_bkp, COLOR_PAIR(i));
+		wprintw(d->w_bkp, "%04d ", i);
+		if (i % 25 == 24)// && i != 9)
+			wprintw(d->w_bkp, "\n");
+		wattroff(d->w_bkp, COLOR_PAIR(i));
+		i++;
+	}
 }
 
 void		highlight_rw(t_arena *arena)
@@ -117,12 +112,10 @@ void		highlight_rw(t_arena *arena)
 	t_d_update	*next;
 	int		pair; //
 
-	//wmove(arena->display->w_mem, 0, 0); //
 	u = arena->display->updates;
 	while (u != NULL)
 	{
-		pair = u->owner;
-		//pair = u->owner * 1000 + u->w_turns * 100 + u->reader * 10 + u->r_turns + 10;
+		pair = u->color_pair; //
 		next = u->next;
 		wmove(arena->display->w_bkp, u->index / 64, (u->index % 64) * 3 + 9);
 		wattron(arena->display->w_bkp, COLOR_PAIR(pair));
@@ -130,11 +123,15 @@ void		highlight_rw(t_arena *arena)
 				"%02x",(unsigned char)arena->memory[u->index]);
 		wattroff(arena->display->w_bkp, COLOR_PAIR(pair));
 		if (u->w_turns)
+		{
 			u->w_turns--;
+			u->color_pair = u->owner * 10 + u->w_turns + MAX_PLAYERS + 1;
+		}
 		if (u->r_turns)
 			u->r_turns--;
 		if (u->r_turns == 0 && u->w_turns == 0)
 			remove_update_struct(u, arena);
 		u = next;
 	}
+	// debug_colors(arena->display); //
 }

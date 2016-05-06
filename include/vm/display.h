@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:08:20 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/05 17:49:33 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/06 19:05:10 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ typedef struct			s_arena t_arena;
 typedef struct			s_d_update
 {
 	char				owner;
-	char				reader;
 	char				r_turns;
 	char				w_turns;
 	int					index;
+	short				color_pair;
 	struct s_d_update	*next;
 }						t_d_update;
 

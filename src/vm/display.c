@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:32:37 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/05 18:32:15 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/06 20:40:17 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void		init_display(t_arena *arena)
 	arena->display->running = 0;
 	arena->display->quitting = 0;
 	arena->display->cps = 50;
-	attribute_src_code(arena);
 	init_mem_display(arena);
+	attribute_src_code(arena);
 	init_info_display(arena);
 }
 
@@ -44,10 +44,20 @@ static void	attribute_src_code(t_arena *arena)
 	p = arena->players;
 	while (p != NULL)
 	{
+		wattron(arena->display->w_bkp, COLOR_PAIR(
+			p->id * 10 + MAX_PLAYERS + 2));
 		size = 0;
 		begin = p->begin - arena->memory;
 		while (size < p->champ_size)
+		{
+			mvwprintw(arena->display->w_bkp,
+					(begin + size) / 64,
+					((begin + size) % 64) * 3 + 9,
+				   	"%02x ", (unsigned char)arena->memory[begin + size]);
 			arena->display->owner_tab[begin + size++] = (char)p->id;
+		}
+		wattroff(arena->display->w_bkp, COLOR_PAIR(
+			p->id * 10 + MAX_PLAYERS + 2));
 		p = p->next;
 	}
 }
@@ -55,27 +65,17 @@ static void	attribute_src_code(t_arena *arena)
 void		init_pairs(int players)
 {
 	int		o;
-	int		r;
 	int		oi;
-	int		ri;
 
-	o = -1;
-	while (++o < players)
+	o = 0;
+	while (++o <= players)
 	{
 		oi = -1;
 		while (++oi < D_WRITE_TURNS)
 		{
-			r = -1;
-			while (++r < players)
-			{
-				ri = -1;
-				while (++ri < D_READ_TURNS)
-				{
-					init_pair(o * 1000 + oi * 100 + r * 10 + ri + 10,
-							100 + o * 10 + oi,
-						   	100 + r * 10 + ri);
-				}
-			}
+			init_pair(10 * o + oi + MAX_PLAYERS + 1,
+						100 + o * 10 + D_WRITE_TURNS - oi,
+						0);
 		}
 	}
 }
@@ -92,9 +92,13 @@ void		init_colors(t_player *p) // p = first player
 	while (p != NULL)
 	{
 		color_content(p->id, &r, &g, &b);
-		i = 8;
-		while (--i >= 0)
-			init_color(100 + p->id * 10 + i, r * i / 7, g * i / 7, b * i / 7);
+		i = 11;
+		while (--i > 0)
+			init_color(
+					100 + p->id * 10 + 9 - i, // 9 - i
+					r * i / 10,
+					g * i / 10,
+				   	b * i / 10);
 		init_pair(p->id, p->id, COLOR_BLACK);
 		c++;
 		p = p->next;

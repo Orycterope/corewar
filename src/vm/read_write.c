@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 16:11:26 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/05 18:03:14 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/06 19:09:04 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void	save_for_display(t_process *p, int index, int r_w)
 	{
 		if (u->owner == 0)
 			u->owner = p->arena->display->owner_tab[index];
-		u->reader = p->player;
 		u->r_turns = D_READ_TURNS;
 	}
 	else
@@ -37,6 +36,7 @@ static void	save_for_display(t_process *p, int index, int r_w)
 		u->w_turns = D_WRITE_TURNS;
 		p->arena->display->owner_tab[index] = (char)p->player;
 	}
+	u->color_pair = (char)(p->player * 10 + MAX_PLAYERS + 1);
 }
 
 int			wm(long long n, void *dst, size_t l, t_process *p)
