@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 15:39:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/30 23:22:07 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/06 22:27:21 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,12 @@ int			check_registers(t_parameters *param, t_process *process, int j)
 	int	i;
 
 	i = 0;
-	//if (process->registers == NULL)
-	//	return (1);
 	while (i < g_op_tab[j].param_nbr && i < 4)
 	{
 		if (param->type[i] == REG_CODE)
 		{
-			if (PR[param->value[i] - 1] == NULL || param->value[i] > REG_NUMBER)
+			if (PR[param->value[i] - 1] == NULL || param->value[i] > REG_NUMBER
+					|| param->value[i] < 1)
 				return (1);
 		}
 		i++;
@@ -96,9 +95,9 @@ int			execute_instruction(t_process *process)
 	int	i;
 
 	i = 0;
-	while (g_op_tab[i].op_code != process->pc[0] && g_op_tab[i].name != NULL)
+	while (g_op_tab[i].op_code != process->op_code && g_op_tab[i].name != NULL)
 		i++;
-	if (i >= 16) // //
+	if (g_op_tab[i].name == NULL) 
 		return (1);
 	return ((*instruction[i])(process, i));
 }

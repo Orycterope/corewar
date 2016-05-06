@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:08:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/30 23:16:40 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/06 22:28:07 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int				main(int argc, char **argv)
 	if (arena->display != NULL)
 		init_display(arena);
 	start_fight(arena);
-	//dump_memory(arena); //
 	if (arena->cycle != arena->dump_cycle && arena->display == NULL)
 		print_winner(arena);
 	destroy_arena(arena);

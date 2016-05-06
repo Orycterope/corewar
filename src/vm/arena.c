@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:05:42 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/30 22:06:51 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/06 22:24:57 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,14 @@ char	*mem(char *ptr, int idx, t_arena *arena, t_process *process)
 	int	temp;
 
 	temp = ptr - process->pc;
+	temp %= MEM_SIZE;
 	if (idx)
 		temp %= IDX_MOD;
-	temp %= MEM_SIZE;
-	if (process->pc + temp - arena->memory < 0)
-		temp += MEM_SIZE;
+	if (process->pc + temp < arena->memory)
+		return (process->pc + temp + MEM_SIZE);
 	if ((process->pc + temp - arena->memory) >= MEM_SIZE)
 		return (process->pc + temp - MEM_SIZE);
-	else
-		return (process->pc + temp);
+	return (process->pc + temp);
 }
 
 t_arena	*create_arena(void)
@@ -39,7 +38,7 @@ t_arena	*create_arena(void)
 	memory = (char *)ft_memalloc(MEM_SIZE);
 	new->memory = memory;
 	new->players = NULL;
-	new->cycle = 0;
+	new->cycle = 1;
 	new->cycle_to_die = CYCLE_TO_DIE;
 	new->last_check_cycle = 0;
 	new->checks_without_decrement = 0;

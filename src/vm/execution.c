@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 20:30:34 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/04/01 22:02:29 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/06 22:25:21 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,23 @@
 
 extern t_op		g_op_tab[17];
 
-int				get_wait_time(t_process *p)
+void			get_wait_time(t_process **p)
 {
 	int	op_code;
 	int	i;
 
-	op_code = p->pc[0];
+	op_code = (*p)->pc[0];
+	(*p)->op_code = op_code;
 	i = 0;
 	while (g_op_tab[i].name != NULL)
 	{
 		if (g_op_tab[i].op_code == op_code)
-			return (g_op_tab[i].cycles);
+		{
+			(*p)->cycles_to_wait = g_op_tab[i].cycles;
+			(*p)->op_code = op_code;
+		}
 		i++;
 	}
-	return (1);
 }
 
 static void		execute_processes(t_arena *arena)
@@ -43,10 +46,15 @@ static void		execute_processes(t_arena *arena)
 	p = arena->processes;
 	while (p != NULL)
 	{
-		if (p->cycles_to_wait == 0)
+		if (p->cycles_to_wait < 0)
+		{
+			get_wait_time(&p);
+			p->cycles_to_wait -= 1;
+		}
+		if (p->cycles_to_wait <= 0)
 		{
 			p->pc = mem(p->pc + execute_instruction(p), 0, arena, p);
-			p->cycles_to_wait = get_wait_time(p);
+//			get_wait_time(&p);
 		}
 		p->cycles_to_wait--;
 		p = p->next;
@@ -62,7 +70,7 @@ static int		count_lives(t_arena *arena)
 	p = arena->processes;
 	while (p != NULL)
 	{
-		count += p->lives;
+		count += p->count_lives;
 		p = p->next;
 	}
 	return (count);
@@ -80,7 +88,10 @@ static void		check_processes(t_arena *arena)
 		if (p->lives == 0)
 			kill_process(p);
 		else
+		{
+			p->count_lives = 0;
 			p->lives = 0;
+		}
 		p = next;
 	}
 }
@@ -105,7 +116,7 @@ void			start_fight(t_arena *arena)
 			arena->last_check_cycle = arena->cycle;
 			arena->checks_without_decrement++;
 			if (arena->checks_without_decrement >= MAX_CHECKS
-					|| lives > NBR_LIVE)
+					|| lives >= NBR_LIVE)
 			{
 				arena->cycle_to_die -= CYCLE_DELTA;
 				arena->checks_without_decrement = 0;
