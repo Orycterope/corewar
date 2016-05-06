@@ -6,14 +6,12 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:08:20 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/06 19:05:10 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/06 21:53:39 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DISPLAY_H
 # define DISPLAY_H
-# define D_READ 1
-# define D_WRITE 2
 # define D_READ_TURNS 4
 # define D_WRITE_TURNS 6
 # include <ncurses.h>
