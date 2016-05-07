@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 16:11:26 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/07 21:26:06 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/07 21:54:33 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,17 @@ long long	rm(void *src, size_t length, t_arena *arena)
 
 	n = 0;
 	power = 1;
-	ptr = (unsigned char *)src;
+	ptr = (unsigned char *)src + (length - 1);
 	while (length > 0)
 	{
 		if (ptr >= (unsigned char *)arena->memory + MEM_SIZE)
 			ptr -= MEM_SIZE;
-		n += ((long long)ptr[length - 1]) * power;
+		if (ptr < (unsigned char *)arena->memory)
+			ptr += MEM_SIZE;
+		n += ((long long)ptr[0]) * power;
 		power <<= 8;
 		length--;
+		ptr--;
 	}
 	if ((n & (power >> 1)) != 0)
 		while (power != 0x0)
