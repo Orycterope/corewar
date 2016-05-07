@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 14:15:33 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/07 16:54:03 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/07 19:10:09 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int			store_index(t_process *process, int i)
 	if (check_registers(&param, process, i) == 1 || g_op_tab[i].param_nbr < 3
 	|| check_param_error(param, i) == 1 || g_op_tab[i].param_nbr > 4)
 		return (param.jump);
-	printf("P%5d | sti r%d ", process->number, (int)PV[0]);
+	printf("P %4d | sti r%d ", process->number, (int)PV[0]);
 	if (param.type[0] == REG_CODE)
 		PV[0] = ft_read_big_endian(PR[PV[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)
