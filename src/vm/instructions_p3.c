@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:37:16 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/07 19:09:58 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/07 20:28:04 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		ft_fork(t_process *process, int i)
 	param.o = 12;
 	param.type[0] = DIR_CODE;
 	param.value[0] = rm(mem(process->pc + 1, 1, PA, process), IND_SIZE, PA);
-	fork_process(process, mem(process->pc + (short)PV[0], 1, PA, process));
+	fork_process(process, mem(process->pc + (short)PV[0] % IDX_MOD , 1, PA, process));
 	printf("P %4d | fork %d (%ld)\n", process->number, (short)PV[0], process->pc - process->arena->memory + (short)PV[0] % IDX_MOD);
 	return (1 + IND_SIZE);
 }
