@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:05:42 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/06 17:33:00 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/07 21:25:42 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*mem(char *ptr, int idx, t_arena *arena, t_process *process)
 		temp %= IDX_MOD;
 	if (process->pc + temp < arena->memory)
 		return (process->pc + temp + MEM_SIZE);
-	if ((process->pc + temp - arena->memory) >= MEM_SIZE)
+	if (process->pc + temp >= arena->memory + MEM_SIZE)
 		return (process->pc + temp - MEM_SIZE);
 	return (process->pc + temp);
 }
