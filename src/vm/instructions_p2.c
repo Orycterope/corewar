@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:34:56 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/07 17:51:29 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/07 18:24:01 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int		ft_xor(t_process *process, int i)
 		param.value[1] = RBE(process->registers[param.value[1] - 1], REG_SIZE);
 	else if (param.type[1] == IND_CODE)
 		PV[1] = rm(mem(process->pc + PV[1], 1, PA, process), REG_SIZE, PA);
+	printf("P%5d | xor %d %d r%d\n", process->number, (int)PV[0], (int)PV[1], (int)PV[2]);
 	ft_write_big_endian((PV[0] ^ PV[1]), PR[PV[2] - 1], REG_SIZE);
 	change_carry(process, (PV[0] ^ PV[1]));
 	return (param.jump);

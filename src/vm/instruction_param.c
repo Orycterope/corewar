@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 15:39:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/03 20:02:15 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/07 18:18:51 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		decode_ocp(t_process *process, t_parameters *param, int i)
 	decal = 6;
 	while (j < g_op_tab[i].param_nbr && j < 4)
 	{
-		temp = process->pc[1] & select;
+		temp = mem(PC + 1, 1, PA, process)[0] & select;
 		param->type[j] = temp >> decal;
 		select = select >> 2;
 		decal -= 2;
