@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:55:35 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/06 20:17:13 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/07 16:56:35 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ void	create_process(int player, char *pc, t_arena *arena, t_process *parent)
 	new->carry = (parent == NULL) ? 0 : parent->carry;
 	new->lives = (parent == NULL) ? 0 : parent->lives;
 	new->count_lives = 0;
-//	get_wait_time(&new);
-//	new->cycles_to_wait -= 1;
-	new->op_code = 0;
 	new->cycles_to_wait = -1;
+	get_wait_time(&new);
+//	new->cycles_to_wait -= 1;
+//	new->op_code = 0;
 	new->arena = arena;
 	new->next = arena->processes;
 	new->number = i;
-	create_copy_registers(new, parent, player);
+	create_copy_registers(new, parent, -player);
 	arena->processes = new;
 }
 

@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 14:15:33 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/06 18:05:40 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/07 16:54:03 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int			store_index(t_process *process, int i)
 		PV[2] = rm(mem(process->pc + PV[2], 1, PA, process), REG_SIZE, PA);
 	wm(PV[0], mem(process->pc + PV[1] + PV[2], 1, PA, process), REG_SIZE, PA);
 	printf("%d %d\n       | -> store to %d + %d = %d (with pc and mod %ld)\n", (int)PV[1], (int)PV[2], (int)PV[1], (int)PV[2], (int)PV[1] + (int)PV[2],
-			process->pc + PV[2] + PV[1] - process->arena->memory);
+			process->pc + ((PV[2] + PV[1]) % IDX_MOD) - process->arena->memory);
 	return (param.jump);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 20:30:34 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/06 20:17:52 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/07 16:52:49 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ void			get_wait_time(t_process **p)
 	int	op_code;
 	int	i;
 
+	i = 0;
 	op_code = (*p)->pc[0];
 	(*p)->op_code = op_code;
-	i = 0;
 	while (g_op_tab[i].name != NULL)
 	{
 		if (g_op_tab[i].op_code == op_code)
 		{
-			(*p)->cycles_to_wait = g_op_tab[i].cycles;
+			(*p)->cycles_to_wait = g_op_tab[i].cycles - 1;
 			(*p)->op_code = op_code;
 		}
 		i++;
@@ -46,10 +46,10 @@ static void		execute_processes(t_arena *arena)
 	while (p != NULL)
 	{
 		if (p->cycles_to_wait < 0)
-		{
+//		{
 			get_wait_time(&p);
-			p->cycles_to_wait -= 1;
-		}
+//			p->cycles_to_wait -= 1;
+//		}
 		if (p->cycles_to_wait <= 0)
 		{
 			p->pc = mem(p->pc + execute_instruction(p), 0, arena, p);
@@ -101,6 +101,7 @@ void			start_fight(t_arena *arena)
 
 	while (arena->processes != NULL)
 	{
+		printf("It is now cycle %d\n", arena->cycle);
 		execute_processes(arena);
 		if (arena->cycle >= arena->last_check_cycle + arena->cycle_to_die)
 		{
@@ -112,6 +113,7 @@ void			start_fight(t_arena *arena)
 					|| lives >= NBR_LIVE)
 			{
 				arena->cycle_to_die -= CYCLE_DELTA;
+				printf("Cycle to die is now %d\n", arena->cycle_to_die);
 				arena->checks_without_decrement = 0;
 			}
 		}
