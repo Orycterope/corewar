@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 16:11:26 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/06 21:48:39 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/07 15:02:57 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	save_for_display(t_process *p, int index)
 	u->owner = p->player;
 	u->w_turns = D_WRITE_TURNS;
 	p->arena->display->owner_tab[index] = (char)p->player;
-	u->color_pair = (char)(p->player * 10 + MAX_PLAYERS + 1);
 }
 
 int			wm(long long n, void *dst, size_t l, t_process *p)

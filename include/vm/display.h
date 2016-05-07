@@ -6,14 +6,13 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:08:20 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/06 21:53:39 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/07 18:21:42 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DISPLAY_H
 # define DISPLAY_H
-# define D_READ_TURNS 4
-# define D_WRITE_TURNS 6
+# define D_WRITE_TURNS 8
 # include <ncurses.h>
 # include "player.h"
 
@@ -22,10 +21,8 @@ typedef struct			s_arena t_arena;
 typedef struct			s_d_update
 {
 	char				owner;
-	char				r_turns;
 	char				w_turns;
 	int					index;
-	short				color_pair;
 	struct s_d_update	*next;
 }						t_d_update;
 
@@ -56,5 +53,6 @@ void					check_keystroke(t_arena *arena);
 void					update_infos(t_arena *arena);
 void					regulate_speed(t_arena *arena);
 void					init_colors(t_player *p);
+void					print_winner_display(t_arena *a);
 
 #endif

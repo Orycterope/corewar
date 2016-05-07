@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:08:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/06 22:28:07 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/07 18:28:08 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "arena.h"
 #include "parameters.h"
 #include "execution.h"
+#include "display.h"
 
 static void	check_dump(char **argv, t_arena *arena)
 {
@@ -85,12 +86,18 @@ int				main(int argc, char **argv)
 	check_param(&argc, &argv, arena);
 	save_players(argc, argv, arena);
 	load_players(arena);
-	display_champions(arena);
 	if (arena->display != NULL)
 		init_display(arena);
+	else
+		display_champions(arena);
 	start_fight(arena);
-	if (arena->cycle != arena->dump_cycle && arena->display == NULL)
-		print_winner(arena);
+	if (arena->cycle != arena->dump_cycle)
+	{
+		if (arena->display != NULL)
+			print_winner_display(arena);
+		else
+			print_winner(arena);
+	}
 	destroy_arena(arena);
 	return (0);
 }

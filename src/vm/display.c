@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:32:37 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/06 20:40:17 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/07 18:23:23 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void		init_pairs(int players)
 	while (++o <= players)
 	{
 		oi = -1;
-		while (++oi < D_WRITE_TURNS)
+		while (++oi < D_WRITE_TURNS + 1)
 		{
 			init_pair(10 * o + oi + MAX_PLAYERS + 1,
 						100 + o * 10 + D_WRITE_TURNS - oi,
@@ -96,9 +96,15 @@ void		init_colors(t_player *p) // p = first player
 		while (--i > 0)
 			init_color(
 					100 + p->id * 10 + 9 - i, // 9 - i
-					r * i / 10,
-					g * i / 10,
-				   	b * i / 10);
+					//r * i / 10,// + (r + g + b) / 3 * (i - 5) / 10,
+					//g * i / 10,// + (r + g + b) / 3 * (i - 5) / 10,
+				   	//b * i / 10);// + (r + g + b) / 3 * (i - 5) / 10);
+				///	r * 1.0 * (i - 10) + (((r + g + b) / 3 - r) + 0) * (i) / 10,
+				///	g * 1.0 * (i - 10) + (((r + g + b) / 3 - g) + 0) * (i) / 10,
+				///   	b * 1.0 * (i - 10) + (((r + g + b) / 3 - b) + 0) * (i) / 10);
+					r + (((r + g + b) / 3 - r) + 400) * (i) / 25,
+					g + (((r + g + b) / 3 - g) + 800) * (i) / 25,
+					b + (((r + g + b) / 3 - b) + 700) * (i) / 25);
 		init_pair(p->id, p->id, COLOR_BLACK);
 		c++;
 		p = p->next;

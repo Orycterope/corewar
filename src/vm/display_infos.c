@@ -7,7 +7,7 @@ void		init_info_display(t_arena *arena)
 	int			line;
 	t_player	*player;
 
-	arena->display->w_info = newwin(20, 50, 10, 64 * 3 + 15);
+	arena->display->w_info = newwin(30, 50, 10, 64 * 3 + 15);
 	wtimeout(arena->display->w_info, 0);
 	wprintw(arena->display->w_info, "Dumping memory at cycle %-5d (%d processus)\
 \n\n\nCycles per second : %4d", 0, count_processes(arena), 0);
@@ -98,4 +98,28 @@ void		regulate_speed(t_arena *a)
 		check_keystroke(a);
 	}
 	last_release = now;
+}
+
+void		print_winner_display(t_arena *a)
+{
+		t_player	*p;
+		t_player	*best;
+
+		best = p = a->players;
+		while (p != NULL)
+		{
+			if (p->last_live >= best->last_live)
+				best = p;
+			p = p->next;
+		}
+		a->display->running = 0;
+		update_infos(a);
+		wtimeout(a->display->w_info, -1);
+		wprintw(a->display->w_info, "\n\n\nThe fight as ended.\n\n");
+		wprintw(a->display->w_info, "The winner is ");
+		wattron(a->display->w_info, COLOR_PAIR(best->id));
+		wprintw(a->display->w_info, "%s\n\n", best->name);
+		wattroff(a->display->w_info, COLOR_PAIR(best->id));
+		wprintw(a->display->w_info, "Press any key to exit");
+		wgetch(a->display->w_info);
 }

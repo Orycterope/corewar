@@ -110,28 +110,22 @@ void		highlight_rw(t_arena *arena)
 {
 	t_d_update	*u;
 	t_d_update	*next;
-	int		pair; //
+	int			pair; //
 
 	u = arena->display->updates;
 	while (u != NULL)
 	{
-		pair = u->color_pair; //
 		next = u->next;
+		pair = u->owner * 10 + u->w_turns + MAX_PLAYERS + 1;
 		wmove(arena->display->w_bkp, u->index / 64, (u->index % 64) * 3 + 9);
 		wattron(arena->display->w_bkp, COLOR_PAIR(pair));
 		wprintw(arena->display->w_bkp,
 				"%02x",(unsigned char)arena->memory[u->index]);
 		wattroff(arena->display->w_bkp, COLOR_PAIR(pair));
-		if (u->w_turns)
-		{
-			u->w_turns--;
-			u->color_pair = u->owner * 10 + u->w_turns + MAX_PLAYERS + 1;
-		}
-		if (u->r_turns)
-			u->r_turns--;
-		if (u->r_turns == 0 && u->w_turns == 0)
+		u->w_turns--;
+		if (u->w_turns == 0)
 			remove_update_struct(u, arena);
 		u = next;
 	}
-	// debug_colors(arena->display); //
+	//debug_colors(arena->display); //
 }
