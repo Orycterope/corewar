@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:34:56 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/08 18:15:56 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/08 18:47:33 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,15 +108,15 @@ int		zjump(t_process *process, int i)
 	i += 1;
 	param.o = 9;
 	param.type[0] = IND_CODE;
-	printf("P %4d | zjmp %hd", process->number, (short)PV[0]);
 	param.value[0] = rm(mem(process->pc + 1, 1, PA, process), IND_SIZE, PP);
+	printf("P %4d | zjmp %hd", process->number, (short)PV[0]);
 	if (process->carry == 1)
 	{
 		printf(" OK\n");
 		return ((short)PV[0] % IDX_MOD);
 	}
 	else
-		//printf(" FAILED\n");
+		printf(" FAILED\n");
 	return (1 + IND_SIZE);
 }
 

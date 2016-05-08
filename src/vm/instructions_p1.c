@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:17:18 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/08 18:11:11 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/08 18:44:16 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		store(t_process *process, int i)
 		WBE(PV[0], PR[PV[1] - 1], REG_SIZE);
 	else if (param.type[1] == IND_CODE)
 		wm(PV[0], mem(process->pc + PV[1], 1, PA, process), REG_SIZE, PP);
-	//printf("%d\n", (int)PV[1]);
+	printf("%d\n", (int)PV[1]);
 	return (param.jump);
 }
 
