@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:17:18 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/08 18:44:16 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/08 18:49:51 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int		alive(t_process *process, int i)
 		temp = temp->next;
 	if (temp != NULL)
 		temp->last_live = process->arena->cycle;
-	printf("P %4d | live %d\n", process->number, (int)param.value[0]);
 	return (1 + DIR_SIZE);
 }
 
@@ -57,7 +56,6 @@ int		load(t_process *process, int i)
 		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PP);
 	WBE(param.value[0], PR[param.value[1] - 1], REG_SIZE);
 	change_carry(process, PV[0]);
-	printf("P %4d | ld %d r%d\n", process->number, (int)PV[0], (int)PV[1]);
 	return (param.jump);
 }
 
@@ -74,7 +72,6 @@ int		store(t_process *process, int i)
 	if (check_registers(&param, process, i) == 1 || g_op_tab[i].param_nbr < 2
 	|| check_param_error(param, i) == 1 || g_op_tab[i].param_nbr > 4)
 		return (param.jump);
-	printf("P %4d | st r%d ", process->number, (int)PV[0]);
 	if (param.type[0] == REG_CODE)
 		param.value[0] = RBE(PR[param.value[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)
@@ -83,7 +80,6 @@ int		store(t_process *process, int i)
 		WBE(PV[0], PR[PV[1] - 1], REG_SIZE);
 	else if (param.type[1] == IND_CODE)
 		wm(PV[0], mem(process->pc + PV[1], 1, PA, process), REG_SIZE, PP);
-	printf("%d\n", (int)PV[1]);
 	return (param.jump);
 }
 
@@ -101,7 +97,6 @@ int		addition(t_process *process, int i)
 	|| check_param_error(param, i) == 1 || g_op_tab[i].param_nbr > 4
 	|| param.type[2] != REG_CODE)
 		return (param.jump);
-	printf("P %4d | add r%d r%d r%d\n", process->number, (int)PV[0], (int)PV[1], (int)PV[2]);
 	if (param.type[0] == REG_CODE)
 		param.value[0] = RBE(PR[param.value[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)
@@ -129,7 +124,6 @@ int		soustraction(t_process *process, int i)
 	|| check_param_error(param, i) == 1 || g_op_tab[i].param_nbr > 4
 	|| param.type[2] != REG_CODE)
 		return (param.jump);
-	printf("P %4d | sub r%d r%d r%d\n", process->number, (int)PV[0], (int)PV[1], (int)PV[2]);
 	if (param.type[0] == REG_CODE)
 		param.value[0] = RBE(PR[param.value[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)

@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 20:30:34 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/08 18:06:04 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/08 18:57:18 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,9 @@ static void		execute_processes(t_arena *arena)
 	while (p != NULL)
 	{
 		if (p->cycles_to_wait < 0)
-//		{
 			get_wait_time(&p);
-//			p->cycles_to_wait -= 1;
-//		}
 		if (p->cycles_to_wait <= 0)
-		{
 			p->pc = mem(p->pc + execute_instruction(p), 0, arena, p);
-//			get_wait_time(&p);
-		}
 		p->cycles_to_wait--;
 		p = p->next;
 	}
@@ -102,7 +96,6 @@ void			start_fight(t_arena *arena)
 
 	while (arena->processes != NULL)
 	{
-		printf("It is now cycle %d\n", arena->cycle);
 		if (arena->display != NULL)
 		{
 			update_display(arena);
@@ -120,7 +113,6 @@ void			start_fight(t_arena *arena)
 					|| lives >= NBR_LIVE)
 			{
 				arena->cycle_to_die -= CYCLE_DELTA;
-				printf("Cycle to die is now %d\n", arena->cycle_to_die);
 				arena->checks_without_decrement = 0;
 			}
 		}

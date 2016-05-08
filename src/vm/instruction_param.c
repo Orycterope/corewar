@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 15:39:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/08 18:06:23 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/08 19:05:40 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ extern t_op	g_op_tab[];
 void		decode_ocp(t_process *process, t_parameters *param, int i)
 {
 	int		select;
-	int	decal;
+	int		decal;
 	int		temp;
 	int		j;
 
@@ -88,16 +88,16 @@ int			check_registers(t_parameters *param, t_process *process, int j)
 
 int			execute_instruction(t_process *process)
 {
-	int		(*instruction[16])(t_process *process, int i) =
+	static int		(*instruction[16])(t_process *process, int i) =
 	{alive, load, store, addition, soustraction, ft_and, ft_or, ft_xor, zjump,
 		load_index, store_index, ft_fork, long_load, long_load_index, long_fork,
 		aff};
-	int	i;
+	int				i;
 
 	i = 0;
 	while (g_op_tab[i].op_code != process->op_code && g_op_tab[i].name != NULL)
 		i++;
-	if (g_op_tab[i].name == NULL) 
+	if (g_op_tab[i].name == NULL)
 		return (1);
 	return ((*instruction[i])(process, i));
 }
