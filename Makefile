@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/05/02 22:42:57 by adubedat         ###   ########.fr        #
+#    Updated: 2016/05/08 22:22:10 by tvermeil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SUB_MAKEFILES = libft \
 				src/asm \
 				src/vm \
 
-all: libft.a
+all:
 	@make -C libft all
 	@make -C src/vm all
 	@make -C src/asm all
