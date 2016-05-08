@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:12:23 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/13 15:13:13 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/08 19:43:20 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static char	*read_prog(int fd, char *memory, unsigned int *prog_size_read)
 {
-	int			i;
+	int		i;
 	int		ret;
 	char	buf[BUFF_SIZE];
 
@@ -57,6 +57,6 @@ from what its header says.\n", player->file_name);
 	if ((close(fd)) == -1)
 	{
 		ft_printf("Error: Close file %s failed.\n", player->file_name);
-		exit (1);
+		exit(1);
 	}
 }

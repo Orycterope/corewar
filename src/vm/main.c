@@ -6,8 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:08:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/08 18:07:03 by tvermeil         ###   ########.fr       */
-/*   Updated: 2016/05/08 16:04:28 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/08 20:02:12 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +16,7 @@
 #include "execution.h"
 #include "display.h"
 
-static void	check_dump(char **argv, t_arena *arena)
+static void		check_dump(char **argv, t_arena *arena)
 {
 	int		i;
 
@@ -39,7 +38,7 @@ static void	check_dump(char **argv, t_arena *arena)
 	arena->dump_cycle = ft_atoi(argv[2]);
 }
 
-static void	check_param(int *argc, char ***argv, t_arena *arena)
+static void		check_param(int *argc, char ***argv, t_arena *arena)
 {
 	if (*argc == 1)
 	{
@@ -65,7 +64,7 @@ static void	check_param(int *argc, char ***argv, t_arena *arena)
 	*argc -= 1;
 }
 
-static void	print_winner(t_arena *arena)
+static void		print_winner(t_arena *arena)
 {
 	t_player	*p;
 	t_player	*best;
@@ -76,14 +75,11 @@ static void	print_winner(t_arena *arena)
 		if (p->last_live >= best->last_live)
 			best = p;
 		p = p->next;
-	}      //////////////////
-//	printf("The fight has ended with the last survivor dying at cycle %d.\n\
-//The winner is %s ! Its last words : \"%s\".\n",
-//best->last_live, best->name, best->comment);
-	printf("Contestant %d, \"%s\", has won !", best->id, best->name);
+	}
+	printf("The fight has ended with the last survivor dying at cycle %d.\n\
+The winner is %s ! Its last words : \"%s\".\n",
+best->last_live, best->name, best->comment);
 }
-
-void	init_display(t_arena *arena); //
 
 int				main(int argc, char **argv)
 {

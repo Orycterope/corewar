@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:05:42 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/08 19:06:44 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/08 19:57:40 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,23 +64,17 @@ void	display_champions(t_arena *arena)
 
 void	dump_memory(t_arena *arena)
 {
-	int		i;
-	int		p_nbr;
+	int			i;
 	t_process	*p;
 
 	p = arena->processes;
-	p_nbr = 0;
-	while (p != NULL)
-	{
-		p = p->next;
-		p_nbr++;
-	}
-	ft_printf("\nDumping memory at cycle %d (%d processus):", arena->cycle, p_nbr);
+	ft_printf("\nDumping memory at cycle %d (%d processus):",
+			arena->cycle, arena->processes->number);
 	i = 0;
 	while (i < MEM_SIZE)
 	{
 		p = arena->processes;
-		if (i % 64 == 0 && i != MEM_SIZE - 1) // should be % 32 !!!!!
+		if (i % 32 == 0 && i != MEM_SIZE - 1)
 			ft_printf("\n%0#6x : ", i);
 		while (p != NULL)
 		{

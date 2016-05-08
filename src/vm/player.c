@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:27:55 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/08 18:07:36 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/08 20:01:20 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ static int		is_free_player_id(int id, t_player *p, int ac, char **av)
 	{
 		if (ft_strcmp("-n", av[0]) == 0)
 		{
-		   if (ft_atoi(av[1]) == id)
+			if (ft_atoi(av[1]) == id)
 				return (0);
-		   av += 2;
-		   ac -= 2;
+			av += 2;
+			ac -= 2;
 		}
 		av++;
 	}
@@ -82,7 +82,7 @@ void			save_players(int ac, char **av, t_arena *arena)
 			attempt = ft_atoi(av[1]);
 			av += 2;
 			ac -= 2;
-		   if (is_free_player_id(attempt, arena->players, ac, av))
+			if (is_free_player_id(attempt, arena->players, ac, av))
 				player_id = attempt;
 		}
 		else

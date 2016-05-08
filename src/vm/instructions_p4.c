@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 14:15:33 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/08 18:53:25 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/08 19:47:06 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int			store_index(t_process *process, int i)
 	return (param.jump);
 }
 
-void	change_carry(t_process *process, unsigned int value)
+void		change_carry(t_process *process, unsigned int value)
 {
 	if (value == 0)
 		process->carry = 1;

@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:37:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/24 19:25:50 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/08 19:46:37 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void				get_input(int fd, t_player *player, unsigned int *prog_size)
 	{
 		ft_printf("Error : file %s has too large code (%d bytes > %d bytes)\n",
 			player->file_name, *prog_size, CHAMP_MAX_SIZE);
-		exit (1);
+		exit(1);
 	}
 	player->comment = get_comment(fd, buf, ret, i);
 }
