@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:55:35 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/08 18:08:01 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/08 19:49:58 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "execution.h"
 #include "libft.h"
 
-static void create_copy_registers(t_process *p, t_process *parent, int player)
+void	create_copy_registers(t_process *p, t_process *parent, int player)
 {
 	int		i;
 
@@ -33,10 +33,11 @@ static void create_copy_registers(t_process *p, t_process *parent, int player)
 	}
 }
 
-/** Allocates a new process structure
- ** when registers param is NULL it initiates empty registers,
- ** otherwise they are copied from existent registers
- **/
+/*
+** Allocates a new process structure
+** when registers param is NULL it initiates empty registers,
+** otherwise they are copied from existent registers
+*/
 
 void	create_process(int player, char *pc, t_arena *arena, t_process *parent)
 {
@@ -46,15 +47,13 @@ void	create_process(int player, char *pc, t_arena *arena, t_process *parent)
 	i++;
 	new = (t_process*)malloc(sizeof(t_process));
 	if (new == NULL)
-		return;
+		return ;
 	new->player = player;
 	new->pc = pc;
 	new->carry = (parent == NULL) ? 0 : parent->carry;
 	new->lives = (parent == NULL) ? 0 : parent->lives;
 	new->count_lives = 0;
 	new->cycles_to_wait = -1;
-//	get_wait_time(&new);
-//	new->cycles_to_wait -= 1;
 	new->op_code = 0;
 	new->arena = arena;
 	new->next = arena->processes;
