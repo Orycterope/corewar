@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:05:42 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/08 19:06:44 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/08 19:30:32 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	display_champions(t_arena *arena)
 
 void	dump_memory(t_arena *arena)
 {
-	int		i;
-	int		p_nbr;
+	int			i;
+	int			p_nbr;
 	t_process	*p;
 
 	p = arena->processes;
@@ -75,22 +75,15 @@ void	dump_memory(t_arena *arena)
 		p = p->next;
 		p_nbr++;
 	}
-	ft_printf("\nDumping memory at cycle %d (%d processus):", arena->cycle, p_nbr);
+	ft_printf("\nDumping memory at cycle %d (%d processus):",
+			arena->cycle, p_nbr);
 	i = 0;
 	while (i < MEM_SIZE)
 	{
 		p = arena->processes;
-		if (i % 64 == 0 && i != MEM_SIZE - 1) // should be % 32 !!!!!
+		if (i % 32 == 0 && i != MEM_SIZE - 1)
 			ft_printf("\n%0#6x : ", i);
-		while (p != NULL)
-		{
-			if (p->pc == &(arena->memory[i]))
-				ft_printf("\x1B[0;3%dm", p->player % 6 + 1);
-			p = p->next;
-		}
-		ft_printf("%02x", (unsigned char)arena->memory[i]);
-		ft_putstr("\x1B[0m");
-		ft_putchar(' ');
+		ft_printf("%02x ", (unsigned char)arena->memory[i]);
 		i++;
 	}
 	ft_putchar('\n');
