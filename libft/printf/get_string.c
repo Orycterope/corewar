@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/05 12:45:35 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/01/07 19:07:26 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/08 17:17:46 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,8 @@ char		*get_processed_str(char *str, va_list args, int *length, char **end)
 	else
 		processed_str = ft_tostr(*(*end + conv->length - 1));
 	processed_str = process_flags(processed_str, conv);
-	if (processed_str != NULL)
+	if (processed_str != NULL && ((**end = '\0') || 1))
 	{
-		**end = '\0';
 		*length += ft_strlen(processed_str);
 		*end += conv->length;
 	}
