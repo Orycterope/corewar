@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:08:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/08 21:24:20 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/08 21:30:19 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,21 +77,12 @@ static void		print_winner(t_arena *arena)
 			best = p;
 		p = p->next;
 	}
-<<<<<<< HEAD
-	printf("The fight has ended with the last survivor dying at cycle %d.\n\
-The winner is %s ! Its last words : \"%s\".\n",
-best->last_live, best->name, best->comment);
-}
-
-int				main(int argc, char **argv)
-=======
 	ft_printf("The fight has ended with the last survivor dying at cycle %d.\n"
 		"The winner is %s ! Its last words : \"%s\".\n",
 		best->last_live, best->name, best->comment);
 }
 
-int			main(int argc, char **argv)
->>>>>>> fe83a715f57f633ed1cae9560c0a36cf52d77c27
+int				main(int argc, char **argv)
 {
 	t_arena	*arena;
 

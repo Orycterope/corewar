@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:34:56 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/08 18:51:46 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/08 21:28:17 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int		ft_or(t_process *process, int i)
 	change_carry(process, (PV[0] | PV[1]));
 	return (param.jump);
 }
+
 int		ft_xor(t_process *process, int i)
 {
 	t_parameters	param;
@@ -98,6 +99,7 @@ int		ft_xor(t_process *process, int i)
 	change_carry(process, (PV[0] ^ PV[1]));
 	return (param.jump);
 }
+
 int		zjump(t_process *process, int i)
 {
 	t_parameters	param;
@@ -130,7 +132,7 @@ int		load_index(t_process *process, int i)
 		param.value[1] = RBE(process->registers[param.value[1] - 1], REG_SIZE);
 	PV[0] = rm(mem(process->pc + PV[0] + PV[1], 1, PA, process), REG_SIZE, PP);
 	if (param.type[2] == REG_CODE)
-		WBE(PV[0], PR[PV[2] -1], REG_SIZE);
+		WBE(PV[0], PR[PV[2] - 1], REG_SIZE);
 	else if (param.type[2] == IND_CODE)
 		wm(PV[0], mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PP);
 	return (param.jump);
