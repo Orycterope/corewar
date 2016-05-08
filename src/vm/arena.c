@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:05:42 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/08 19:57:40 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/08 21:26:06 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,7 @@ void	dump_memory(t_arena *arena)
 		p = arena->processes;
 		if (i % 32 == 0 && i != MEM_SIZE - 1)
 			ft_printf("\n%0#6x : ", i);
-		while (p != NULL)
-		{
-			if (p->pc == &(arena->memory[i]))
-				ft_printf("\x1B[0;3%dm", p->player % 6 + 1);
-			p = p->next;
-		}
-		ft_printf("%02x", (unsigned char)arena->memory[i]);
-		ft_putstr("\x1B[0m");
-		ft_putchar(' ');
+		ft_printf("%02x ", (unsigned char)arena->memory[i]);
 		i++;
 	}
 	ft_putchar('\n');

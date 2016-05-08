@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:08:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/08 20:02:12 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/08 21:24:20 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ static void		check_param(int *argc, char ***argv, t_arena *arena)
 {
 	if (*argc == 1)
 	{
-		ft_printf("Error: No parameters. Expected entry :\n\n\
-./corewar [-dump N] [[-n N] champion1.cor] ...\n\
--dump N : Dumps memory after N cycles then exits\n\
--n N : The following champion will be the number N.\n");
+		ft_printf("Error: No parameters. Expected entry :\n\n"
+			"./corewar [-dump N] [[-n N] champion1.cor] ...\n"
+			"-dump N : Dumps memory after N cycles then exits\n"
+			"-n N : The following champion will be the number N.\n");
 		exit(1);
 	}
 	if (ft_strcmp("-v", (*argv)[1]) == 0)
@@ -69,19 +69,29 @@ static void		print_winner(t_arena *arena)
 	t_player	*p;
 	t_player	*best;
 
-	best = p = arena->players;
+	best = arena->players;
+	p = arena->players;
 	while (p != NULL)
 	{
 		if (p->last_live >= best->last_live)
 			best = p;
 		p = p->next;
 	}
+<<<<<<< HEAD
 	printf("The fight has ended with the last survivor dying at cycle %d.\n\
 The winner is %s ! Its last words : \"%s\".\n",
 best->last_live, best->name, best->comment);
 }
 
 int				main(int argc, char **argv)
+=======
+	ft_printf("The fight has ended with the last survivor dying at cycle %d.\n"
+		"The winner is %s ! Its last words : \"%s\".\n",
+		best->last_live, best->name, best->comment);
+}
+
+int			main(int argc, char **argv)
+>>>>>>> fe83a715f57f633ed1cae9560c0a36cf52d77c27
 {
 	t_arena	*arena;
 

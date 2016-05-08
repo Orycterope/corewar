@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:55:35 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/08 19:23:11 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/08 21:24:04 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "execution.h"
 #include "libft.h"
 
-static void create_copy_registers(t_process *p, t_process *parent, int player)
+void	create_copy_registers(t_process *p, t_process *parent, int player)
 {
 	int		i;
 
@@ -33,10 +33,11 @@ static void create_copy_registers(t_process *p, t_process *parent, int player)
 	}
 }
 
-/** Allocates a new process structure
- ** when registers param is NULL it initiates empty registers,
- ** otherwise they are copied from existent registers
- **/
+/*
+** Allocates a new process structure
+** when registers param is NULL it initiates empty registers,
+** otherwise they are copied from existent registers
+*/
 
 void	create_process(int player, char *pc, t_arena *arena, t_process *parent)
 {
@@ -46,7 +47,7 @@ void	create_process(int player, char *pc, t_arena *arena, t_process *parent)
 	i++;
 	new = (t_process*)malloc(sizeof(t_process));
 	if (new == NULL)
-		return;
+		return ;
 	new->player = player;
 	new->pc = pc;
 	new->carry = (parent == NULL) ? 0 : parent->carry;
