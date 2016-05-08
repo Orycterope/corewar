@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/11 18:53:35 by tvermeil         ###   ########.fr        #
+#    Updated: 2016/05/08 18:03:44 by tvermeil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,11 @@ OBJ_PATH = $(ROOT)/$(OBJ_FOLDER)
 DST_PATH = $(ROOT)
 LFT_PATH = $(ROOT)
 
-CC = gcc
+CC = gcc -g
 CFLAGS = -Wall -Wextra -Werror
 CPPFLAGS = $(addprefix -I ,$(INC_PATH))
 LDFLAGS = -L$(LFT_PATH)
-LDLIBS = -lft
+LDLIBS = -lft -lncurses
 
 SRC_NAME =	arena.c \
 			player.c \
@@ -34,8 +34,19 @@ SRC_NAME =	arena.c \
 			get_input.c \
 			get_player_code.c \
 			main.c \
-			#op.c \
-
+			op.c \
+			instruction_param.c \
+			instructions_p1.c \
+			instructions_p2.c \
+			instructions_p3.c \
+			instructions_p4.c \
+			execution.c \
+			read_write.c \
+			check_player.c \
+			display.c \
+			display_infos.c \
+			display_mem.c \
+			display_color.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_endianness.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/05/08 21:08:07 by tvermeil          #+#    #+#             */
+/*   Updated: 2016/05/08 21:08:08 by tvermeil         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 int			ft_write_big_endian(long long n, void *dst, size_t lenght)
@@ -9,7 +21,7 @@ int			ft_write_big_endian(long long n, void *dst, size_t lenght)
 		return (0);
 	dest = (char *)(dst + lenght - 1);
 	i = 0;
-	while (i < lenght && n != 0)
+	while (i < lenght)
 	{
 		*dest-- = (n & 0xFF);
 		n >>= 8;
@@ -33,7 +45,11 @@ long long	ft_read_big_endian(void *src, size_t length)
 		power <<= 8;
 		length--;
 	}
+	if ((n & (power >> 1)) != 0)
+		while (power != 0x0)
+		{
+			n |= power;
+			power <<= 1;
+		}
 	return (n);
 }
-
-

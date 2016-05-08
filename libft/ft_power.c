@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   ft_power.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvermeil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/23 16:14:02 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/13 16:25:03 by tvermeil         ###   ########.fr       */
+/*   Created: 2016/03/24 18:22:28 by adubedat          #+#    #+#             */
+/*   Updated: 2016/03/24 18:28:36 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memalloc(size_t size)
+int		ft_power(int value, int power)
 {
-	char	*ptr;
-	size_t	c;
+	int result;
 
-	ptr = (char*)malloc(size);
-	if (ptr == NULL)
+	result = value;
+	if (power == 0)
+		return (1);
+	while (power > 1)
 	{
-		ft_putendl("Error : malloc failed. Exiting ...");
-		exit(0);
+		result *= value;
+		power--;
 	}
-	c = 0;
-	while (c < size)
-		ptr[c++] = 0;
-	return ((void*)ptr);
+	return (result);
 }
