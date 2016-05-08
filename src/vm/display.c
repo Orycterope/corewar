@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:32:37 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/08 16:29:20 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/08 16:44:22 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void		init_display(t_arena *arena)
 	start_color();
 	cbreak();
 	noecho();
+	curs_set(0);
 	init_color(COLOR_WHITE, 400, 400, 400);
 	init_pair(0, COLOR_WHITE, COLOR_BLACK);
 	init_colors(arena->players);
@@ -78,6 +79,6 @@ void		destroy_display(t_arena *arena)
 	while (arena->display->updates != NULL)
 		remove_update_struct(arena->display->updates, arena);
 	free(arena->display);
-	init_color(COLOR_WHITE, 800, 800, 800);
+	init_color(COLOR_WHITE, 680, 680, 680);
 	endwin();
 }
