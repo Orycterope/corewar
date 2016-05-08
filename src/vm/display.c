@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:32:37 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/08 16:44:22 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/08 21:03:24 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,17 @@ void		init_display(t_arena *arena)
 	init_info_display(arena);
 }
 
-void		update_display(t_arena *arena)
+int			update_display(t_arena *arena)
 {
+	if (arena->display == NULL)
+		return (1);
 	highlight_rw(arena);
 	highlight_pcs(arena);
 	overwrite(arena->display->w_bkp, arena->display->w_mem);
 	overlay(arena->display->w_pcs, arena->display->w_mem);
 	wrefresh(arena->display->w_mem);
 	regulate_speed(arena);
+	return (!arena->display->quitting);
 }
 
 void		destroy_display(t_arena *arena)
