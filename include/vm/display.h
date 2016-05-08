@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:08:20 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/07 18:21:42 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/08 16:31:47 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <ncurses.h>
 # include "player.h"
 
-typedef struct			s_arena t_arena;
+typedef struct s_arena	t_arena;
 
 typedef struct			s_d_update
 {
@@ -49,7 +49,7 @@ int						highlight_pcs(t_arena *arena);
 void					remove_update_struct(t_d_update *u, t_arena *arena);
 t_d_update				*get_update_struct_of(int i, t_arena *arena);
 
-void					check_keystroke(t_arena *arena);
+int						check_keystroke(t_arena *arena);
 void					update_infos(t_arena *arena);
 void					regulate_speed(t_arena *arena);
 void					init_colors(t_player *p);

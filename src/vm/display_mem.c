@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display_mem.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/05/08 15:44:24 by tvermeil          #+#    #+#             */
+/*   Updated: 2016/05/08 15:45:44 by tvermeil         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "display.h"
 #include "libft.h"
 #include "arena.h"
@@ -53,9 +65,9 @@ void		init_mem_display(t_arena *arena)
 {
 	int	i;
 
-	arena->display->w_bkp = newwin(MEM_SIZE / 64, 64 * 3 + 10, 5, 5); //remove 5
-	arena->display->w_mem = newwin(MEM_SIZE / 64, 64 * 3 + 10, 5, 5); //remove 5 // coord useless ?
-	arena->display->w_pcs = newwin(MEM_SIZE / 64, 64 * 3 + 10, 5, 5); //remove 5 // coord useless ?
+	arena->display->w_bkp = newwin(MEM_SIZE / 64, 64 * 3 + 10, 0, 0);
+	arena->display->w_mem = newwin(MEM_SIZE / 64, 64 * 3 + 10, 0, 0);
+	arena->display->w_pcs = newwin(MEM_SIZE / 64, 64 * 3 + 10, 0, 0);
 	i = -1;
 	while (++i < MEM_SIZE)
 	{
@@ -65,7 +77,8 @@ void		init_mem_display(t_arena *arena)
 				wprintw(arena->display->w_bkp, "\n");
 			wprintw(arena->display->w_bkp, "%0#6x : ", i);
 		}
-		wprintw(arena->display->w_bkp, "%02x ", (unsigned char)arena->memory[i]);
+		wprintw(arena->display->w_bkp, "%02x ",
+				(unsigned char)arena->memory[i]);
 	}
 }
 
@@ -81,7 +94,7 @@ int			highlight_pcs(t_arena *arena)
 	{
 		wattron(arena->display->w_pcs, COLOR_PAIR(p->player) | A_BOLD);
 		mvwprintw(arena->display->w_pcs,
-			   	(int)(p->pc - arena->memory) / 64,
+				(int)(p->pc - arena->memory) / 64,
 				((int)(p->pc - arena->memory) % 64) * 3 + 9,
 				"%02x", (unsigned char)*(p->pc));
 		wattroff(arena->display->w_pcs, COLOR_PAIR(p->player) | A_BOLD);
@@ -91,26 +104,11 @@ int			highlight_pcs(t_arena *arena)
 	return (p_nbr);
 }
 
-void	debug_colors(t_display *d) //
-{
-	int		i = 0;
-	wmove(d->w_bkp, 0, 0); //
-	while (i < 9999)
-	{
-		wattron(d->w_bkp, COLOR_PAIR(i));
-		wprintw(d->w_bkp, "%04d ", i);
-		if (i % 25 == 24)// && i != 9)
-			wprintw(d->w_bkp, "\n");
-		wattroff(d->w_bkp, COLOR_PAIR(i));
-		i++;
-	}
-}
-
 void		highlight_rw(t_arena *arena)
 {
 	t_d_update	*u;
 	t_d_update	*next;
-	int			pair; //
+	int			pair;
 
 	u = arena->display->updates;
 	while (u != NULL)
@@ -120,12 +118,11 @@ void		highlight_rw(t_arena *arena)
 		wmove(arena->display->w_bkp, u->index / 64, (u->index % 64) * 3 + 9);
 		wattron(arena->display->w_bkp, COLOR_PAIR(pair));
 		wprintw(arena->display->w_bkp,
-				"%02x",(unsigned char)arena->memory[u->index]);
+				"%02x", (unsigned char)arena->memory[u->index]);
 		wattroff(arena->display->w_bkp, COLOR_PAIR(pair));
 		u->w_turns--;
 		if (u->w_turns == 0)
 			remove_update_struct(u, arena);
 		u = next;
 	}
-	//debug_colors(arena->display); //
 }

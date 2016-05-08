@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/30 17:40:15 by tvermeil         ###   ########.fr        #
+#    Updated: 2016/05/08 16:00:39 by tvermeil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRC_NAME =	arena.c \
 			display.c \
 			display_infos.c \
 			display_mem.c \
+			display_color.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
