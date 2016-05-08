@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 20:30:34 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/07 18:52:15 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/08 18:06:04 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "op.h"
 #include "operation.h"
 #include "parameters.h"
+#include "display.h"
 
 extern t_op		g_op_tab[17];
 
@@ -102,6 +103,12 @@ void			start_fight(t_arena *arena)
 	while (arena->processes != NULL)
 	{
 		printf("It is now cycle %d\n", arena->cycle);
+		if (arena->display != NULL)
+		{
+			update_display(arena);
+			if (arena->display->quitting)
+				break ;
+		}
 		execute_processes(arena);
 		if (arena->cycle >= arena->last_check_cycle + arena->cycle_to_die)
 		{

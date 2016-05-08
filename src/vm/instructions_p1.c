@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:17:18 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/07 21:19:35 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/08 18:11:11 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		alive(t_process *process, int i)
 
 	i += 1;
 	param.type[0] = DIR_CODE;
-	param.value[0] = rm(mem(process->pc + 1, 1, PA, process), DIR_SIZE, PA);
+	param.value[0] = rm(mem(process->pc + 1, 1, PA, process), DIR_SIZE, PP);
 	process->lives = 1;
 	process->count_lives += 1;
 	temp = process->arena->players;
@@ -54,7 +54,7 @@ int		load(t_process *process, int i)
 	if (param.type[0] == REG_CODE)
 		param.value[0] = RBE(PR[param.value[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)
-		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PA);
+		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PP);
 	WBE(param.value[0], PR[param.value[1] - 1], REG_SIZE);
 	change_carry(process, PV[0]);
 	printf("P %4d | ld %d r%d\n", process->number, (int)PV[0], (int)PV[1]);
@@ -78,12 +78,12 @@ int		store(t_process *process, int i)
 	if (param.type[0] == REG_CODE)
 		param.value[0] = RBE(PR[param.value[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)
-		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PA);
+		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PP);
 	if (param.type[1] == REG_CODE)
 		WBE(PV[0], PR[PV[1] - 1], REG_SIZE);
 	else if (param.type[1] == IND_CODE)
-		wm(PV[0], mem(process->pc + PV[1], 1, PA, process), REG_SIZE, PA);
-	printf("%d\n", (int)PV[1]);
+		wm(PV[0], mem(process->pc + PV[1], 1, PA, process), REG_SIZE, PP);
+	//printf("%d\n", (int)PV[1]);
 	return (param.jump);
 }
 
@@ -105,11 +105,11 @@ int		addition(t_process *process, int i)
 	if (param.type[0] == REG_CODE)
 		param.value[0] = RBE(PR[param.value[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)
-		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PA);
+		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PP);
 	if (param.type[1] == REG_CODE)
 		param.value[1] = RBE(PR[param.value[1] - 1], REG_SIZE);
 	else if (param.type[1] == IND_CODE)
-		PV[1] = rm(mem(process->pc + PV[1], 1, PA, process), REG_SIZE, PA);
+		PV[1] = rm(mem(process->pc + PV[1], 1, PA, process), REG_SIZE, PP);
 	WBE(PV[0] + PV[1], PR[PV[2] - 1], REG_SIZE);
 	change_carry(process, (PV[0] + PV[1]));
 	return (param.jump);
@@ -133,11 +133,11 @@ int		soustraction(t_process *process, int i)
 	if (param.type[0] == REG_CODE)
 		param.value[0] = RBE(PR[param.value[0] - 1], REG_SIZE);
 	else if (param.type[0] == IND_CODE)
-		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PA);
+		PV[0] = rm(mem(process->pc + PV[0], 1, PA, process), REG_SIZE, PP);
 	if (param.type[1] == REG_CODE)
 		param.value[1] = RBE(PR[param.value[1] - 1], REG_SIZE);
 	else if (param.type[1] == IND_CODE)
-		PV[1] = rm(mem(process->pc + PV[1], 1, PA, process), REG_SIZE, PA);
+		PV[1] = rm(mem(process->pc + PV[1], 1, PA, process), REG_SIZE, PP);
 	WBE(PV[0] - PV[1], PR[PV[2] - 1], REG_SIZE);
 	change_carry(process, (PV[0] - PV[1]));
 	return (param.jump);

@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 20:35:06 by adubedat          #+#    #+#             */
-/*   Updated: 2016/03/24 20:30:34 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/03/30 23:06:44 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define PA process->arena
 # define PJ param->jump
 # define PC process->pc
+# define PP process
 
 typedef struct	s_parameters
 {

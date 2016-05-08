@@ -6,21 +6,39 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 16:11:26 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/07 22:41:24 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/08 18:26:40 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "arena.h"
+#include "display.h"
+#define PA p->arena
 
-int			wm(long long n, void *dst, size_t l, t_arena *a)
+static void	save_for_display(t_process *p, int index)
+{
+	t_d_update	*u;
+
+	if (index < 0 || index >= MEM_SIZE)
+		return ;
+	u = get_update_struct_of(index, p->arena);
+	if (u == NULL)
+		return ;
+	u->owner = p->player;
+	u->w_turns = D_WRITE_TURNS;
+	p->arena->display->owner_tab[index] = (char)p->player;
+}
+
+int			wm(long long n, void *dst, size_t l, t_process *p)
 {
 	size_t	i;
 	char	*dest;
+	t_arena	*a;
 
 	if (l == 0)
 		return (0);
 	dest = (char *)(dst + l - 1);
+	a = p->arena;
 	i = 0;
 	while (i < l)
 	{
@@ -28,6 +46,8 @@ int			wm(long long n, void *dst, size_t l, t_arena *a)
 			dest -= MEM_SIZE;
 		else if (dest < a->memory)
 			dest += MEM_SIZE;
+		if (a->display != NULL)
+			save_for_display(p, (int)(dest - a->memory));
 		*dest-- = (n & 0xFF);
 		n >>= 8;
 		i++;
@@ -35,7 +55,7 @@ int			wm(long long n, void *dst, size_t l, t_arena *a)
 	return (i);
 }
 
-long long	rm(void *src, size_t length, t_arena *arena)
+long long	rm(char *src, size_t length, t_process *p)
 {
 	long long		n;
 	long long		power;
@@ -46,9 +66,9 @@ long long	rm(void *src, size_t length, t_arena *arena)
 	ptr = (unsigned char *)src + (length - 1);
 	while (length > 0)
 	{
-		if (ptr >= (unsigned char *)arena->memory + MEM_SIZE)
+		if (ptr >= (unsigned char *)p->arena->memory + MEM_SIZE)
 			ptr -= MEM_SIZE;
-		else if (ptr < (unsigned char *)arena->memory)
+		else if (ptr < (unsigned char *)p->arena->memory)
 			ptr += MEM_SIZE;
 		n += ((long long)ptr[0]) * power;
 		power <<= 8;

@@ -6,12 +6,14 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:05:42 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/07 21:25:42 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/08 18:04:11 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/06 22:24:57 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "arena.h"
 #include "process.h"
+#include "display.h"
 
 char	*mem(char *ptr, int idx, t_arena *arena, t_process *process)
 {
@@ -43,16 +45,15 @@ t_arena	*create_arena(void)
 	new->checks_without_decrement = 0;
 	new->processes = NULL;
 	new->dump_cycle = -1;
+	new->display = NULL;
 	return (new);
 }
 
 void	display_champions(t_arena *arena)
 {
 	t_player	*i;
-	int			total;
 
 	ft_putendl("Introducing contestants...");
-	total = 0;
 	i = arena->players;
 	while (i != NULL)
 	{
@@ -98,6 +99,8 @@ void	dump_memory(t_arena *arena)
 
 void	destroy_arena(t_arena *arena)
 {
+	if (arena->display != NULL)
+		destroy_display(arena);
 	while (arena->processes != NULL)
 		kill_process(arena->processes);
 	free_players(arena);

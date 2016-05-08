@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 18:42:10 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/06 16:59:56 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/08 18:03:03 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ void					fork_process(t_process *process, char *pc);
 void					create_process(int p, char *pc, t_arena *a, TP *parent);
 void					kill_process(t_process *process);
 void					execute_process(t_process *process);
+int						count_processes(t_arena *arena);
 
 #endif

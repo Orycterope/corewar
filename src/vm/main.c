@@ -6,7 +6,8 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:08:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/08 17:46:45 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/08 18:07:03 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/08 16:04:28 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +15,7 @@
 #include "arena.h"
 #include "parameters.h"
 #include "execution.h"
+#include "display.h"
 
 static void	check_dump(char **argv, t_arena *arena)
 {
@@ -39,9 +41,6 @@ static void	check_dump(char **argv, t_arena *arena)
 
 static void	check_param(int *argc, char ***argv, t_arena *arena)
 {
-	int	i;
-
-	i = 0;
 	if (*argc == 1)
 	{
 		ft_printf("Error: No parameters. Expected entry :\n\n\
@@ -50,7 +49,13 @@ static void	check_param(int *argc, char ***argv, t_arena *arena)
 -n N : The following champion will be the number N.\n");
 		exit(1);
 	}
-	if (ft_strcmp("-dump", (*argv)[1]) == 0)
+	if (ft_strcmp("-v", (*argv)[1]) == 0)
+	{
+		arena->display = (t_display *)1;
+		*argv += 1;
+		*argc -= 1;
+	}
+	else if (ft_strcmp("-dump", (*argv)[1]) == 0)
 	{
 		check_dump(*argv, arena);
 		*argv += 2;
@@ -78,6 +83,8 @@ static void	print_winner(t_arena *arena)
 	printf("Contestant %d, \"%s\", has won !", best->id, best->name);
 }
 
+void	init_display(t_arena *arena); //
+
 int				main(int argc, char **argv)
 {
 	t_arena	*arena;
@@ -86,11 +93,18 @@ int				main(int argc, char **argv)
 	check_param(&argc, &argv, arena);
 	save_players(argc, argv, arena);
 	load_players(arena);
-	display_champions(arena);
+	if (arena->display != NULL)
+		init_display(arena);
+	else
+		display_champions(arena);
 	start_fight(arena);
-//	dump_memory(arena); //
 	if (arena->cycle != arena->dump_cycle)
-		print_winner(arena);
+	{
+		if (arena->display != NULL && !arena->display->quitting)
+			print_winner_display(arena);
+		else
+			print_winner(arena);
+	}
 	destroy_arena(arena);
 	return (0);
 }
