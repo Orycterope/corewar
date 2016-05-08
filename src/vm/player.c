@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:27:55 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/06 23:43:46 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/08 17:54:49 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void			save_players(int ac, char **av, t_arena *arena)
 		player_id = 1;
 		if (ft_strcmp("-n", av[0]) == 0)
 		{
+			check_player(av[1]);
 			attempt = ft_atoi(av[1]);
 			av += 2;
 			ac -= 2;

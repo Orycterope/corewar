@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:08:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/07 18:55:41 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/08 17:46:45 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ static void	check_dump(char **argv, t_arena *arena)
 	int		i;
 
 	i = 0;
+	if (argv[2] == NULL)
+	{
+		ft_putendl("Error: Positive number expected after -dump.");
+		exit(1);
+	}
 	while (argv[2][i])
 	{
 		if (!(argv[2][i] >= '0' && argv[2][i] <= '9'))
