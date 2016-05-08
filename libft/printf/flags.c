@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/16 19:04:36 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/01/07 14:50:33 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/08 17:08:09 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char	*hash_wrapper(char *str, t_conversion *conv)
 		out = ft_strjoin("0", str);
 		free(str);
 	}
-	else if ((conv->conversion == 'x' && ft_atoi(str))
+	else if ((conv->conversion == 'x')
 			|| conv->conversion == 'p')
 	{
 		out = ft_strjoin("0x", str);
