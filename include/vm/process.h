@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 18:42:10 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/08 18:03:03 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/08 21:43:04 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 # include "op.h"
 # define TP t_process
 
-typedef struct			s_arena t_arena;
+typedef struct s_arena	t_arena;
 
 typedef struct			s_process
 {
-	int					player; //
+	int					player;
 	char				registers[REG_NUMBER][REG_SIZE];
 	char				*pc;
 	char				carry;

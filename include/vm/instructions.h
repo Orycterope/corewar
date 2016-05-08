@@ -6,11 +6,11 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:19:58 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/06 22:37:24 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/08 21:41:10 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	INSTRUCTIONS_H
+#ifndef INSTRUCTIONS_H
 # define INSTRUCTIONS_H
 # define PR	process->registers
 # define RBE	ft_read_big_endian

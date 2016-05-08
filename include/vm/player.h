@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:37:26 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/08 17:51:25 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/08 21:40:14 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "op.h"
 # define BUFF_SIZE 1
 
-typedef struct			s_arena t_arena;
+typedef struct s_arena	t_arena;
 
 typedef struct			s_player
 {
