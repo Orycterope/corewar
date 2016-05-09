@@ -6,7 +6,7 @@
 /*   By: rporcon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 12:44:03 by rporcon           #+#    #+#             */
-/*   Updated: 2016/03/29 14:25:23 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/05/09 14:39:04 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	check_reg(char *str, t_data *data)
 			error_line(data, "Register error, incorrect input");
 		i++;
 	}
-	if (str[0] != 'r' || reg_check < 0 || is_in_str('r', str) > 1)
+	if (str[0] != 'r' || reg_check < 0 || is_in_str('r', str) > 1 || i > 2)
 		error_line(data, "Register error, incorrect input");
 }
 
