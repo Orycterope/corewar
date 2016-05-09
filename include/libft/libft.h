@@ -6,7 +6,7 @@
 /*   By: tvermeil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 12:24:10 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/03/24 18:30:13 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/09 18:04:33 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void				ft_putendl(char const *s);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putstr_spec(char *s);
+void				ft_putstr_spec_fd(char *s, int fd);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr(int n);
 void				ft_putnbr_fd(int n, int fd);
@@ -88,5 +89,6 @@ char				*ft_tostr(char c);
 int					ft_write_big_endian(long long n, void *dst, size_t length);
 long long			ft_read_big_endian(void *src, size_t length);
 int					ft_printf(const char *format, ...);
+int					ft_printf_fd(int fd, const char *format, ...);
 
 #endif

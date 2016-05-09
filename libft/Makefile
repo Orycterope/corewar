@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/11 16:50:07 by tvermeil          #+#    #+#              #
-#    Updated: 2016/05/08 21:57:05 by tvermeil         ###   ########.fr        #
+#    Updated: 2016/05/09 18:05:34 by tvermeil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,6 +94,7 @@ SRC_NAME =    ft_memset.c \
 				printf/wrapper.c \
 				printf/precision.c \
 				printf/ft_printf.c \
+				printf/ft_printf_fd.c \
 				printf/read_conversion.c \
 				printf/get_conversion_parts.c \
 				printf/get_string.c \
