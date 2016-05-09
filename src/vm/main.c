@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:08:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/09 18:03:19 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/09 18:52:45 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,22 @@ static void		check_dump(char **argv, t_arena *arena)
 	arena->dump_cycle = ft_atoi(argv[2]);
 }
 
+static void		check_param2(int *argc, char ***argv, t_arena *arena)
+{
+	if (ft_strcmp("-dump", (*argv)[1]) == 0)
+	{
+		check_dump(*argv, arena);
+		*argv += 2;
+		*argc -= 2;
+	}
+	else if (ft_strcmp("-l", (*argv)[1]) == 0)
+	{
+		arena->print_lives = 1;
+		*argv += 1;
+		*argc -= 1;
+	}
+}
+
 static void		check_param(int *argc, char ***argv, t_arena *arena)
 {
 	if (*argc == 1)
@@ -56,12 +72,8 @@ static void		check_param(int *argc, char ***argv, t_arena *arena)
 		*argv += 1;
 		*argc -= 1;
 	}
-	else if (ft_strcmp("-dump", (*argv)[1]) == 0)
-	{
-		check_dump(*argv, arena);
-		*argv += 2;
-		*argc -= 2;
-	}
+	else
+		check_param2(argc, argv, arena);
 	*argv += 1;
 	*argc -= 1;
 }

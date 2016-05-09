@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:17:18 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/09 15:10:02 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/05/09 18:55:42 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,12 @@ int		alive(t_process *process, int i)
 	while (temp != NULL && temp->id != param.value[0])
 		temp = temp->next;
 	if (temp != NULL)
+	{
 		temp->last_live = process->arena->cycle;
+		if (process->arena->print_lives == 1)
+			ft_printf("Un processus dit que le joueur %s est en vie.\n",
+				temp->name);
+	}
 	return (1 + DIR_SIZE);
 }
 

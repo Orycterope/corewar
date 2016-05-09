@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:05:42 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/08 21:26:06 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/09 18:53:36 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_arena	*create_arena(void)
 	new->cycle = 1;
 	new->cycle_to_die = CYCLE_TO_DIE;
 	new->last_check_cycle = 0;
+	new->print_lives = 0;
 	new->checks_without_decrement = 0;
 	new->processes = NULL;
 	new->dump_cycle = -1;
