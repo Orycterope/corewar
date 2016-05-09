@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:37:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/09 18:07:35 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/09 18:17:24 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static void			check_magic(int fd, char *buf, int ret, t_player *p)
 	if (magic[0] != 0 || magic[1] != 234 || magic[2] != 131
 			|| magic[3] != 243)
 	{
-		ft_printf_fd("Error: File %s has an invalid header.\n",
-			   	2, p->file_name);
+		ft_printf_fd(2, "Error: File %s has an invalid header.\n",
+			   	 p->file_name);
 		exit(1);
 	}
 }
@@ -129,8 +129,9 @@ void				get_input(int fd, t_player *player, unsigned int *prog_size)
 	*prog_size = get_prog_size(fd, buf, ret, i);
 	if (*prog_size > CHAMP_MAX_SIZE)
 	{
-		ft_printf_fd("Error: file %s has too large code(%d bytes > %d bytes)\n",
-			2, player->file_name, *prog_size, CHAMP_MAX_SIZE);
+		ft_printf_fd(2,
+				"Error: file %s has too large code(%d bytes > %d bytes)\n",
+				player->file_name, *prog_size, CHAMP_MAX_SIZE);
 		exit(1);
 	}
 	player->comment = get_comment(fd, buf, ret, i);
