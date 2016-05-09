@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:08:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/09 15:06:37 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/05/09 17:34:58 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void		check_param(int *argc, char ***argv, t_arena *arena)
 	}
 	if (ft_strcmp("-v", (*argv)[1]) == 0)
 	{
+		check_display_and_n_flags(*argv);
 		arena->display = (t_display *)1;
 		*argv += 1;
 		*argc -= 1;

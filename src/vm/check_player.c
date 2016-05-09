@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/08 17:48:14 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/08 17:51:43 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/09 17:37:59 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,17 @@ void	check_player(char *argv)
 			exit(1);
 		}
 		i++;
+	}
+}
+
+void	check_display_and_n_flags(char **argv)
+{
+	while (*++argv)
+	{
+		if (ft_strcmp("-n", *argv) == 0)
+		{
+			ft_putendl("Flag -n cannot be used with flag -v");
+			exit(0);
+		}
 	}
 }

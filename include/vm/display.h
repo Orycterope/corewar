@@ -6,7 +6,7 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:08:20 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/08 21:03:48 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/09 17:25:18 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ void					update_infos(t_arena *arena);
 void					regulate_speed(t_arena *arena);
 void					init_colors(t_player *p);
 void					print_winner_display(t_arena *a);
+void					check_display_and_n_flags(char **argv);
 
 #endif
