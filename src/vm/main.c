@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:08:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/09 18:57:39 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/09 19:01:25 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ static void		check_param(int *argc, char ***argv, t_arena *arena)
 		ft_putendl_fd("Error: No parameters. Expected entry :\n", 2);
 		ft_putendl_fd("./corewar [-dump N] [[-n N] champion1.cor] ...", 2);
 		ft_putendl_fd("-dump N : Dumps memory after N cycles then exits", 2);
-		ft_putendl_fd("-n N : The following champion will be the number N.", 2);
-		ft_putendl_fd("-v : Display corewar arena.", 2);
+		ft_putendl_fd("-n N : The following champion will be the number N", 2);
+		ft_putendl_fd("-v : Display corewar arena", 2);
 		ft_putendl_fd("-l : Print lives", 2);
 		exit(1);
 	}
