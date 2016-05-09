@@ -6,7 +6,7 @@
 /*   By: jriallan <jriallan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 20:30:52 by jriallan          #+#    #+#             */
-/*   Updated: 2016/03/29 14:15:46 by rporcon          ###   ########.fr       */
+/*   Updated: 2016/05/09 13:54:01 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,4 @@ void	error_limit(t_data *data, char *err, char *str, int limit)
 	ft_putnbr(limit);
 	ft_putendl(")");
 	exit(1);
-}
-
-void	essential_char_in_label_chars(void)
-{
-	if (is_in_str(COMMENT_CHAR, LABEL_CHARS) > 0 || is_in_str(LABEL_CHAR,
-		LABEL_CHARS) > 0 || is_in_str(DIRECT_CHAR, LABEL_CHARS) > 0 ||
-		is_in_str(SEPARATOR_CHAR, LABEL_CHARS) > 0)
-		error("Error, Essential CHAR in LABEL_CHARS");
 }

@@ -6,7 +6,7 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/03/23 17:20:27 by jriallan         ###   ########.fr        #
+#    Updated: 2016/05/09 14:01:47 by rporcon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,10 +37,13 @@ SRC_NAME =	addr_diff.c \
 			error.c \
 			get_ocp.c \
 			if_params.c \
+			if_params_next.c \
 			init_var.c \
 			instruc_list_fct.c \
 			is_reg_d_ind.c \
+			label_chars_error.c \
 			label_inst_manip.c \
+			label_inst_manip_next.c \
 			label_list_fct.c \
 			live_coding.c \
 			mem.c \
