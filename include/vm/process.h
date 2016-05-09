@@ -6,13 +6,12 @@
 /*   By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 18:42:10 by tvermeil          #+#    #+#             */
-/*   Updated: 2016/05/08 21:43:04 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/09 19:14:48 by tvermeil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROCESS_H
 # define PROCESS_H
-# include <stdio.h>
 # include "arena.h"
 # include "op.h"
 # define TP t_process
