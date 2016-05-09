@@ -14,12 +14,12 @@
 
 void	error_at(char *err, int line, int column)
 {
-	ft_putendl(err);
-	ft_putstr(" [");
-	ft_putnbr(line);
-	ft_putstr(":");
-	ft_putnbr(column);
-	ft_putstr("]");
+	ft_putendl_fd(err, 2);
+	ft_putstr_fd(" [", 2);
+	ft_putnbr_fd(line, 2);
+	ft_putstr_fd(":", 2);
+	ft_putnbr_fd(column, 2);
+	ft_putstr_fd("]", 2);
 	exit(1);
 }
 
@@ -27,17 +27,17 @@ void	error_line(t_data *data, char *err)
 {
 	if (data != NULL)
 	{
-		ft_putstr("Error line ");
-		ft_putnbr(data->line);
-		ft_putstr(" : ");
+		ft_putstr_fd("Error line ", 2);
+		ft_putnbr_fd(data->line, 2);
+		ft_putstr_fd(" : ", 2);
 	}
-	ft_putendl(err);
+	ft_putendl_fd(err, 2);
 	exit(1);
 }
 
 void	error(char *err)
 {
-	ft_putendl(err);
+	ft_putendl_fd(err, 2);
 	exit(1);
 }
 
@@ -45,12 +45,12 @@ void	error_str(t_data *data, char *err, char *str)
 {
 	if (data != NULL)
 	{
-		ft_putstr("Error line ");
-		ft_putnbr(data->line);
-		ft_putstr(" : ");
+		ft_putstr_fd("Error line ", 2);
+		ft_putnbr_fd(data->line, 2);
+		ft_putstr_fd(" : ", 2);
 	}
-	ft_putstr(err);
-	ft_putendl(str);
+	ft_putstr_fd(err, 2);
+	ft_putendl_fd(str, 2);
 	exit(1);
 }
 
@@ -58,14 +58,14 @@ void	error_limit(t_data *data, char *err, char *str, int limit)
 {
 	if (data != NULL)
 	{
-		ft_putstr("Error line ");
-		ft_putnbr(data->line);
-		ft_putstr(" : ");
+		ft_putstr_fd("Error line ", 2);
+		ft_putnbr_fd(data->line, 2);
+		ft_putstr_fd(" : ", 2);
 	}
-	ft_putstr(err);
-	ft_putstr(str);
-	ft_putstr(" (limit is ");
-	ft_putnbr(limit);
-	ft_putendl(")");
+	ft_putstr_fd(err, 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(" (limit is ", 2);
+	ft_putnbr_fd(limit, 2);
+	ft_putendl_fd(")", 2);
 	exit(1);
 }
