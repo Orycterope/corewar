@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:08:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/09 17:34:58 by tvermeil         ###   ########.fr       */
+/*   Updated: 2016/05/09 18:03:19 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ static void		check_dump(char **argv, t_arena *arena)
 	i = 0;
 	if (argv[2] == NULL)
 	{
-		ft_putendl("Error: Positive number expected after -dump.");
+		ft_putendl_fd("Error: Positive number expected after -dump.", 2);
 		exit(1);
 	}
 	while (argv[2][i])
 	{
 		if (!(argv[2][i] >= '0' && argv[2][i] <= '9'))
 		{
-			ft_putendl("Error: Positive number expected after -dump.");
+			ft_putendl_fd("Error: Positive number expected after -dump.", 2);
 			exit(1);
 		}
 		i++;
@@ -42,11 +42,11 @@ static void		check_param(int *argc, char ***argv, t_arena *arena)
 {
 	if (*argc == 1)
 	{
-		ft_printf("Error: No parameters. Expected entry :\n\n"
-			"./corewar [-dump N] [[-n N] champion1.cor] ...\n"
-			"-dump N : Dumps memory after N cycles then exits\n"
-			"-n N : The following champion will be the number N.\n"
-			"-v : Display corewar arena.\n");
+		ft_putendl_fd("Error: No parameters. Expected entry :\n", 2);
+		ft_putendl_fd("./corewar [-dump N] [[-n N] champion1.cor] ...", 2);
+		ft_putendl_fd("-dump N : Dumps memory after N cycles then exits", 2);
+		ft_putendl_fd("-n N : The following champion will be the number N.", 2);
+		ft_putendl_fd("-v : Display corewar arena.", 2);
 		exit(1);
 	}
 	if (ft_strcmp("-v", (*argv)[1]) == 0)
