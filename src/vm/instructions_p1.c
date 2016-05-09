@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 22:17:18 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/08 18:49:51 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/09 15:10:02 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		alive(t_process *process, int i)
 	process->lives = 1;
 	process->count_lives += 1;
 	temp = process->arena->players;
-	while (temp != NULL && -(temp->id) != param.value[0])
+	while (temp != NULL && temp->id != param.value[0])
 		temp = temp->next;
 	if (temp != NULL)
 		temp->last_live = process->arena->cycle;

@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 19:08:45 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/08 21:30:19 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/09 15:06:37 by rporcon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static void		check_param(int *argc, char ***argv, t_arena *arena)
 		ft_printf("Error: No parameters. Expected entry :\n\n"
 			"./corewar [-dump N] [[-n N] champion1.cor] ...\n"
 			"-dump N : Dumps memory after N cycles then exits\n"
-			"-n N : The following champion will be the number N.\n");
+			"-n N : The following champion will be the number N.\n"
+			"-v : Display corewar arena.\n");
 		exit(1);
 	}
 	if (ft_strcmp("-v", (*argv)[1]) == 0)
