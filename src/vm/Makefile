@@ -23,7 +23,7 @@ DST_PATH = $(ROOT)
 LFT_PATH = $(ROOT)
 
 CC = gcc -O3
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra #-Werror
 CPPFLAGS = $(addprefix -I ,$(INC_PATH))
 LDFLAGS = -L$(LFT_PATH)
 LDLIBS = -lft -lncurses
