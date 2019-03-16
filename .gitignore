@@ -1,6 +1,5 @@
 *.a
 *.o
-.*
 /asm
 /real_asm
 /corewar
